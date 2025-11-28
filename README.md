@@ -43,9 +43,24 @@ Personal Claude Code plugin marketplace - a curated collection of agents, comman
 /plugin marketplace add cameronsjo/claude-marketplace
 ```
 
-### Install Plugins
+### Install by Composition
 
-Install plugins based on your project needs:
+Use pre-configured [compositions](docs/compositions.md) for common workflows:
+
+| Composition | Best For | Plugins |
+|-------------|----------|---------|
+| **essentials** | Every project | core-productivity, pr-workflow |
+| **fullstack-ts** | TypeScript/React | essentials + typescript-toolkit, api-development |
+| **python-backend** | Python services | essentials + python-toolkit, api-development |
+| **code-quality** | Security focus | essentials + security-suite |
+| **writing** | Docs & PKM | core-productivity, obsidian-pkm, research-tools |
+| **cloud-native** | DevOps/Infra | essentials + cloud-ops, security-suite |
+| **data-platform** | Data/ML | essentials + python-toolkit, data-science |
+| **mcp-builder** | MCP servers | essentials + mcp-development, typescript-toolkit |
+
+See [compositions.md](docs/compositions.md) for copy-paste configs.
+
+### Install Individual Plugins
 
 ```bash
 # Essential for every project
@@ -88,6 +103,7 @@ See the [docs/](docs/) folder for detailed documentation on each plugin:
 
 - [Getting Started](docs/getting-started.md) - Installation and basic usage
 - [Plugin Guide](docs/plugin-guide.md) - How plugins work together
+- [Compositions](docs/compositions.md) - Pre-configured plugin bundles
 - Individual plugin docs linked in the table above
 
 ## Acknowledgments
