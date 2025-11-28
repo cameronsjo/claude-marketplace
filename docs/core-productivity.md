@@ -153,3 +153,64 @@ Product roadmap management and planning patterns.
 - **typescript-toolkit** - TypeScript/React development
 - **security-suite** - Security auditing
 - **pr-workflow** - Enhanced PR reviews
+
+---
+
+## Communication Commands
+
+These commands adjust Claude's response style for different contexts.
+
+### `/sass`
+
+Sassy responses with personality and sparkle. Professional wit with a raised eyebrow.
+
+**Usage:**
+```bash
+/sass [request]              # Default medium intensity
+/sass mild [request]         # Light seasoning
+/sass spicy [request]        # Full flavor
+/sass maximum [request]      # Theatrical energy
+```
+
+**Best for:**
+- Code reviews with personality
+- Self-evals (fights underselling)
+- Technical explanations with flair
+- Advice with opinions
+
+### `/hype`
+
+Encouragement and celebration mode. Aggressive support energy that finds specific wins.
+
+**Usage:**
+```bash
+/hype [request]
+```
+
+**Best for:**
+- Celebrating accomplishments
+- Self-evals and brag docs (amplifies impact)
+- Interview prep (builds confidence)
+- Tough moments (reframes setbacks)
+- First-time wins
+
+### `/roast`
+
+Maximum scrutiny mode. Thorough analysis that misses nothing.
+
+**Usage:**
+```bash
+/roast [request]
+```
+
+**Best for:**
+- Code review (finds edge cases)
+- Architecture review (spots SPOFs)
+- Self-evals (surfaces buried impact)
+- Proposals (identifies gaps)
+- Documentation audit
+
+**Prioritizes issues:**
+- 🚨 Fix Now (blockers)
+- ⚠️ Fix Soon (significant)
+- 💡 Consider (polish)
