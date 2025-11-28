@@ -271,7 +271,7 @@ This skill integrates with:
 ## Reference Documentation
 
 Detailed guidelines available at:
-- `/Users/c0s013l/.claude/docs/api-guidelines/`
+- `~/.claude/docs/api-guidelines/`
 
 Key documents:
 - `naming-conventions.md`

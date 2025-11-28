@@ -521,7 +521,7 @@ components:
           type: string
           format: uri
           description: URI reference identifying the problem type
-          example: https://uri.walmart.com/errors/invalid-request
+          example: https://api.example.com/errors/invalid-request
         title:
           type: string
           description: Short, human-readable summary of the problem type
@@ -563,7 +563,7 @@ components:
           type: string
           format: uri
           description: URI identifying the specific error code
-          example: https://uri.walmart.com/errors/missing-required-property
+          example: https://api.example.com/errors/missing-required-property
         reason:
           type: string
           description: Human-readable explanation of the error
@@ -590,12 +590,12 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/invalid-request
+            type: https://api.example.com/errors/invalid-request
             title: Request is not well-formed, syntactically incorrect, or violates schema.
             status: 400
             trace_id: 90957fca61718
             errors:
-              - code: https://uri.walmart.com/errors/missing-required-property
+              - code: https://api.example.com/errors/missing-required-property
                 reason: A required field is missing.
                 property: /email_address
                 location: body
@@ -607,7 +607,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/authentication-failure
+            type: https://api.example.com/errors/authentication-failure
             title: Authentication failed due to invalid credentials.
             status: 401
             trace_id: 90957fca61718
@@ -619,7 +619,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/authorization-failure
+            type: https://api.example.com/errors/authorization-failure
             title: Authorization failed due to insufficient permissions.
             status: 403
             trace_id: 90957fca61718
@@ -631,7 +631,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/resource-not-found
+            type: https://api.example.com/errors/resource-not-found
             title: The specified resource does not exist.
             status: 404
             trace_id: 90957fca61718
@@ -643,7 +643,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/precondition-failure
+            type: https://api.example.com/errors/precondition-failure
             title: Update failed. Resource has changed on the server.
             status: 412
             trace_id: 90957fca61718
@@ -655,7 +655,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/unprocessable-entity
+            type: https://api.example.com/errors/unprocessable-entity
             title: The request cannot be processed due to semantic errors.
             status: 422
             detail: Cannot activate a user that is already active
@@ -668,7 +668,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/internal-server-error
+            type: https://api.example.com/errors/internal-server-error
             title: An internal server error has occurred.
             status: 500
             trace_id: 90957fca61718
@@ -680,7 +680,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemDetail'
           example:
-            type: https://uri.walmart.com/errors/service-unavailable
+            type: https://api.example.com/errors/service-unavailable
             title: Service Unavailable.
             status: 503
             trace_id: 90957fca61718

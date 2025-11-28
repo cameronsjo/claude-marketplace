@@ -1,0 +1,146 @@
+# Chain-of-Thought (CoT) Prompt Template
+
+## Basic Structure
+
+[Problem or task description]
+
+Let's break this down step by step:
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+Solution:
+
+---
+
+## Explicit CoT Examples
+
+### Example 1: Math Problem
+
+Problem: A store offers 20% off on all items. If a shirt originally costs $50 and there's an additional $5 coupon, what's the final price?
+
+Let's think step by step:
+1. First, calculate 20% of $50: 0.20 × $50 = $10 discount
+2. Subtract the discount from original price: $50 - $10 = $40
+3. Apply the $5 coupon: $40 - $5 = $35
+4. Final price is $35
+
+Total savings: $50 - $35 = $15
+
+---
+
+### Example 2: Debugging Problem
+
+Problem: Why does this code throw an error?
+
+```python
+def process_users(users):
+    for user in users:
+        print(user.name.upper())
+```
+
+Error: AttributeError: 'NoneType' object has no attribute 'upper'
+
+Let's analyze step by step:
+1. Error is AttributeError on 'upper()' method
+2. This means 'name' is None for at least one user
+3. Need to check if 'name' exists and is not None before calling .upper()
+4. Should add defensive check: if user.name: print(user.name.upper())
+
+Solution: Add null check before accessing methods on potentially None values.
+
+---
+
+### Example 3: Design Decision
+
+Problem: Should we use REST or GraphQL for our new API?
+
+Let's evaluate step by step:
+1. Analyze our requirements:
+   - Multiple client types (web, mobile, internal)
+   - Complex nested data structures
+   - Need for flexible queries
+
+2. Consider REST:
+   - Pros: Simple, well-understood, good caching
+   - Cons: Over-fetching, multiple requests for nested data
+
+3. Consider GraphQL:
+   - Pros: Flexible queries, single request, typed schema
+   - Cons: More complex, harder to cache, learning curve
+
+4. Match requirements to strengths:
+   - Flexible queries → GraphQL advantage
+   - Nested data → GraphQL advantage
+   - Multiple clients → Both work, GraphQL slightly better
+
+Recommendation: GraphQL due to flexible querying and nested data requirements, despite higher initial complexity.
+
+---
+
+## Implicit CoT (Show Reasoning in Examples)
+
+Examples:
+Question: If 5 apples cost $10, how much do 8 apples cost?
+Reasoning: First find cost per apple: $10 ÷ 5 = $2 per apple. Then multiply by 8: $2 × 8 = $16
+Answer: $16
+
+Question: [your question]
+Reasoning:
+Answer:
+
+---
+
+## Tree of Thoughts Template
+
+Problem: [complex problem]
+
+Let's explore multiple approaches:
+
+**Approach 1: [Method A]**
+Steps:
+1. [step]
+2. [step]
+Pros: [advantages]
+Cons: [disadvantages]
+
+**Approach 2: [Method B]**
+Steps:
+1. [step]
+2. [step]
+Pros: [advantages]
+Cons: [disadvantages]
+
+**Approach 3: [Method C]**
+Steps:
+1. [step]
+2. [step]
+Pros: [advantages]
+Cons: [disadvantages]
+
+**Best approach:** [selection with reasoning]
+
+---
+
+## When to Use CoT
+
+- Multi-step reasoning required
+- Math or logic problems
+- Complex decision-making
+- Debugging or troubleshooting
+- Need to show work/reasoning
+- Want explainable AI outputs
+
+## Effectiveness
+
+- Significantly improves accuracy on reasoning tasks
+- Makes model's logic transparent
+- Helps catch errors in reasoning
+- Better for complex problems than simple ones
+
+## Variations
+
+1. **Explicit CoT**: "Let's think step by step..."
+2. **Implicit CoT**: Show reasoning in examples
+3. **Tree of Thoughts**: Multiple reasoning paths
+4. **Self-Verification**: Add "Let's verify this answer"

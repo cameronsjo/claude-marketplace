@@ -1,6 +1,6 @@
 # Security Review Skill
 
-Conduct comprehensive security audits covering OWASP Top 10, AI/MCP security, secrets management, and Walmart-specific security tooling (CodeGate/CheckMarx, Secrets Scanner).
+Conduct comprehensive security audits covering OWASP Top 10, AI/MCP security, secrets management, and secrets management.
 
 ## Objective
 
@@ -46,7 +46,7 @@ For AI/LLM features and MCP servers:
 Gather context about the application:
 - Application type (web, API, MCP server, CLI tool)
 - Technology stack (languages, frameworks, dependencies)
-- Deployment environment (WCNP, cloud, on-prem)
+- Deployment environment (Kubernetes, cloud, on-prem)
 - Authentication/authorization mechanisms
 - Data handling (PII, credentials, sensitive data)
 
@@ -212,38 +212,6 @@ For applications using AI/LLM or implementing MCP servers:
 - PII detection: email, SSN, phone, address patterns
 - External API calls: data sent to LLM providers
 
-### 4. Walmart Secrets Scanner Review
-
-#### `.sentinelpolicy` Audit
-- Verify `.sentinelpolicy` exists in repository root
-- Review all suppression entries for validity
-- Check comments explain WHY suppressions are safe
-- Validate no real secrets are suppressed
-
-**Review:**
-```bash
-python scripts/generate-sentinelpolicy.py --audit
-```
-
-#### Secrets Detection
-- Run secrets scanner to find potential hardcoded secrets
-- Identify false positives (test fixtures, docs)
-- Identify real secrets requiring rotation
-
-**Tools:**
-```bash
-python scripts/find-secrets.py
-```
-
-#### Proper Secret Storage
-- Verify real secrets use environment variables
-- Check Akeyless integration (WCNP deployments)
-- Validate `.env.example` exists with dummy values
-- Review `.gitignore` excludes secret files
-
-### 5. CodeGate/CheckMarx Review
-
-For Walmart deployments using CodeGate/CheckMarx:
 
 - Review latest CodeGate scan results
 - Prioritize Critical, High, Medium findings (build blockers)
@@ -407,9 +375,9 @@ cursor.execute(query, (user_id,))
 ## Resources
 
 ### Documentation
-- `/Users/c0s013l/.claude/docs/security/owasp-top-10.md`
-- `/Users/c0s013l/.claude/docs/security/codegate-checkmarx.md`
-- `/Users/c0s013l/.claude/docs/walmart-secrets-scanner-guide.md`
+- `~/.claude/docs/security/owasp-top-10.md`
+- `~/.claude/docs/security/codegate-checkmarx.md`
+- `Security scanning documentation`
 
 ### Tools
 - `scripts/security-audit.py` - Automated security scanning
@@ -421,7 +389,7 @@ cursor.execute(query, (user_id,))
 - OWASP Top 10 2021: https://owasp.org/Top10/
 - OWASP AI Security: https://owasp.org/www-project-top-10-for-large-language-model-applications/
 - CWE Top 25: https://cwe.mitre.org/top25/
-- Walmart AppSec: https://appsec.walmart.com/
+- OWASP: https://owasp.org/
 
 ## Usage
 

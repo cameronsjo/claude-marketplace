@@ -1,0 +1,270 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/feature-flags-config.schema.json",
+  "title": "Feature Flags Configuration Schema",
+  "description": "JSON Schema for validating feature flag configurations",
+  "type": "object",
+  "patternProperties": {
+    "^[a-z][a-z0-9-]*$": {
+      "type": "object",
+      "required": ["enabled", "metadata"],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the flag is globally enabled. If false, the flag will be disabled regardless of other settings."
+        },
+        "rolloutPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of users who will see the feature (0-100). Useful for gradual rollouts."
+        },
+        "enabledEnvironments": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["dev", "development", "staging", "stage", "production", "prod"]
+          },
+          "uniqueItems": true,
+          "description": "List of environments where the flag can be enabled"
+        },
+        "allowedUsers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "List of user IDs that are allowed to see this feature"
+        },
+        "allowedOrgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "List of organization IDs that are allowed to see this feature"
+        },
+        "allowedEmails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "email"
+          },
+          "uniqueItems": true,
+          "description": "List of email addresses allowed to see this feature (useful for beta testing)"
+        },
+        "metadata": {
+          "type": "object",
+          "required": ["type", "createdAt", "description"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["release", "experiment", "ops", "permission"],
+              "description": "Type of feature flag determining its lifecycle and usage"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date",
+              "description": "Date when the flag was created (YYYY-MM-DD)"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 10,
+              "maxLength": 500,
+              "description": "Clear description of what this flag controls"
+            },
+            "owner": {
+              "type": "string",
+              "pattern": "^@[a-z0-9-]+$",
+              "description": "Owner team or person responsible for this flag (e.g., @payments-team)"
+            },
+            "removalDate": {
+              "type": "string",
+              "format": "date",
+              "description": "Expected date for flag removal (required for release and experiment flags)"
+            },
+            "reviewDate": {
+              "type": "string",
+              "format": "date",
+              "description": "Next review date (for ops and permission flags)"
+            },
+            "lifecycle": {
+              "type": "string",
+              "enum": [
+                "Short-lived (days to weeks)",
+                "Short to medium-lived (weeks to months)",
+                "Long-lived (reviewed quarterly)",
+                "Long-lived (part of product offering)"
+              ],
+              "description": "Expected lifecycle of the flag"
+            },
+            "purpose": {
+              "type": "string",
+              "description": "Detailed explanation of why this flag exists"
+            },
+            "ticketUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "Link to ticket or issue tracking this flag"
+            },
+            "documentationUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "Link to detailed documentation about this flag"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "uniqueItems": true,
+              "description": "List of experiment variants (for experiment flags)"
+            },
+            "tier": {
+              "type": "string",
+              "enum": ["free", "basic", "premium", "enterprise"],
+              "description": "Required tier for this feature (for permission flags)"
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "enum": ["release", "experiment"]
+                  }
+                }
+              },
+              "then": {
+                "required": ["removalDate"]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "experiment"
+                  }
+                }
+              },
+              "then": {
+                "required": ["variants"]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "enum": ["ops", "permission"]
+                  }
+                }
+              },
+              "then": {
+                "required": ["reviewDate"]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "permission"
+                  }
+                }
+              },
+              "then": {
+                "required": ["tier"]
+              }
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "metadata": {
+                "properties": {
+                  "type": {
+                    "enum": ["release", "experiment"]
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "rolloutPercentage": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "new-checkout-flow": {
+        "enabled": true,
+        "rolloutPercentage": 10,
+        "enabledEnvironments": ["dev", "staging", "production"],
+        "metadata": {
+          "type": "release",
+          "owner": "@payments-team",
+          "description": "New streamlined checkout experience with improved UX",
+          "createdAt": "2025-01-15",
+          "removalDate": "2025-12-31",
+          "lifecycle": "Short-lived (days to weeks)",
+          "purpose": "Gradual rollout of redesigned checkout flow",
+          "ticketUrl": "https://github.com/org/repo/issues/123"
+        }
+      },
+      "pricing-experiment": {
+        "enabled": true,
+        "rolloutPercentage": 50,
+        "enabledEnvironments": ["production"],
+        "metadata": {
+          "type": "experiment",
+          "owner": "@growth-team",
+          "description": "A/B test for new pricing display",
+          "createdAt": "2025-01-10",
+          "removalDate": "2025-06-30",
+          "lifecycle": "Short to medium-lived (weeks to months)",
+          "purpose": "Test impact of new pricing display on conversion",
+          "variants": ["control", "treatment-a", "treatment-b"]
+        }
+      },
+      "external-api-enabled": {
+        "enabled": true,
+        "enabledEnvironments": ["dev", "staging", "production"],
+        "metadata": {
+          "type": "ops",
+          "owner": "@platform-team",
+          "description": "Circuit breaker for external API calls",
+          "createdAt": "2025-01-01",
+          "reviewDate": "2025-04-01",
+          "lifecycle": "Long-lived (reviewed quarterly)",
+          "purpose": "Operational control to disable external API in case of issues"
+        }
+      },
+      "advanced-analytics": {
+        "enabled": true,
+        "enabledEnvironments": ["production"],
+        "allowedUsers": [],
+        "allowedOrgs": [],
+        "metadata": {
+          "type": "permission",
+          "owner": "@analytics-team",
+          "description": "Advanced analytics features including predictive insights",
+          "createdAt": "2025-01-01",
+          "reviewDate": "2025-04-01",
+          "lifecycle": "Long-lived (part of product offering)",
+          "purpose": "Premium feature gated by subscription tier",
+          "tier": "premium"
+        }
+      }
+    }
+  ]
+}

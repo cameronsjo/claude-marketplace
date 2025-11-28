@@ -108,7 +108,7 @@ All error responses MUST follow RFC 9457 Problem Details format:
 
 ```json
 {
-  "type": "https://uri.walmart.com/errors/invalid-request",
+  "type": "https://api.example.com/errors/invalid-request",
   "title": "Request is not well-formed, syntactically incorrect, or violates schema.",
   "status": 400,
   "detail": "Additional details about this specific occurrence",
@@ -116,7 +116,7 @@ All error responses MUST follow RFC 9457 Problem Details format:
   "trace_id": "90957fca61718",
   "errors": [
     {
-      "code": "https://uri.walmart.com/errors/missing-required-property",
+      "code": "https://api.example.com/errors/missing-required-property",
       "reason": "A required field is missing.",
       "property": "/credit_card/expire_month",
       "location": "body"
@@ -126,13 +126,13 @@ All error responses MUST follow RFC 9457 Problem Details format:
 ```
 
 #### Standard Error Types
-- `https://uri.walmart.com/errors/invalid-request` - 400 Bad Request
-- `https://uri.walmart.com/errors/authentication-failure` - 401 Unauthorized
-- `https://uri.walmart.com/errors/authorization-failure` - 403 Forbidden
-- `https://uri.walmart.com/errors/resource-not-found` - 404 Not Found
-- `https://uri.walmart.com/errors/resource-conflict` - 409 Conflict
-- `https://uri.walmart.com/errors/unprocessable-entity` - 422 Unprocessable Entity
-- `https://uri.walmart.com/errors/internal-server-error` - 500 Internal Server Error
+- `https://api.example.com/errors/invalid-request` - 400 Bad Request
+- `https://api.example.com/errors/authentication-failure` - 401 Unauthorized
+- `https://api.example.com/errors/authorization-failure` - 403 Forbidden
+- `https://api.example.com/errors/resource-not-found` - 404 Not Found
+- `https://api.example.com/errors/resource-conflict` - 409 Conflict
+- `https://api.example.com/errors/unprocessable-entity` - 422 Unprocessable Entity
+- `https://api.example.com/errors/internal-server-error` - 500 Internal Server Error
 
 ### API Versioning
 
@@ -480,13 +480,13 @@ This skill integrates with:
 ## Reference Documentation
 
 For detailed guidelines, see:
-- `/Users/c0s013l/.claude/docs/api-guidelines/naming-conventions.md`
-- `/Users/c0s013l/.claude/docs/api-guidelines/resource-modeling.md`
-- `/Users/c0s013l/.claude/docs/api-guidelines/error-handling.md`
-- `/Users/c0s013l/.claude/docs/api-guidelines/http-methods-headers-status-codes.md`
-- `/Users/c0s013l/.claude/docs/api-guidelines/api-versioning.md`
-- `/Users/c0s013l/.claude/docs/api-guidelines/common-types.md`
-- `/Users/c0s013l/.claude/docs/api-guidelines/json-types.md`
+- `~/.claude/docs/api-guidelines/naming-conventions.md`
+- `~/.claude/docs/api-guidelines/resource-modeling.md`
+- `~/.claude/docs/api-guidelines/error-handling.md`
+- `~/.claude/docs/api-guidelines/http-methods-headers-status-codes.md`
+- `~/.claude/docs/api-guidelines/api-versioning.md`
+- `~/.claude/docs/api-guidelines/common-types.md`
+- `~/.claude/docs/api-guidelines/json-types.md`
 
 ## Best Practices
 

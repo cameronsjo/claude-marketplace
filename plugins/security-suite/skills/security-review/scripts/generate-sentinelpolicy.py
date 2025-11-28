@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate and manage .sentinelpolicy entries for Walmart Secrets Scanner.
+Generate and manage .sentinelpolicy entries for Secrets Scanner.
 
 Helps create properly formatted suppression entries with clear comments.
 """
@@ -171,7 +171,7 @@ class SentinelPolicyManager:
             print("Error: .sentinelpolicy already exists", file=sys.stderr)
             sys.exit(1)
 
-        template = """# .sentinelpolicy - Walmart Secrets Scanner Configuration
+        template = """# .sentinelpolicy - Secrets Scanner Configuration
 #
 # Format:
 #   suppressionkey=KEY;Clear explanation of why this is safe
@@ -209,7 +209,7 @@ class SentinelPolicyManager:
 def main() -> int:
     """Main entry point."""
     parser = argparse.ArgumentParser(
-        description="Manage .sentinelpolicy for Walmart Secrets Scanner",
+        description="Manage .sentinelpolicy for Secrets Scanner",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

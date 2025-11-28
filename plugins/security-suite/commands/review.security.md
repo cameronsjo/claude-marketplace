@@ -44,7 +44,7 @@ Collect information about the application:
 **Questions to ask (if not obvious from code):**
 1. Application type: Web app, API, MCP server, CLI tool?
 2. Technology stack: Languages, frameworks, dependencies?
-3. Deployment environment: WCNP, cloud, on-prem?
+3. Deployment environment: Kubernetes, cloud, on-prem?
 4. Authentication mechanisms: JWT, OAuth, API keys?
 5. Data sensitivity: PII, credentials, financial data?
 
@@ -316,23 +316,7 @@ If MCP server or AI integration detected:
 - Permission boundaries
 - Sandbox escapes
 
-### Step 6: Walmart-specific checks (if applicable)
-
-**CodeGate/CheckMarx:**
-- Check for existing scan results
-- Identify suppressions that need review
-
-**Secrets Scanner:**
-- `.walmart-secrets-ignore` properly configured
-- No secrets in repository
-
-**WCNP/KITT:**
-- Security context constraints
-- Pod security policies
-- Network policies
-- RBAC configurations
-
-### Step 7: Generate security report
+### Step 6: Generate security report
 
 Create structured security report:
 
@@ -405,7 +389,7 @@ cursor.execute(query, (user_id,))
 - CWE-89: https://cwe.mitre.org/data/definitions/89.html
 ```
 
-### Step 8: Prioritize remediation
+### Step 7: Prioritize remediation
 
 Provide remediation roadmap:
 
@@ -429,7 +413,7 @@ Provide remediation roadmap:
 2. Monitoring improvements
 3. Security training
 
-### Step 9: Provide fix examples
+### Step 8: Provide fix examples
 
 For common issues, provide complete fix examples:
 
@@ -528,4 +512,4 @@ After review, verify:
 
 **Last Updated:** 2025-11-13
 **Framework:** OWASP Top 10 2021
-**Standards:** Walmart InfoSec Operating Tenets
+**Standards:** OWASP Security Guidelines

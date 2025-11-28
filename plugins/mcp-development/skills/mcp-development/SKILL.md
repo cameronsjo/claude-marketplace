@@ -1,6 +1,6 @@
 # MCP Development Skill
 
-Build production-ready Model Context Protocol (MCP) servers with fastmcp, PII sanitization, and Walmart platform integration (KITT, Universal Tracing).
+Build production-ready Model Context Protocol (MCP) servers with fastmcp, PII sanitization, and OpenTelemetry integration.
 
 ## Overview
 
@@ -14,14 +14,14 @@ Trigger this skill when:
 - Implementing MCP tools, resources, or prompts
 - Adding PII sanitization to MCP contexts
 - Upgrading fastmcp dependencies safely
-- Configuring KITT deployments for MCP servers
-- Integrating Universal Tracing (OpenTelemetry)
+- Configuring Kubernetes deployments for MCP servers
+- Integrating OpenTelemetry (OpenTelemetry)
 - Debugging MCP server implementations
 - Optimizing MCP server performance
 - Creating MCP client integrations
 - Validating MCP protocol compliance
 
-**Keywords:** MCP, fastmcp, Model Context Protocol, PII sanitization, KITT deployment, Universal Tracing, tool definition, resource definition
+**Keywords:** MCP, fastmcp, Model Context Protocol, PII sanitization, Kubernetes deployment, OpenTelemetry, tool definition, resource definition
 
 ## Core Principles
 
@@ -413,16 +413,16 @@ async def connect_via_sse():
             return tools
 ```
 
-## Walmart Platform Integration
+## Kubernetes Deployment
 
-### KITT Deployment Configuration
+### Kubernetes Deployment Configuration
 
-For deploying MCP servers to WCNP (Walmart Cloud Native Platform):
+For deploying MCP servers to Kubernetes:
 
-**See Related Skill:** Reference the `wcnp-kitt-k8s` skill for complete KITT deployment patterns.
+**See Related Skill:** Reference the `kubernetes-deployment` skill for complete Kubernetes deployment patterns.
 
 ```yaml
-# kitt.yml for MCP server deployment
+# kubernetes.yml for MCP server deployment
 apiVersion: v1
 kind: Service
 metadata:
@@ -454,7 +454,7 @@ spec:
     spec:
       containers:
         - name: mcp-server
-          image: registry.walmart.com/your-team/mcp-server:latest
+          image: registry.example.com/your-team/mcp-server:latest
           ports:
             - containerPort: 8000
           env:
@@ -483,7 +483,7 @@ spec:
             periodSeconds: 5
 ```
 
-### Universal Tracing Integration
+### OpenTelemetry Integration
 
 ```python
 from opentelemetry import trace
@@ -494,7 +494,7 @@ from opentelemetry.sdk.resources import Resource
 
 def setup_tracing(service_name: str):
     """
-    Configure Universal Tracing (Walmart's OpenTelemetry).
+    Configure OpenTelemetry.
 
     Args:
         service_name: Name of the MCP server for trace identification
@@ -503,7 +503,7 @@ def setup_tracing(service_name: str):
 
     tracer_provider = TracerProvider(resource=resource)
 
-    # Configure OTLP exporter for Universal Tracing
+    # Configure OTLP exporter for OpenTelemetry
     otlp_exporter = OTLPSpanExporter(
         endpoint="http://universal-tracing:4318/v1/traces"
     )
@@ -513,7 +513,7 @@ def setup_tracing(service_name: str):
 
     trace.set_tracer_provider(tracer_provider)
 
-    logger.info(f"Universal Tracing configured for {service_name}")
+    logger.info(f"OpenTelemetry configured for {service_name}")
 
 # Use in MCP server
 tracer = trace.get_tracer(__name__)
@@ -911,13 +911,13 @@ async def rate_limited_tool(input: ToolInput) -> str:
 
 - FastMCP Documentation: <https://github.com/jlowin/fastmcp>
 - MCP Protocol Spec: <https://modelcontextprotocol.io>
-- WCNP KITT Skill: `~/.claude/skills/wcnp-kitt-k8s/`
+- Kubernetes Skill: `~/.claude/skills/kubernetes-deployment/`
 - Security Standards: `~/.claude/docs/security/owasp-top-10.md`
 - CLAUDE.md Security Section: PII protection, input validation
 
 ## Related Skills
 
-- **wcnp-kitt-k8s**: WCNP deployment, KITT configuration, Akeyless secrets
+- **kubernetes-deployment**: Kubernetes deployment and secrets management
 - **security-review**: OWASP compliance, vulnerability scanning
 - **api-design**: REST API patterns, OpenAPI specifications
 - **python-development**: Python best practices, type hints, async patterns
@@ -933,4 +933,4 @@ async def rate_limited_tool(input: ToolInput) -> str:
 7. **Documentation**: Clear tool descriptions, examples, troubleshooting guides
 8. **Performance**: Caching, async/await, connection pooling
 9. **Protocol Compliance**: Follow MCP specification, test with real clients
-10. **Production Ready**: Health checks, monitoring, rate limiting, KITT deployment
+10. **Production Ready**: Health checks, monitoring, rate limiting, Kubernetes deployment

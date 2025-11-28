@@ -364,4 +364,4 @@ Run through these checks:
 ---
 
 **Last Updated:** 2025-11-13
-**Based on:** Walmart API Standards & REST Best Practices
+**Based on:** REST Best Practices

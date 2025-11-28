@@ -816,7 +816,7 @@ console.log('\n📊 DX Metrics:', metrics);
 
 - **cli-development**: Building CLI tools and command interfaces
 - **python-development**: Python-specific DX improvements
-- **wcnp-kitt-k8s**: Deployment workflow optimization
+- **kubernetes-deployment**: Deployment workflow optimization
 
 ## Required Development Tools
 

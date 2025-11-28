@@ -1,0 +1,83 @@
+# Zero-Shot Prompt Template
+
+## Basic Structure
+
+[Clear task description]
+
+[Input/data to process]
+
+[Output specification (optional)]
+
+---
+
+## Examples
+
+### Example 1: Sentiment Analysis
+
+Analyze the sentiment of this customer review:
+
+Review: "[review text]"
+
+Sentiment:
+
+---
+
+### Example 2: Code Review
+
+Review this code for potential issues:
+
+```[language]
+[code]
+```
+
+Identify any:
+- Security vulnerabilities
+- Performance issues
+- Code quality concerns
+
+---
+
+### Example 3: Summarization
+
+Summarize the key points from this article:
+
+[article text]
+
+Provide a 2-3 sentence summary.
+
+---
+
+### Example 4: Classification
+
+Classify this support ticket into one of these categories:
+- Technical Issue
+- Billing Question
+- Feature Request
+- General Inquiry
+
+Ticket: "[ticket content]"
+
+Category:
+
+---
+
+## Best Practices
+
+1. Be specific and clear about the task
+2. Provide necessary context
+3. Specify output format if needed
+4. Use simple, direct language
+5. Include constraints or requirements
+
+## When to Use Zero-Shot
+
+- Task is straightforward and well-defined
+- Model has strong base capabilities for the task
+- Speed and simplicity are priorities
+- You don't have good examples available
+
+## Limitations
+
+- May be inconsistent for complex tasks
+- Output format may vary
+- May misinterpret ambiguous requests

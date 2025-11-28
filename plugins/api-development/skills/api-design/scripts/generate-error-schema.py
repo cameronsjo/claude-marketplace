@@ -26,7 +26,7 @@ def generate_standard_error_schema() -> Dict[str, Any]:
                 "type": "string",
                 "format": "uri",
                 "description": "URI reference identifying the problem type",
-                "example": "https://uri.walmart.com/errors/invalid-request",
+                "example": "https://api.example.com/errors/invalid-request",
             },
             "title": {
                 "type": "string",
@@ -77,7 +77,7 @@ def generate_validation_error_schema() -> Dict[str, Any]:
                 "type": "string",
                 "format": "uri",
                 "description": "URI identifying the specific error code",
-                "example": "https://uri.walmart.com/errors/missing-required-property",
+                "example": "https://api.example.com/errors/missing-required-property",
             },
             "reason": {
                 "type": "string",
@@ -112,8 +112,8 @@ def generate_business_error_schema(
                     "type": {
                         "type": "string",
                         "format": "uri",
-                        "enum": [f"https://uri.walmart.com/errors/{error_code}"],
-                        "example": f"https://uri.walmart.com/errors/{error_code}",
+                        "enum": [f"https://api.example.com/errors/{error_code}"],
+                        "example": f"https://api.example.com/errors/{error_code}",
                     },
                     "title": {
                         "type": "string",
@@ -148,13 +148,13 @@ def generate_error_responses() -> Dict[str, Any]:
                 "application/json": {
                     "schema": {"$ref": "#/components/schemas/ProblemDetail"},
                     "example": {
-                        "type": "https://uri.walmart.com/errors/invalid-request",
+                        "type": "https://api.example.com/errors/invalid-request",
                         "title": "Request is not well-formed, syntactically incorrect, or violates schema.",
                         "status": 400,
                         "trace_id": "90957fca61718",
                         "errors": [
                             {
-                                "code": "https://uri.walmart.com/errors/missing-required-property",
+                                "code": "https://api.example.com/errors/missing-required-property",
                                 "reason": "A required field is missing.",
                                 "property": "/email_address",
                                 "location": "body",
@@ -170,7 +170,7 @@ def generate_error_responses() -> Dict[str, Any]:
                 "application/json": {
                     "schema": {"$ref": "#/components/schemas/ProblemDetail"},
                     "example": {
-                        "type": "https://uri.walmart.com/errors/authentication-failure",
+                        "type": "https://api.example.com/errors/authentication-failure",
                         "title": "Authentication failed due to invalid credentials.",
                         "status": 401,
                         "trace_id": "90957fca61718",
@@ -184,7 +184,7 @@ def generate_error_responses() -> Dict[str, Any]:
                 "application/json": {
                     "schema": {"$ref": "#/components/schemas/ProblemDetail"},
                     "example": {
-                        "type": "https://uri.walmart.com/errors/authorization-failure",
+                        "type": "https://api.example.com/errors/authorization-failure",
                         "title": "Authorization failed due to insufficient permissions.",
                         "status": 403,
                         "trace_id": "90957fca61718",
@@ -198,7 +198,7 @@ def generate_error_responses() -> Dict[str, Any]:
                 "application/json": {
                     "schema": {"$ref": "#/components/schemas/ProblemDetail"},
                     "example": {
-                        "type": "https://uri.walmart.com/errors/resource-not-found",
+                        "type": "https://api.example.com/errors/resource-not-found",
                         "title": "The specified resource does not exist.",
                         "status": 404,
                         "trace_id": "90957fca61718",
@@ -212,7 +212,7 @@ def generate_error_responses() -> Dict[str, Any]:
                 "application/json": {
                     "schema": {"$ref": "#/components/schemas/ProblemDetail"},
                     "example": {
-                        "type": "https://uri.walmart.com/errors/resource-conflict",
+                        "type": "https://api.example.com/errors/resource-conflict",
                         "title": "The server has detected a conflict while processing this request.",
                         "status": 409,
                         "trace_id": "90957fca61718",
@@ -226,7 +226,7 @@ def generate_error_responses() -> Dict[str, Any]:
                 "application/json": {
                     "schema": {"$ref": "#/components/schemas/ProblemDetail"},
                     "example": {
-                        "type": "https://uri.walmart.com/errors/unprocessable-entity",
+                        "type": "https://api.example.com/errors/unprocessable-entity",
                         "title": "The request cannot be processed due to semantic errors.",
                         "status": 422,
                         "detail": "Cannot void a payment that has already been captured",
@@ -241,7 +241,7 @@ def generate_error_responses() -> Dict[str, Any]:
                 "application/json": {
                     "schema": {"$ref": "#/components/schemas/ProblemDetail"},
                     "example": {
-                        "type": "https://uri.walmart.com/errors/internal-server-error",
+                        "type": "https://api.example.com/errors/internal-server-error",
                         "title": "An internal server error has occurred.",
                         "status": 500,
                         "trace_id": "90957fca61718",
@@ -353,11 +353,11 @@ def main() -> int:
                 "resource.create",
                 [
                     {
-                        "type": "https://uri.walmart.com/errors/out-of-credit",
+                        "type": "https://api.example.com/errors/out-of-credit",
                         "title": "You do not have enough credit.",
                     },
                     {
-                        "type": "https://uri.walmart.com/errors/amount-mismatch",
+                        "type": "https://api.example.com/errors/amount-mismatch",
                         "title": "Amount calculation mismatch.",
                     },
                 ],
