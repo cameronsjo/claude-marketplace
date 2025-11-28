@@ -1,6 +1,6 @@
 # MCP Development Skill
 
-Build production-ready Model Context Protocol servers with fastmcp, comprehensive PII sanitization, and Walmart platform integration.
+Build production-ready Model Context Protocol servers with fastmcp, comprehensive PII sanitization, and platform integration.
 
 ## Overview
 
@@ -42,7 +42,7 @@ Claude will automatically invoke this skill when you:
 - Graceful shutdown handling
 - Error handling and retry logic
 
-### Walmart Platform Integration
+### Platform Integration
 - KITT deployment configuration
 - Universal Tracing setup
 - Akeyless secrets integration

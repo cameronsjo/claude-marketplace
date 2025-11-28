@@ -1,6 +1,6 @@
 # Security Review Skill
 
-Comprehensive security audit skill covering OWASP Top 10, AI/MCP security, secrets management, and Walmart-specific security tooling.
+Comprehensive security audit skill covering OWASP Top 10, AI/MCP security, secrets management, and Enterprise-specific security tooling.
 
 ## Overview
 
@@ -8,8 +8,8 @@ The security-review skill provides systematic security review methodology with a
 
 - **OWASP Top 10 Web (2021)** - Complete checklist and validation
 - **AI/MCP Security** - Prompt injection, MCP server security, data privacy
-- **Secrets Management** - Detection, `.sentinelpolicy` management, Walmart Secrets Scanner
-- **CodeGate/CheckMarx** - Walmart static code scanning integration
+- **Secrets Management** - Detection, `.sentinelpolicy` management, Secrets Scanner
+- **CodeGate/CheckMarx - Enterprise static code scanning integration
 - **Automated Scanning** - Python scripts for vulnerability detection
 - **Security Test Cases** - Example test scenarios for validation
 
@@ -41,7 +41,7 @@ python scripts/owasp-checklist.py --output checklist-results.json
 
 ### Manage .sentinelpolicy
 
-Add suppressions for Walmart Secrets Scanner:
+Add suppressions for Secrets Scanner:
 
 ```bash
 # Add suppression key
@@ -112,7 +112,7 @@ python scripts/find-secrets.py [--path PATH] [--output report.json] [--patterns 
 
 ### `scripts/generate-sentinelpolicy.py`
 
-Walmart Secrets Scanner `.sentinelpolicy` management:
+Secrets Scanner `.sentinelpolicy` management:
 
 **Commands:**
 ```bash
@@ -171,7 +171,7 @@ Comprehensive secret detection patterns:
 Example security test scenarios for:
 - OWASP Top 10 categories
 - AI/MCP security
-- Walmart-specific tooling
+- Enterprise-specific tooling
 - Security headers
 - Authentication/authorization
 
@@ -182,7 +182,7 @@ Example security test scenarios for:
 `skill.md` - Complete security review methodology including:
 - OWASP Top 10 audit process
 - AI/MCP security considerations
-- Walmart Secrets Scanner integration
+- Secrets Scanner integration
 - CodeGate/CheckMarx workflow
 - Security audit report templates
 - Remediation tracking
@@ -190,9 +190,9 @@ Example security test scenarios for:
 ### Security Documentation
 
 Reference documentation:
-- `/Users/c0s013l/.claude/docs/security/owasp-top-10.md`
-- `/Users/c0s013l/.claude/docs/security/codegate-checkmarx.md`
-- `/Users/c0s013l/.claude/docs/walmart-secrets-scanner-guide.md`
+- `~/.claude/docs/security/owasp-top-10.md`
+- `~/.claude/docs/security/codegate-checkmarx.md`
+- `~/.claude/docs/secrets-scanner-guide.md`
 
 ## Workflow Examples
 
@@ -223,7 +223,7 @@ python scripts/generate-sentinelpolicy.py --key SUPPRESSION_KEY --reason "Test f
 ### CI/CD Integration
 
 ```yaml
-# .github/workflows/security.yml (example for non-Walmart repos)
+# .github/workflows/security.yml (example for external repos)
 name: Security Audit
 on: [pull_request]
 jobs:
@@ -244,7 +244,7 @@ jobs:
           pip-audit
 ```
 
-### Walmart Secrets Scanner Response
+### Secrets Scanner Response
 
 ```bash
 # 1. Review notification
@@ -316,9 +316,9 @@ Use in CI/CD pipelines to fail builds on security issues.
 ## Support
 
 For questions or issues:
-- Review documentation in `/Users/c0s013l/.claude/docs/security/`
+- Review documentation in `~/.claude/docs/security/`
 - Check OWASP references: https://owasp.org/Top10/
-- Walmart AppSec: https://appsec.walmart.com/
+- Enterprise Security Portal
 
 ## License
 

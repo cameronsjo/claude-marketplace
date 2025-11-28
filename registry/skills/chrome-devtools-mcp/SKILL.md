@@ -7,6 +7,7 @@ Expert guidance for using Chrome DevTools MCP server to automate browser testing
 Chrome DevTools MCP is a Model Context Protocol server that enables AI coding agents to control and inspect live Chrome browser instances. It provides 26 tools across performance analysis, browser automation, network inspection, and debugging capabilities.
 
 **Key Capabilities:**
+
 - Browser automation with reliable Puppeteer-based actions
 - Performance tracing and analysis using Chrome DevTools
 - Network request inspection and debugging
@@ -17,6 +18,7 @@ Chrome DevTools MCP is a Model Context Protocol server that enables AI coding ag
 ## When to Use This Skill
 
 Use Chrome DevTools MCP for:
+
 - **Performance Analysis**: Measure page load times, rendering efficiency, resource usage
 - **Automated Testing**: E2E testing, form validation, user flow testing
 - **Debugging**: Network issues, console errors, JavaScript problems
@@ -30,11 +32,13 @@ Use Chrome DevTools MCP for:
 ### Basic Installation
 
 **Claude Code:**
+
 ```bash
 claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ```
 
 **Manual Configuration (any MCP client):**
+
 ```json
 {
   "mcpServers": {
@@ -49,6 +53,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ### Advanced Configuration
 
 **Headless Mode with Isolated Profile:**
+
 ```json
 {
   "mcpServers": {
@@ -66,6 +71,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ```
 
 **Connect to Running Chrome Instance:**
+
 ```json
 {
   "mcpServers": {
@@ -81,6 +87,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ```
 
 **With Proxy and Custom Viewport:**
+
 ```json
 {
   "mcpServers": {
@@ -121,88 +128,107 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ### Input Automation (8 tools)
 
 **`click`** - Perform mouse clicks
+
 - Click buttons, links, or any clickable elements
 - Automatically waits for element to be clickable
 - Example: "Click the 'Sign In' button"
 
 **`drag`** - Drag and drop operations
+
 - Drag elements from one location to another
 - Useful for sortable lists, drag-to-upload
 - Example: "Drag the file to the upload zone"
 
 **`fill`** - Text input
+
 - Fill single input fields
-- Example: "Fill the email field with test@example.com"
+- Example: "Fill the email field with <test@example.com>"
 
 **`fill_form`** - Multi-field form completion
+
 - Fill multiple form fields at once
 - More efficient than individual `fill` calls
 - Example: "Fill the registration form with test data"
 
 **`handle_dialog`** - Dialog management
+
 - Accept or dismiss alerts, confirms, prompts
 - Example: "Accept the confirmation dialog"
 
 **`hover`** - Mouse hovering
+
 - Trigger hover states and tooltips
 - Example: "Hover over the help icon"
 
 **`press_key`** - Keyboard input
+
 - Send keyboard events (Enter, Escape, Tab, etc.)
 - Example: "Press Enter to submit"
 
 **`upload_file`** - File uploads
+
 - Upload files through file input elements
 - Example: "Upload test-data.csv to the import form"
 
 ### Navigation Automation (6 tools)
 
 **`navigate_page`** - URL navigation
+
 - Navigate to any URL
-- Example: "Navigate to https://example.com"
+- Example: "Navigate to <https://example.com>"
 
 **`new_page`** - Create new tabs/pages
+
 - Open new browser pages
 - Example: "Open a new page"
 
 **`select_page`** - Switch between pages
+
 - Switch to different open pages/tabs
 - Example: "Switch to page 2"
 
 **`list_pages`** - Enumerate open pages
+
 - List all currently open pages
 - Example: "List all open pages"
 
 **`close_page`** - Close browser pages
+
 - Close specific pages
 - Example: "Close the current page"
 
 **`wait_for`** - Wait for conditions
+
 - Wait for navigation, network idle, selectors
 - Example: "Wait for the page to finish loading"
 
 ### Emulation (2 tools)
 
 **`emulate`** - Device/environment emulation
+
 - Emulate mobile devices, tablets
 - Set user agents, screen sizes, device metrics
 - Example: "Emulate iPhone 14 Pro"
 
 **`resize_page`** - Viewport modification
+
 - Change viewport dimensions
 - Example: "Resize page to 1024x768"
 
 ### Performance (3 tools)
 
 **`performance_start_trace`** - Begin performance recording
+
 - Start recording Chrome DevTools performance trace
 - Example: "Start performance trace"
 
 **`performance_stop_trace`** - End performance recording
+
 - Stop trace and save data
 - Example: "Stop performance trace"
 
 **`performance_analyze_insight`** - Extract performance metrics
+
 - Analyze traces for actionable insights
 - Metrics: load times, rendering, resource usage
 - Example: "Analyze performance insights from the trace"
@@ -210,11 +236,13 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ### Network (2 tools)
 
 **`list_network_requests`** - View network requests
+
 - List all network requests made by page
 - Filter by type, status, URL patterns
 - Example: "List all failed network requests"
 
 **`get_network_request`** - Request details
+
 - Get detailed information about specific request
 - Headers, body, timing, response
 - Example: "Get details for the API request to /users"
@@ -222,23 +250,28 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ### Debugging (5 tools)
 
 **`evaluate_script`** - Execute JavaScript
+
 - Run JavaScript in page context
 - Access DOM, window, document
 - Example: "Execute: document.querySelectorAll('img').length"
 
 **`get_console_message`** - Retrieve console message
+
 - Get specific console message
 - Example: "Get the first error message"
 
 **`list_console_messages`** - View all console messages
+
 - List all console logs, warns, errors
 - Example: "List all console errors"
 
 **`take_screenshot`** - Capture current state
+
 - Take full page or viewport screenshots
 - Example: "Take a screenshot of the page"
 
 **`take_snapshot`** - DOM snapshot
+
 - Capture current DOM state
 - Example: "Take a DOM snapshot"
 
@@ -255,6 +288,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ```
 
 **What to look for:**
+
 - First Contentful Paint (FCP) < 1.8s (good)
 - Largest Contentful Paint (LCP) < 2.5s (good)
 - Time to Interactive (TTI) < 3.8s (good)
@@ -321,6 +355,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ## Best Practices
 
 ### Performance Analysis
+
 - **Clear cache** between runs for consistent metrics
 - **Run multiple iterations** (3-5) and average results
 - **Test on realistic network** conditions (throttling)
@@ -328,6 +363,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 - **Focus on user-centric metrics** (FCP, LCP, CLS)
 
 ### Browser Automation
+
 - **Wait for conditions** explicitly (don't assume instant load)
 - **Use `wait_for`** after navigation or actions
 - **Handle timeouts** gracefully in test scripts
@@ -335,6 +371,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 - **Check console errors** after critical actions
 
 ### Network Testing
+
 - **Monitor API calls** during user flows
 - **Check status codes** and response times
 - **Verify request headers** (auth, content-type)
@@ -342,6 +379,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 - **Test error handling** (simulate failures)
 
 ### Security & Privacy
+
 - **Use `--isolated` flag** for sensitive testing
 - **Avoid real credentials** in automated tests
 - **Clear cache/cookies** between test runs
@@ -349,6 +387,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 - **Review screenshots** before sharing (may contain PII)
 
 ### Debugging Tips
+
 - **Start with `--logFile`** to capture debug output
 - **Use console messages** to trace execution
 - **Evaluate scripts** to inspect page state
@@ -358,6 +397,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ## Configuration Patterns
 
 ### Local Development Setup
+
 ```json
 {
   "mcpServers": {
@@ -372,10 +412,12 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
   }
 }
 ```
+
 - Uses Chrome Canary for latest features
 - Isolated profile for clean testing environment
 
 ### CI/CD Pipeline Setup
+
 ```json
 {
   "mcpServers": {
@@ -393,10 +435,12 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
   }
 }
 ```
+
 - Headless for CI environments
 - Additional Chrome args for container compatibility
 
 ### Persistent Profile Setup
+
 ```json
 {
   "mcpServers": {
@@ -410,10 +454,12 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
   }
 }
 ```
+
 - Uses default profile at `~/.cache/chrome-devtools-mcp/chrome-profile-stable`
 - Maintains cookies, local storage between runs
 
 ### Remote Chrome Connection
+
 ```bash
 # Start Chrome with debugging port
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
@@ -442,6 +488,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 **Problem**: "Failed to launch Chrome"
 
 **Solutions:**
+
 1. Check Chrome is installed: `which google-chrome` or `which chrome`
 2. Specify path: `--executablePath=/path/to/chrome`
 3. Try different channel: `--channel=canary`
@@ -452,6 +499,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 **Problem**: "Running as root without --no-sandbox is not supported"
 
 **Solutions:**
+
 1. Use `--browserUrl` with externally launched Chrome
 2. Disable MCP client sandboxing (if applicable)
 3. Add Chrome arg: `--chromeArg=--no-sandbox` (development only)
@@ -461,6 +509,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 **Problem**: "Timeout waiting for browser"
 
 **Solutions:**
+
 1. Increase timeout: Check MCP client settings
 2. Check system resources (RAM, CPU)
 3. Try headless mode: `--headless=true`
@@ -471,6 +520,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 **Problem**: "Network requests not captured"
 
 **Solutions:**
+
 1. Ensure `--categoryNetwork=true` (default)
 2. Wait for network idle: Use `wait_for` tool
 3. Check if page uses WebSockets or other protocols
@@ -481,6 +531,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 **Problem**: "No performance trace data"
 
 **Solutions:**
+
 1. Ensure `--categoryPerformance=true` (default)
 2. Stop trace before analyzing: `performance_stop_trace`
 3. Check trace duration (minimum ~100ms)
@@ -489,18 +540,21 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ## Security Considerations
 
 ### Data Privacy
+
 - **Browser content exposed** to MCP clients (inspection, modification)
 - **Avoid sensitive data** while server is running
 - **Use `--isolated` flag** for temporary profiles
 - **Clear profiles** regularly if using persistent mode
 
 ### Remote Debugging
+
 - **Port 9222 accessible** to any local application
 - **No authentication** on debugging port by default
 - **Only use locally** - never expose to network
 - **Non-default user-data-dir** required for security
 
 ### Credentials & Secrets
+
 - **Never hardcode credentials** in test scripts
 - **Use environment variables** for API keys
 - **Clear storage** after tests with sensitive data
@@ -509,9 +563,11 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 ## Integration Examples
 
 ### Playwright Alternative
+
 Chrome DevTools MCP can replace Playwright for many use cases:
 
 **Playwright:**
+
 ```javascript
 await page.goto('https://example.com');
 await page.click('button#submit');
@@ -519,6 +575,7 @@ await page.waitForNavigation();
 ```
 
 **Chrome DevTools MCP:**
+
 ```
 1. Navigate to https://example.com
 2. Click the submit button
@@ -526,9 +583,11 @@ await page.waitForNavigation();
 ```
 
 ### Cypress Alternative
+
 Similar functionality with AI-driven interactions:
 
 **Cypress:**
+
 ```javascript
 cy.visit('https://example.com')
 cy.get('input[name="email"]').type('test@example.com')
@@ -536,6 +595,7 @@ cy.get('button').contains('Submit').click()
 ```
 
 **Chrome DevTools MCP:**
+
 ```
 1. Navigate to https://example.com
 2. Fill the email input with test@example.com
@@ -543,6 +603,7 @@ cy.get('button').contains('Submit').click()
 ```
 
 ### Lighthouse Alternative
+
 Performance analysis similar to Lighthouse:
 
 ```
@@ -558,6 +619,7 @@ Provides Core Web Vitals and actionable recommendations.
 ## Advanced Use Cases
 
 ### Multi-Page Testing
+
 ```
 1. Create new page for login
 2. Navigate to /login
@@ -569,6 +631,7 @@ Provides Core Web Vitals and actionable recommendations.
 ```
 
 ### API Response Validation
+
 ```
 1. Navigate to page
 2. Wait for network idle
@@ -578,6 +641,7 @@ Provides Core Web Vitals and actionable recommendations.
 ```
 
 ### Progressive Enhancement Testing
+
 ```
 1. Navigate with JavaScript disabled: --chromeArg=--blink-settings=scriptEnabled=false
 2. Verify content renders
@@ -586,6 +650,7 @@ Provides Core Web Vitals and actionable recommendations.
 ```
 
 ### Accessibility Auditing
+
 ```
 1. Navigate to page
 2. Evaluate script: axe.run() (requires axe-core loaded)
@@ -596,6 +661,7 @@ Provides Core Web Vitals and actionable recommendations.
 ## Tool Combinations
 
 ### Complete E2E Test Flow
+
 ```
 navigate_page → fill_form → click → wait_for →
 list_console_messages → take_screenshot →
@@ -603,6 +669,7 @@ list_network_requests → evaluate_script
 ```
 
 ### Performance Optimization Workflow
+
 ```
 navigate_page → performance_start_trace →
 [user actions] → performance_stop_trace →
@@ -610,6 +677,7 @@ performance_analyze_insight → take_screenshot
 ```
 
 ### Debugging Workflow
+
 ```
 navigate_page → evaluate_script (inspect state) →
 list_console_messages → get_console_message →
@@ -619,40 +687,46 @@ take_snapshot
 
 ## Resources
 
-- **Official Docs**: https://github.com/ChromeDevTools/chrome-devtools-mcp
+- **Official Docs**: <https://github.com/ChromeDevTools/chrome-devtools-mcp>
 - **Tool Reference**: Check repo for detailed tool documentation
 - **Troubleshooting Guide**: See repo docs/troubleshooting.md
-- **Chrome DevTools Protocol**: https://chromedevtools.github.io/devtools-protocol/
+- **Chrome DevTools Protocol**: <https://chromedevtools.github.io/devtools-protocol/>
 
 ## Quick Reference
 
 ### Essential Test Prompt
+
 ```
 "Check the performance of https://developers.chrome.com"
 ```
+
 Validates setup by opening browser and recording performance trace.
 
 ### Common Tool Sequences
 
 **Performance Test:**
+
 ```
 navigate_page → performance_start_trace → wait_for →
 performance_stop_trace → performance_analyze_insight
 ```
 
 **Form Test:**
+
 ```
 navigate_page → fill_form → click → wait_for →
 list_console_messages → take_screenshot
 ```
 
 **Network Debug:**
+
 ```
 navigate_page → wait_for → list_network_requests →
 get_network_request → list_console_messages
 ```
 
 **Visual Test:**
+
 ```
 navigate_page → emulate → wait_for → take_screenshot →
 resize_page → take_screenshot
@@ -670,7 +744,7 @@ resize_page → take_screenshot
 ## Next Steps
 
 1. **Install the server**: Use Claude Code or manual configuration
-2. **Test basic functionality**: "Check the performance of https://example.com"
+2. **Test basic functionality**: "Check the performance of <https://example.com>"
 3. **Explore tools**: Try each category (input, navigation, performance, etc.)
 4. **Build test suites**: Create reusable test patterns
 5. **Integrate with CI/CD**: Add to automated pipelines

@@ -400,15 +400,10 @@ Align columns:
 ## What to Avoid
 
 ❌ **Canvas files** - Not portable, binary-ish JSON, no GitHub render. Use Mermaid.
-
 ❌ **Excessive wiki links in READMEs** - GitHub shows ugly `[[raw text]]`.
-
 ❌ **Dataview in user-facing docs** - Requires plugin, no GitHub render.
-
 ❌ **Block references** - `^block-id` syntax has no graceful degradation.
-
 ❌ **Deeply nested tags** - `#docs/api/rest/v2/auth` is unmaintainable. Max 2-3 levels.
-
 ❌ **Embeds in portable docs** - `![[note]]` shows raw text on GitHub.
 
 ## Vault Structure for Repos

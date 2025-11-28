@@ -442,7 +442,7 @@ def test_security_headers():
     assert headers["X-Content-Type-Options"] == "nosniff"
 ```
 
-## Walmart-Specific
+## Enterprise-Specific
 
 ### Test Case: Secrets Scanner Compliance
 ```bash
