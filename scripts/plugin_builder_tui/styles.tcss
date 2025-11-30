@@ -1,0 +1,320 @@
+/* Plugin Builder TUI Styles */
+
+/* Color scheme matching original CLI colors */
+$primary: #5fafff;
+$secondary: #87d7ff;
+$success: #87d787;
+$warning: #d7d75f;
+$error: #ff5f5f;
+$muted: #808080;
+
+/* Base screen styling */
+Screen {
+    background: $surface;
+}
+
+/* Header bar */
+#header {
+    dock: top;
+    height: 3;
+    background: $primary 20%;
+    border-bottom: solid $primary;
+    padding: 0 2;
+}
+
+#header-title {
+    content-align: center middle;
+    text-style: bold;
+    color: $primary;
+}
+
+#header-shortcuts {
+    dock: right;
+    width: auto;
+    padding-right: 1;
+    color: $muted;
+}
+
+/* Footer with keybindings */
+Footer {
+    background: $surface-darken-1;
+}
+
+/* Navigation sidebar */
+#nav {
+    width: 30;
+    background: $surface-darken-1;
+    border-right: solid $primary 30%;
+    padding: 1;
+}
+
+.nav-item {
+    padding: 0 1;
+    margin: 0 0 1 0;
+    height: 3;
+    content-align: left middle;
+}
+
+.nav-item:hover {
+    background: $primary 20%;
+}
+
+.nav-item:focus {
+    background: $primary 30%;
+    text-style: bold;
+}
+
+.nav-item .key {
+    color: $primary;
+    text-style: bold;
+    margin-right: 1;
+}
+
+/* Main content area */
+#content {
+    padding: 1 2;
+}
+
+/* Dashboard stat cards */
+.stat-card {
+    height: 5;
+    border: round $primary 50%;
+    padding: 0 2;
+    margin: 0 1 1 0;
+}
+
+.stat-card:focus {
+    border: round $primary;
+}
+
+.stat-value {
+    text-style: bold;
+    color: $success;
+}
+
+.stat-label {
+    color: $muted;
+}
+
+/* Health panel */
+#health-panel {
+    border: round $warning 50%;
+    padding: 1;
+    margin-top: 1;
+}
+
+#health-panel.healthy {
+    border: round $success 50%;
+}
+
+#health-panel.unhealthy {
+    border: round $error 50%;
+}
+
+/* Data tables */
+DataTable {
+    height: 100%;
+}
+
+DataTable > .datatable--header {
+    background: $primary 20%;
+    text-style: bold;
+}
+
+DataTable > .datatable--cursor {
+    background: $primary 40%;
+}
+
+/* Tabs */
+TabbedContent {
+    height: 100%;
+}
+
+Tabs {
+    background: $surface-darken-1;
+}
+
+Tab {
+    padding: 0 2;
+}
+
+Tab:focus {
+    text-style: bold underline;
+}
+
+Tab.-active {
+    color: $primary;
+    text-style: bold;
+}
+
+TabPane {
+    padding: 1;
+}
+
+/* Search/filter input */
+.filter-input {
+    dock: top;
+    height: 3;
+    margin-bottom: 1;
+    border: round $muted;
+}
+
+.filter-input:focus {
+    border: round $primary;
+}
+
+/* Two-pane layout for plugins screen */
+#left-pane {
+    width: 1fr;
+    border-right: solid $muted 30%;
+    padding-right: 1;
+}
+
+#right-pane {
+    width: 2fr;
+    padding-left: 1;
+}
+
+/* Tree view for plugin contents */
+Tree {
+    padding: 1;
+}
+
+Tree > .tree--cursor {
+    background: $primary 30%;
+}
+
+Tree > .tree--guides {
+    color: $muted;
+}
+
+/* Search overlay */
+#search-overlay {
+    align: center middle;
+    width: 60%;
+    height: auto;
+    max-height: 80%;
+    border: round $primary;
+    background: $surface;
+    padding: 1 2;
+}
+
+#search-input {
+    margin-bottom: 1;
+}
+
+#search-results {
+    height: auto;
+    max-height: 20;
+    border: round $muted 30%;
+}
+
+/* Help overlay */
+#help-overlay {
+    align: center middle;
+    width: 50%;
+    height: auto;
+    border: round $primary;
+    background: $surface;
+    padding: 2;
+}
+
+.help-section {
+    margin-bottom: 1;
+}
+
+.help-title {
+    text-style: bold;
+    color: $primary;
+    margin-bottom: 1;
+}
+
+.help-key {
+    color: $primary;
+    text-style: bold;
+    width: 15;
+}
+
+.help-desc {
+    color: $text;
+}
+
+/* Confirmation dialog */
+#confirm-dialog {
+    align: center middle;
+    width: 40;
+    height: auto;
+    border: round $warning;
+    background: $surface;
+    padding: 2;
+}
+
+/* Toast notifications */
+Toast {
+    margin: 1 2;
+}
+
+/* Plugin list item */
+.plugin-item {
+    height: 3;
+    padding: 0 1;
+}
+
+.plugin-item:hover {
+    background: $primary 15%;
+}
+
+.plugin-item:focus {
+    background: $primary 25%;
+}
+
+.plugin-name {
+    text-style: bold;
+}
+
+.plugin-count {
+    color: $muted;
+    margin-left: 1;
+}
+
+/* Asset list item */
+.asset-item {
+    height: 2;
+}
+
+.asset-name {
+    color: $secondary;
+}
+
+.asset-desc {
+    color: $muted;
+}
+
+.asset-type {
+    color: $muted;
+    text-style: italic;
+}
+
+/* Empty state */
+.empty-state {
+    content-align: center middle;
+    height: 100%;
+    color: $muted;
+}
+
+/* Action buttons */
+Button {
+    margin: 0 1;
+}
+
+Button.primary {
+    background: $primary;
+}
+
+Button.danger {
+    background: $error;
+}
+
+Button.success {
+    background: $success;
+}
