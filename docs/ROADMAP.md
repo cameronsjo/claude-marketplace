@@ -14,11 +14,11 @@
 
 | Item | Status | Impact | Effort | Details |
 |------|--------|--------|--------|---------|
-| Deep MCP integration for obsidian-pkm | `idea` | High | Medium | Create references/mcp-integration.md with comprehensive tool docs, workflow recipes (bulk-tag-update, frontmatter-migration, orphan-cleanup, link-consistency, vault-health-audit), update agents to use MCP tools |
-| Plugin ecosystem references for obsidian-pkm | `idea` | High | Medium | Add Templater, QuickAdd, Tasks plugin, Periodic Notes references with scripting patterns and query syntax |
-| PKM workflow documentation | `idea` | High | Medium | Daily review, weekly planning, capture-inbox, research workflow, project management patterns |
-| Visual PKM features for obsidian-pkm | `idea` | Medium | Medium | Canvas API docs, Excalidraw Automate patterns, graph view optimization guide |
-| Properties/metadata schema guide | `idea` | Medium | Small | Standard property sets for note types, fileClasses, Metadata Menu integration |
+| Deep MCP integration for obsidian-pkm | `done` | High | Medium | Created references/mcp-integration.md + 5 MCP recipes (bulk-tag-update, frontmatter-migration, orphan-cleanup, link-consistency, vault-health-audit) |
+| Plugin ecosystem references for obsidian-pkm | `done` | High | Medium | Added Templater, QuickAdd, Tasks plugin, Periodic Notes references |
+| PKM workflow documentation | `done` | High | Medium | Added daily-review, weekly-planning, capture-inbox, project-management workflows |
+| Visual PKM features for obsidian-pkm | `done` | Medium | Medium | Added Canvas, Excalidraw, Graph View references |
+| Properties/metadata schema guide | `done` | Medium | Small | Added properties-schema.md with schemas, validation, migration patterns |
 
 ## Research
 

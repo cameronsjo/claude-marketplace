@@ -1,9 +1,71 @@
 ---
 name: obsidian-markdown
-description: Write markdown files for Obsidian vaults optimized for GitHub compatibility and project documentation. Prioritizes portable syntax (GFM-compatible), structured frontmatter, linking patterns, and Mermaid diagrams. Use when creating documentation, knowledge bases, or notes intended to live in git repos alongside code. Triggers on requests for Obsidian notes, project docs, PKM content, or repo documentation.
+description: Comprehensive Obsidian PKM skill covering markdown syntax, MCP integration, plugin ecosystem (Templater, QuickAdd, Tasks, Periodic Notes), workflows (daily review, weekly planning, capture, project management), visual tools (Canvas, Excalidraw, Graph), and metadata schemas. Triggers on Obsidian notes, PKM workflows, vault operations, or plugin configuration.
 ---
 
-# Obsidian Markdown Skill
+# Obsidian PKM Skill
+
+Comprehensive personal knowledge management with Obsidian. This skill covers markdown syntax, MCP-powered vault operations, plugin ecosystem, workflows, and visual tools.
+
+## Skill Contents
+
+### References
+
+| Reference | Description |
+|-----------|-------------|
+| `references/mcp-integration.md` | Deep MCP tool documentation and patterns |
+| `references/templater.md` | Dynamic templates with JavaScript |
+| `references/quickadd.md` | Workflow automation and macros |
+| `references/tasks-plugin.md` | Task management with queries |
+| `references/periodic-notes.md` | Daily, weekly, monthly notes |
+| `references/canvas.md` | Infinite canvas and JSON format |
+| `references/excalidraw.md` | Visual thinking and diagrams |
+| `references/graph-view.md` | Knowledge graph visualization |
+| `references/properties-schema.md` | Metadata design and validation |
+| `references/dataview.md` | Query language reference |
+| `references/bases.md` | Native database views |
+| `references/mcp-server.md` | MCP server setup guide |
+
+### Workflows
+
+| Workflow | Description |
+|----------|-------------|
+| `workflows/daily-review.md` | Morning and evening routines |
+| `workflows/weekly-planning.md` | Weekly review and planning |
+| `workflows/capture-inbox.md` | Quick capture and processing |
+| `workflows/project-management.md` | Project tracking in Obsidian |
+
+### Recipes (MCP-Powered)
+
+| Recipe | Description |
+|--------|-------------|
+| `recipes/bulk-tag-update.md` | Batch tag operations |
+| `recipes/frontmatter-migration.md` | Property schema updates |
+| `recipes/vault-health-audit.md` | Comprehensive vault analysis |
+| `recipes/orphan-cleanup.md` | Find and resolve orphan notes |
+| `recipes/link-consistency.md` | Link validation and fixes |
+
+## Quick Start
+
+### For Documentation (GitHub-compatible)
+
+Use GFM-compatible syntax. See main content below.
+
+### For PKM Workflows
+
+See `workflows/` for daily review, weekly planning, capture, and project management patterns.
+
+### For Vault Operations (MCP)
+
+See `references/mcp-integration.md` and `recipes/` for programmatic vault operations.
+
+### For Plugin Setup
+
+See `references/templater.md`, `references/quickadd.md`, `references/tasks-plugin.md`, `references/periodic-notes.md`.
+
+---
+
+## Markdown Fundamentals
 
 Create markdown for Obsidian vaults that renders cleanly in both Obsidian and GitHub. Prioritize portability, structured metadata, and documentation that lives alongside code.
 
