@@ -92,7 +92,7 @@ class AddAssetModal(ModalScreen[tuple[str, AssetType] | None]):
         super().__init__(**kwargs)
         self.plugin = plugin
         self.builder = builder
-        self.current_type = AssetType.COMMANDS
+        self.current_type = AssetType.COMMAND
         self.selected_asset: str | None = None
 
     def compose(self) -> ComposeResult:
@@ -115,7 +115,7 @@ class AddAssetModal(ModalScreen[tuple[str, AssetType] | None]):
 
     def on_mount(self) -> None:
         """Load initial assets."""
-        self._load_assets(AssetType.COMMANDS)
+        self._load_assets(AssetType.COMMAND)
 
     def _load_assets(self, asset_type: AssetType) -> None:
         """Load available assets for the given type."""
@@ -123,9 +123,9 @@ class AddAssetModal(ModalScreen[tuple[str, AssetType] | None]):
 
         # Update button styles
         for btn_id, btn_type in [
-            ("btn-commands", AssetType.COMMANDS),
-            ("btn-agents", AssetType.AGENTS),
-            ("btn-skills", AssetType.SKILLS),
+            ("btn-commands", AssetType.COMMAND),
+            ("btn-agents", AssetType.AGENT),
+            ("btn-skills", AssetType.SKILL),
         ]:
             btn = self.query_one(f"#{btn_id}", Button)
             btn.variant = "primary" if btn_type == asset_type else "default"
@@ -152,11 +152,11 @@ class AddAssetModal(ModalScreen[tuple[str, AssetType] | None]):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button presses."""
         if event.button.id == "btn-commands":
-            self._load_assets(AssetType.COMMANDS)
+            self._load_assets(AssetType.COMMAND)
         elif event.button.id == "btn-agents":
-            self._load_assets(AssetType.AGENTS)
+            self._load_assets(AssetType.AGENT)
         elif event.button.id == "btn-skills":
-            self._load_assets(AssetType.SKILLS)
+            self._load_assets(AssetType.SKILL)
         elif event.button.id == "btn-cancel":
             self.dismiss(None)
         elif event.button.id == "btn-add":
