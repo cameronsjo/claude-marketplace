@@ -10,7 +10,7 @@ from textual.screen import Screen
 from textual.widgets import Button, Input, Label, ListItem, ListView, Static, Tree
 from textual.widgets.tree import TreeNode
 
-from plugin_builder_tui.builder import AssetType, Plugin, PluginBuilder
+from ..builder import AssetType, Plugin, PluginBuilder
 
 
 class PluginListItem(ListItem):

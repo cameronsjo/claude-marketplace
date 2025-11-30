@@ -2,7 +2,7 @@
 Plugin Builder TUI - Modern terminal interface for Claude Code marketplace management.
 """
 
-from plugin_builder_tui.builder import (
+from .builder import (
     Asset,
     AssetType,
     Plugin,
@@ -21,6 +21,6 @@ __all__ = [
 
 def get_app():
     """Lazy import of PluginBuilderApp to avoid requiring textual for CLI."""
-    from plugin_builder_tui.app import PluginBuilderApp
+    from .app import PluginBuilderApp
 
     return PluginBuilderApp

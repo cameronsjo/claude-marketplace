@@ -9,7 +9,7 @@ from textual.containers import Container, Horizontal, Vertical
 from textual.screen import Screen
 from textual.widgets import Label, Static
 
-from plugin_builder_tui.builder import PluginBuilder
+from ..builder import PluginBuilder
 
 
 class StatCard(Static):

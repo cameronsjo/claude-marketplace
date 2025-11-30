@@ -7,7 +7,7 @@ from textual.containers import Container, Vertical
 from textual.screen import Screen
 from textual.widgets import DataTable, Input, Label, TabbedContent, TabPane
 
-from plugin_builder_tui.builder import AssetType, PluginBuilder
+from ..builder import AssetType, PluginBuilder
 
 
 class AssetsScreen(Screen):

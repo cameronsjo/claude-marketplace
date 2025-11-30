@@ -7,7 +7,7 @@ from textual.containers import Container, Vertical
 from textual.screen import ModalScreen
 from textual.widgets import Input, Label, ListItem, ListView, Static
 
-from plugin_builder_tui.builder import Asset, PluginBuilder
+from ..builder import Asset, PluginBuilder
 
 
 class SearchResultItem(ListItem):

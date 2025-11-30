@@ -9,12 +9,12 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.widgets import Footer, Header
 
-from plugin_builder_tui.builder import PluginBuilder
-from plugin_builder_tui.screens.assets import AssetsScreen
-from plugin_builder_tui.screens.dashboard import DashboardScreen
-from plugin_builder_tui.screens.help import HelpScreen
-from plugin_builder_tui.screens.plugins import PluginsScreen
-from plugin_builder_tui.screens.search import SearchScreen
+from .builder import PluginBuilder
+from .screens.assets import AssetsScreen
+from .screens.dashboard import DashboardScreen
+from .screens.help import HelpScreen
+from .screens.plugins import PluginsScreen
+from .screens.search import SearchScreen
 
 
 class PluginBuilderApp(App):
@@ -75,12 +75,13 @@ class PluginBuilderApp(App):
 
     def _switch_main_screen(self, screen_name: str) -> None:
         """Switch to a main screen, closing any overlays first."""
-        # Close any modal overlays
+        # Close any modal overlays first
         while len(self.screen_stack) > 1:
             self.pop_screen()
-        # Switch to the new screen
+        # Replace the current main screen with the new one
         if self._current_main_screen != screen_name:
-            self.switch_screen(screen_name)
+            self.pop_screen()
+            self.push_screen(screen_name)
             self._current_main_screen = screen_name
 
     def action_dashboard(self) -> None:
