@@ -135,6 +135,15 @@
       "category": "development",
       "tags": ["obsidian", "plugin", "typescript", "brat", "release-please", "github-actions"],
       "strict": true
+    },
+    {
+      "name": "marketplace-meta",
+      "source": "./plugins/marketplace-meta",
+      "description": "Meta plugin for marketplace development: analyze plugins, suggest improvements, detect gaps, curate compositions",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["marketplace", "meta", "plugins", "curator", "analysis", "feedback"],
+      "strict": true
     }
   ]
 }
