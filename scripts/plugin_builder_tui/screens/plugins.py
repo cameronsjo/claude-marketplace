@@ -41,12 +41,24 @@ class PluginListItem(ListItem):
 
 
 class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
-    """Modal for adding assets to a plugin with multiselect."""
+    """Modal for adding assets to a plugin with multiselect and preset groups."""
+
+    # Predefined asset groups (presets)
+    PRESETS: dict[str, list[str]] = {
+        "roadmap": ["roadmap", "roadmap.add", "roadmap.archive", "roadmap.dependencies",
+                    "roadmap.metrics", "roadmap.spec", "roadmap.suggest"],
+        "pr-workflow": ["pr.fix", "pr.review", "ready"],
+        "code-review": ["review.api", "review.architecture", "review.code", "review.security"],
+        "pam": ["pam.init", "pam.add-feature", "pam.continue", "pam.progress"],
+        "setup": ["setup-auto-translate", "setup-labels", "setup-spec-kit"],
+        "productivity": ["commit", "check", "clean", "catchup", "context-prime"],
+    }
 
     BINDINGS = [
         ("escape", "cancel", "Cancel"),
         ("space", "toggle", "Toggle"),
         ("a", "select_all", "Select All"),
+        ("c", "clear_all", "Clear All"),
     ]
 
     CSS = """
@@ -55,9 +67,9 @@ class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
     }
 
     AddAssetModal > #add-asset-dialog {
-        width: 70;
+        width: 80;
         height: auto;
-        max-height: 85%;
+        max-height: 90%;
         border: round #5fafff;
         background: $background;
         padding: 1 2;
@@ -68,8 +80,13 @@ class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
         margin-bottom: 1;
     }
 
+    AddAssetModal #preset-tabs {
+        height: 3;
+        margin-bottom: 1;
+    }
+
     AddAssetModal #available-assets {
-        height: 22;
+        height: 25;
         border: round #808080 30%;
         margin-bottom: 1;
     }
@@ -93,6 +110,10 @@ class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
     AddAssetModal Button {
         margin: 0 1;
     }
+
+    AddAssetModal .preset-btn {
+        min-width: 12;
+    }
     """
 
     def __init__(
@@ -105,18 +126,23 @@ class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
         self.plugin = plugin
         self.builder = builder
         self.current_type = AssetType.COMMAND
-        self.selected_assets: list[tuple[str, AssetType]] = []
+        self.available_assets: list = []
+        self.groups: dict[str, list] = {}
 
     def compose(self) -> ComposeResult:
         with Container(id="add-asset-dialog"):
             yield Label(f"Add Assets to [bold]{self.plugin.name}[/]", classes="modal-title")
-            yield Label("[dim]Space to toggle, A to select all[/]", classes="selection-hint")
+            yield Label("[dim]Space=toggle, A=all, C=clear | Click preset to select group[/]", classes="selection-hint")
 
             # Type selector buttons
             with Horizontal(id="asset-type-tabs"):
                 yield Button("Commands", id="btn-commands", variant="primary")
                 yield Button("Agents", id="btn-agents")
                 yield Button("Skills", id="btn-skills")
+
+            # Preset group buttons (populated dynamically)
+            with Horizontal(id="preset-tabs"):
+                pass  # Will be populated in _load_assets
 
             # Available assets list with multiselect
             yield SelectionList[str](id="available-assets")
@@ -147,57 +173,81 @@ class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
         # Get assets not already in the plugin
         all_assets = self.builder.get_registry_assets(asset_type)
         existing = set(getattr(self.plugin, asset_type.value, []))
-        available = [a for a in all_assets if a.name not in existing]
+        self.available_assets = [a for a in all_assets if a.name not in existing]
 
         # Update modal title with count
         title = self.query_one(".modal-title", Label)
         title.update(
             f"Add {asset_type.value.title()} to [bold]{self.plugin.name}[/] "
-            f"[dim]({len(available)} available)[/]"
+            f"[dim]({len(self.available_assets)} available)[/]"
         )
 
         # Group assets by prefix (e.g., roadmap.*, pr.*, review.*)
-        groups: dict[str, list] = {}
+        self.groups = {}
         ungrouped = []
-        for asset in available:
+        available_names = {a.name for a in self.available_assets}
+
+        for asset in self.available_assets:
             if "." in asset.name:
                 prefix = asset.name.split(".")[0]
-                if prefix not in groups:
-                    groups[prefix] = []
-                groups[prefix].append(asset)
+                if prefix not in self.groups:
+                    self.groups[prefix] = []
+                self.groups[prefix].append(asset)
             elif "-" in asset.name:
                 prefix = asset.name.split("-")[0]
-                # Only group if we have 2+ with same prefix
-                if prefix not in groups:
-                    groups[prefix] = []
-                groups[prefix].append(asset)
+                if prefix not in self.groups:
+                    self.groups[prefix] = []
+                self.groups[prefix].append(asset)
             else:
                 ungrouped.append(asset)
 
         # Move single-item groups to ungrouped
-        for prefix in list(groups.keys()):
-            if len(groups[prefix]) < 2:
-                ungrouped.extend(groups[prefix])
-                del groups[prefix]
+        for prefix in list(self.groups.keys()):
+            if len(self.groups[prefix]) < 2:
+                ungrouped.extend(self.groups[prefix])
+                del self.groups[prefix]
+
+        # Update preset buttons based on available groups
+        preset_container = self.query_one("#preset-tabs", Horizontal)
+        preset_container.remove_children()
+
+        # Add preset buttons for groups that have available assets
+        for group_name in sorted(self.groups.keys()):
+            count = len(self.groups[group_name])
+            btn = Button(f"{group_name} ({count})", id=f"preset-{group_name}", classes="preset-btn")
+            preset_container.mount(btn)
 
         # Update selection list
         selection_list = self.query_one("#available-assets", SelectionList)
         selection_list.clear_options()
 
-        if not available:
-            pass
-        else:
+        if self.available_assets:
             # Add grouped items first
-            for prefix in sorted(groups.keys()):
-                items = sorted(groups[prefix], key=lambda a: a.name)
+            for prefix in sorted(self.groups.keys()):
+                items = sorted(self.groups[prefix], key=lambda a: a.name)
                 for asset in items:
-                    desc = f" - {asset.description[:30]}..." if asset.description else ""
+                    desc = f" - {asset.description[:28]}..." if asset.description else ""
                     selection_list.add_option((f"[cyan]{prefix}[/] {asset.name}{desc}", asset.name))
 
             # Add ungrouped items
             for asset in sorted(ungrouped, key=lambda a: a.name):
-                desc = f" - {asset.description[:35]}..." if asset.description else ""
+                desc = f" - {asset.description[:32]}..." if asset.description else ""
                 selection_list.add_option((f"{asset.name}{desc}", asset.name))
+
+        self._update_add_button()
+
+    def _select_group(self, group_name: str) -> None:
+        """Select all assets in a group."""
+        if group_name not in self.groups:
+            return
+
+        selection_list = self.query_one("#available-assets", SelectionList)
+        group_assets = {a.name for a in self.groups[group_name]}
+
+        # Select all items in the group
+        for i, option in enumerate(selection_list._options):
+            if option.value in group_assets:
+                selection_list.select(option.value)
 
         self._update_add_button()
 
@@ -219,19 +269,24 @@ class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button presses."""
-        if event.button.id == "btn-commands":
+        btn_id = event.button.id or ""
+
+        if btn_id == "btn-commands":
             self._load_assets(AssetType.COMMAND)
-        elif event.button.id == "btn-agents":
+        elif btn_id == "btn-agents":
             self._load_assets(AssetType.AGENT)
-        elif event.button.id == "btn-skills":
+        elif btn_id == "btn-skills":
             self._load_assets(AssetType.SKILL)
-        elif event.button.id == "btn-cancel":
+        elif btn_id == "btn-cancel":
             self.dismiss(None)
-        elif event.button.id == "btn-add":
+        elif btn_id == "btn-add":
             selection_list = self.query_one("#available-assets", SelectionList)
             selected = [(str(v), self.current_type) for v in selection_list.selected]
             if selected:
                 self.dismiss(selected)
+        elif btn_id.startswith("preset-"):
+            group_name = btn_id[7:]  # Remove "preset-" prefix
+            self._select_group(group_name)
 
     def action_cancel(self) -> None:
         """Cancel the modal."""
@@ -241,6 +296,12 @@ class AddAssetModal(ModalScreen[list[tuple[str, AssetType]] | None]):
         """Select all available assets."""
         selection_list = self.query_one("#available-assets", SelectionList)
         selection_list.select_all()
+        self._update_add_button()
+
+    def action_clear_all(self) -> None:
+        """Clear all selections."""
+        selection_list = self.query_one("#available-assets", SelectionList)
+        selection_list.deselect_all()
         self._update_add_button()
 
 

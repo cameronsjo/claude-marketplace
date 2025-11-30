@@ -1,0 +1,1 @@
+../../../registry/commands/doc-to-reference.md
