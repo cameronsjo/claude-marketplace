@@ -2,12 +2,19 @@
 Main Textual App for Plugin Builder TUI.
 """
 
+import sys
 from pathlib import Path
 from typing import Optional
+
+# Restore standard exception hook before importing textual/rich
+_original_excepthook = sys.excepthook
 
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.widgets import Footer, Header
+
+# Restore plain tracebacks (rich installs a fancy one on import)
+sys.excepthook = _original_excepthook
 
 from .builder import PluginBuilder
 from .screens.assets import AssetsScreen

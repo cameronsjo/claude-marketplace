@@ -77,6 +77,18 @@ class Colors:
         cls.RESET = ""
 
 
+# Plain output mode - no colors, no fancy characters
+_plain_mode = False
+
+
+def set_plain_mode(enabled: bool) -> None:
+    """Enable plain output mode for token-efficient, copy-paste friendly output."""
+    global _plain_mode
+    _plain_mode = enabled
+    if enabled:
+        Colors.disable()
+
+
 # ============================================================================
 # CLI Commands
 # ============================================================================
@@ -88,9 +100,23 @@ def cmd_dashboard(args: argparse.Namespace, builder: PluginBuilder) -> None:
     orphans = builder.get_orphans()
     shared = builder.get_shared_assets()
     plugins = builder.get_plugins()
+    valid, issues = builder.validate()
 
     c = Colors
 
+    if _plain_mode:
+        # Plain text output - token efficient, copy-paste friendly
+        print("MARKETPLACE DASHBOARD")
+        print(f"Registry: {stats['commands']} commands, {stats['agents']} agents, {stats['skills']} skills ({stats['total_assets']} total, {stats['total_size_kb']} KB)")
+        print(f"Plugins: {len(plugins)}")
+        for p in plugins:
+            print(f"  {p.name}: C:{len(p.commands)} A:{len(p.agents)} S:{len(p.skills)}")
+        print(f"Orphans: {len(orphans)}")
+        print(f"Shared: {len(shared)}")
+        print(f"Symlinks: {'OK' if valid else 'ISSUES'}")
+        return
+
+    # Pretty output
     print(
         f"\n{c.BOLD}{c.CYAN}╔══════════════════════════════════════════════════════════════╗{c.RESET}"
     )
@@ -140,7 +166,6 @@ def cmd_dashboard(args: argparse.Namespace, builder: PluginBuilder) -> None:
         print(f"   Shared assets: {c.DIM}0{c.RESET}")
 
     # Validation
-    valid, issues = builder.validate()
     status = f"{c.GREEN}HEALTHY{c.RESET}" if valid else f"{c.RED}ISSUES FOUND{c.RESET}"
     print(f"   Symlinks: {status}")
 
@@ -157,6 +182,15 @@ def cmd_list(args: argparse.Namespace, builder: PluginBuilder) -> None:
 
     if not assets:
         print("No assets in registry")
+        return
+
+    if _plain_mode:
+        current_type = None
+        for asset in assets:
+            if asset.asset_type != current_type:
+                current_type = asset.asset_type
+                print(f"\n{current_type.value.upper()}:")
+            print(f"  {asset.name}")
         return
 
     current_type = None
@@ -176,6 +210,18 @@ def cmd_list_plugins(args: argparse.Namespace, builder: PluginBuilder) -> None:
 
     if not plugins:
         print("No plugins found")
+        return
+
+    if _plain_mode:
+        for plugin in plugins:
+            parts = [plugin.name]
+            if plugin.commands:
+                parts.append(f"commands:{','.join(plugin.commands)}")
+            if plugin.agents:
+                parts.append(f"agents:{','.join(plugin.agents)}")
+            if plugin.skills:
+                parts.append(f"skills:{','.join(plugin.skills)}")
+            print(" | ".join(parts))
         return
 
     for plugin in plugins:
