@@ -1,1 +1,0 @@
-../../../registry/commands/review.pr.md

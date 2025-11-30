@@ -10,15 +10,15 @@ Multi-perspective pull request reviews and automation.
 
 ## Commands
 
-### `/review.pr`
+### `/pr.review`
 
 Conduct comprehensive PR review from multiple perspectives (PM, Developer, QA, Security).
 
 **Usage:**
 ```bash
-/review.pr
-/review.pr 123          # Review PR #123
-/review.pr https://...  # Review PR by URL
+/pr.review
+/pr.review 123          # Review PR #123
+/pr.review https://...  # Review PR by URL
 ```
 
 **Perspectives:**
@@ -27,13 +27,13 @@ Conduct comprehensive PR review from multiple perspectives (PM, Developer, QA, S
 - **QA**: Test coverage, edge cases, regression risks
 - **Security**: Vulnerabilities, auth, data exposure
 
-### `/review.pr-fix`
+### `/pr.fix`
 
 Fix issues identified in a PR review manifest.
 
 **Usage:**
 ```bash
-/review.pr-fix 123
+/pr.fix 123
 ```
 
 ### `/setup-labels`
@@ -57,10 +57,10 @@ Creates standard labels:
 
 ```bash
 # Review current branch's PR
-/review.pr
+/pr.review
 
 # Review specific PR
-/review.pr 42
+/pr.review 42
 ```
 
 ### Setup Repository Labels
@@ -72,8 +72,8 @@ Creates standard labels:
 ### Fix PR Issues
 
 ```bash
-# After /review.pr identifies issues
-/review.pr-fix 42
+# After /pr.review identifies issues
+/pr.fix 42
 ```
 
 ## Works Well With
