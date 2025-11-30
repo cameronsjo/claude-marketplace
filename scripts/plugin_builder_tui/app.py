@@ -75,13 +75,12 @@ class PluginBuilderApp(App):
 
     def _switch_main_screen(self, screen_name: str) -> None:
         """Switch to a main screen, closing any overlays first."""
-        # Close any modal overlays first
+        # Close any modal overlays first (keep at least 1 screen)
         while len(self.screen_stack) > 1:
             self.pop_screen()
         # Replace the current main screen with the new one
         if self._current_main_screen != screen_name:
-            self.pop_screen()
-            self.push_screen(screen_name)
+            self.switch_screen(screen_name)
             self._current_main_screen = screen_name
 
     def action_dashboard(self) -> None:
