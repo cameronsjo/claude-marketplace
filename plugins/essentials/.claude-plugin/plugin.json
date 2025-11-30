@@ -1,0 +1,10 @@
+{
+  "name": "essentials",
+  "description": "Cameron's Development Essentials - hooks and enhancements for daily workflows",
+  "version": "1.0.0",
+  "author": {
+    "name": "Cameron Sjo"
+  },
+  "keywords": ["hooks", "research", "productivity", "deep-dive"],
+  "category": "productivity"
+}
