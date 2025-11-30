@@ -25,6 +25,7 @@ Commands:
     delete          Delete an asset from registry
     build           Build/rebuild plugin symlinks
     validate        Validate all plugins and symlinks
+    repair          Fix or remove broken symlinks
     export          Export plugin/registry as JSON
     sync            Sync assets from external directory
 """
@@ -389,6 +390,91 @@ def cmd_validate(args: argparse.Namespace, builder: PluginBuilder) -> None:
     sys.exit(0 if valid else 1)
 
 
+def cmd_repair(args: argparse.Namespace, builder: PluginBuilder) -> None:
+    """Repair broken symlinks."""
+    import os
+
+    valid, issues = builder.validate()
+
+    if not issues:
+        print(f"{Colors.GREEN}No issues to repair{Colors.RESET}")
+        return
+
+    broken_count = 0
+    fixed_count = 0
+    removed_count = 0
+
+    for issue in issues:
+        if issue.issue_type != "broken":
+            continue
+
+        broken_count += 1
+        path = Path(issue.path)
+
+        if not path.is_symlink():
+            continue
+
+        # Try to determine what the symlink was pointing to
+        try:
+            target = os.readlink(path)
+            target_name = Path(target).name
+
+            # Extract asset type from path
+            asset_type_name = path.parent.name  # e.g., "skills", "commands", "agents"
+
+            # Look for matching asset in registry
+            registry_path = builder.registry_dir / asset_type_name
+
+            # Try to find matching asset
+            matched_asset = None
+            if registry_path.exists():
+                # Check for exact match
+                potential_paths = [
+                    registry_path / target_name,
+                    registry_path / f"{target_name}.md" if not target_name.endswith(".md") else None,
+                    registry_path / target_name.replace(".md", "") if target_name.endswith(".md") else None,
+                ]
+                for p in potential_paths:
+                    if p and p.exists():
+                        matched_asset = p
+                        break
+
+            if matched_asset and not args.remove_only:
+                # Re-create the symlink
+                if args.dry_run:
+                    print(f"  Would fix: {path}")
+                    print(f"    -> {matched_asset}")
+                else:
+                    path.unlink()
+                    rel_path = os.path.relpath(matched_asset, path.parent)
+                    os.symlink(rel_path, path)
+                    print(f"{Colors.GREEN}Fixed{Colors.RESET}: {path}")
+                    print(f"    -> {matched_asset}")
+                fixed_count += 1
+            else:
+                # Remove broken symlink
+                if args.dry_run:
+                    print(f"  Would remove: {path}")
+                else:
+                    path.unlink()
+                    print(f"{Colors.YELLOW}Removed{Colors.RESET}: {path}")
+                removed_count += 1
+
+        except Exception as e:
+            print(f"{Colors.RED}Error processing {path}: {e}{Colors.RESET}")
+
+    print()
+    if args.dry_run:
+        print(f"{Colors.CYAN}Dry run complete{Colors.RESET}")
+        print(f"  Would fix: {fixed_count}")
+        print(f"  Would remove: {removed_count}")
+    else:
+        print(f"{Colors.GREEN}Repair complete{Colors.RESET}")
+        print(f"  Broken: {broken_count}")
+        print(f"  Fixed: {fixed_count}")
+        print(f"  Removed: {removed_count}")
+
+
 def cmd_rebuild(args: argparse.Namespace, builder: PluginBuilder) -> None:
     """Rebuild symlinks."""
     import os
@@ -569,6 +655,15 @@ Examples:
     # validate
     subparsers.add_parser("validate", help="Validate all plugins")
 
+    # repair
+    repair_parser = subparsers.add_parser("repair", help="Repair broken symlinks")
+    repair_parser.add_argument(
+        "--dry-run", action="store_true", help="Preview changes without applying"
+    )
+    repair_parser.add_argument(
+        "--remove-only", action="store_true", help="Only remove broken symlinks, don't try to fix"
+    )
+
     # rebuild
     rebuild_parser = subparsers.add_parser("rebuild", help="Rebuild symlinks")
     rebuild_parser.add_argument("--plugin", "-p", help="Specific plugin")
@@ -614,6 +709,7 @@ Examples:
         "delete": cmd_delete,
         "rm": cmd_delete,
         "validate": cmd_validate,
+        "repair": cmd_repair,
         "rebuild": cmd_rebuild,
         "export": cmd_export,
         "sync": cmd_sync,

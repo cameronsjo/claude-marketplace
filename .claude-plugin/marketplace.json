@@ -144,6 +144,15 @@
       "category": "development",
       "tags": ["marketplace", "meta", "plugins", "curator", "analysis", "feedback"],
       "strict": true
+    },
+    {
+      "name": "claude-code-web",
+      "source": "./plugins/claude-code-web",
+      "description": "Configure repositories for Claude Code on the web: SessionStart hooks, environment setup, cloud execution",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["cloud", "web", "hooks", "session", "remote", "environment", "claude-code"],
+      "strict": true
     }
   ]
 }

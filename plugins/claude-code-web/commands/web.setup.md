@@ -1,0 +1,1 @@
+../../../registry/commands/web.setup.md
