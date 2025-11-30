@@ -152,14 +152,14 @@ TabPane {
 }
 
 /* Search/filter input */
-.filter-input {
+.filter-input, #asset-filter {
     dock: top;
     height: 3;
     margin-bottom: 1;
-    border: round $muted;
+    border: round $muted 50%;
 }
 
-.filter-input:focus {
+.filter-input:focus, #asset-filter:focus {
     border: round $primary;
 }
 
@@ -195,12 +195,23 @@ Tree > .tree--guides {
     height: auto;
     max-height: 80%;
     border: round $primary;
-    background: $surface;
+    background: $background;
     padding: 1 2;
+}
+
+#search-overlay > Label {
+    margin-bottom: 1;
+    text-style: bold;
+    color: $text;
 }
 
 #search-input {
     margin-bottom: 1;
+    border: round $primary 50%;
+}
+
+#search-input:focus {
+    border: round $primary;
 }
 
 #search-results {
@@ -209,14 +220,20 @@ Tree > .tree--guides {
     border: round $muted 30%;
 }
 
+#search-results:focus {
+    border: round $primary 60%;
+}
+
 /* Help overlay */
 #help-overlay {
     align: center middle;
-    width: 50%;
+    width: 70%;
     height: auto;
+    max-height: 90%;
     border: round $primary;
-    background: $surface;
+    background: $background;
     padding: 2;
+    overflow-y: auto;
 }
 
 .help-section {
@@ -305,16 +322,89 @@ Toast {
 /* Action buttons */
 Button {
     margin: 0 1;
+    min-width: 12;
 }
 
-Button.primary {
+Button:focus {
+    text-style: bold;
+}
+
+Button.primary, Button.-primary {
     background: $primary;
 }
 
-Button.danger {
+Button.danger, Button.-error {
     background: $error;
 }
 
-Button.success {
+Button.success, Button.-success {
     background: $success;
+}
+
+/* Plugin actions section */
+#plugin-actions {
+    height: 3;
+    margin-top: 1;
+}
+
+/* Screen titles */
+#screen-title {
+    margin-bottom: 1;
+    text-style: bold;
+    color: $text;
+}
+
+/* Content container */
+#content {
+    height: 100%;
+}
+
+/* ListView styling */
+ListView {
+    height: 100%;
+    border: round $muted 30%;
+}
+
+ListView:focus {
+    border: round $primary 60%;
+}
+
+/* Tree styling improvements */
+#asset-tree {
+    border: round $muted 30%;
+    margin-top: 1;
+    height: auto;
+}
+
+#asset-tree:focus {
+    border: round $primary 60%;
+}
+
+/* Plugin details */
+#plugin-details {
+    margin-bottom: 1;
+    padding: 1;
+    border: round $muted 30%;
+    background: $surface-darken-1;
+}
+
+/* OptionList styling */
+OptionList {
+    border: round $muted 30%;
+}
+
+OptionList:focus {
+    border: round $primary 60%;
+}
+
+OptionList > .option-list--option-highlighted {
+    background: $primary 40%;
+}
+
+OptionList > .option-list--option-hover {
+    background: $primary 20%;
+}
+
+OptionList > .option-list--option-disabled {
+    color: $text-muted;
 }

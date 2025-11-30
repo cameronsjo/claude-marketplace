@@ -52,34 +52,39 @@ class AddAssetModal(ModalScreen[tuple[str, AssetType] | None]):
         align: center middle;
     }
 
-    #add-asset-dialog {
+    AddAssetModal > #add-asset-dialog {
         width: 60;
         height: auto;
         max-height: 80%;
         border: round #5fafff;
-        background: $surface;
+        background: $background;
         padding: 1 2;
     }
 
-    #asset-type-tabs {
+    AddAssetModal #asset-type-tabs {
         height: 3;
         margin-bottom: 1;
     }
 
-    #available-assets {
+    AddAssetModal #available-assets {
         height: 20;
         border: round #808080 30%;
         margin-bottom: 1;
     }
 
-    .modal-title {
+    AddAssetModal .modal-title {
         text-style: bold;
+        color: $text;
         margin-bottom: 1;
     }
 
-    .modal-buttons {
+    AddAssetModal .modal-buttons {
         height: 3;
         align: right middle;
+    }
+
+    AddAssetModal Button {
+        margin: 0 1;
     }
     """
 
@@ -116,6 +121,8 @@ class AddAssetModal(ModalScreen[tuple[str, AssetType] | None]):
     def on_mount(self) -> None:
         """Load initial assets."""
         self._load_assets(AssetType.COMMAND)
+        # Set initial focus to the option list
+        self.set_timer(0.1, lambda: self.query_one("#available-assets", OptionList).focus())
 
     def _load_assets(self, asset_type: AssetType) -> None:
         """Load available assets for the given type."""
@@ -135,12 +142,20 @@ class AddAssetModal(ModalScreen[tuple[str, AssetType] | None]):
         existing = set(getattr(self.plugin, asset_type.value, []))
         available = [a for a in all_assets if a.name not in existing]
 
+        # Update modal title with count
+        title = self.query_one(".modal-title", Label)
+        title.update(
+            f"Add {asset_type.value[:-1].title()} to [bold]{self.plugin.name}[/] "
+            f"[dim]({len(available)} available)[/]"
+        )
+
         # Update option list
         option_list = self.query_one("#available-assets", OptionList)
         option_list.clear_options()
 
         if not available:
-            option_list.add_option(Option("[dim]No available assets[/]", disabled=True))
+            msg = f"All {asset_type.value} are already in this plugin"
+            option_list.add_option(Option(f"[dim]{msg}[/]", disabled=True))
         else:
             for asset in available:
                 desc = f" - {asset.description[:40]}..." if asset.description else ""
@@ -196,29 +211,34 @@ class RemoveAssetModal(ModalScreen[tuple[str, AssetType] | None]):
         align: center middle;
     }
 
-    #remove-asset-dialog {
+    RemoveAssetModal > #remove-asset-dialog {
         width: 60;
         height: auto;
         max-height: 80%;
         border: round #ff5f5f;
-        background: $surface;
+        background: $background;
         padding: 1 2;
     }
 
-    #plugin-assets {
+    RemoveAssetModal #plugin-assets {
         height: 20;
         border: round #808080 30%;
         margin-bottom: 1;
     }
 
-    .modal-title {
+    RemoveAssetModal .modal-title {
         text-style: bold;
+        color: $text;
         margin-bottom: 1;
     }
 
-    .modal-buttons {
+    RemoveAssetModal .modal-buttons {
         height: 3;
         align: right middle;
+    }
+
+    RemoveAssetModal Button {
+        margin: 0 1;
     }
     """
 
@@ -272,6 +292,9 @@ class RemoveAssetModal(ModalScreen[tuple[str, AssetType] | None]):
         if not has_assets:
             option_list.add_option(Option("[dim]No assets in plugin[/]", disabled=True))
 
+        # Set initial focus to the option list
+        self.set_timer(0.1, lambda: option_list.focus())
+
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button presses."""
         if event.button.id == "btn-cancel":
@@ -312,8 +335,8 @@ class PluginsScreen(Screen):
 
     BINDINGS = [
         ("n", "new_plugin", "New Plugin"),
-        ("a", "add_asset", "Add Asset"),
-        ("r", "remove_asset", "Remove Asset"),
+        ("a", "add_asset", "Add Asset", True),
+        ("r", "remove_asset", "Remove Asset", True),
         ("enter", "select", "Select"),
     ]
 
@@ -333,7 +356,7 @@ class PluginsScreen(Screen):
                 with Vertical(id="left-pane"):
                     yield Label("[bold]Select Plugin[/]")
                     yield ListView(
-                        *[PluginListItem(p, id=f"plugin-{p.name}") for p in plugins],
+                        *[PluginListItem(p, id=f"plugin-{i}-init") for i, p in enumerate(plugins)],
                         id="plugin-list",
                     )
                     yield Button("New Plugin", id="btn-new", variant="primary")
@@ -417,18 +440,30 @@ class PluginsScreen(Screen):
         plugins = builder.get_plugins()
 
         plugin_list = self.query_one("#plugin-list", ListView)
+        current_plugin_name = self.selected_plugin.name if self.selected_plugin else None
+
+        # Remove all existing items properly
         plugin_list.clear()
 
-        for p in plugins:
-            plugin_list.append(PluginListItem(p, id=f"plugin-{p.name}"))
+        # Use unique IDs with timestamp to avoid conflicts during refresh
+        import time
+        ts = int(time.time() * 1000) % 100000
+
+        for i, p in enumerate(plugins):
+            plugin_list.append(PluginListItem(p, id=f"plugin-{i}-{ts}"))
 
         # Re-select the current plugin if it still exists
-        if self.selected_plugin:
-            for p in plugins:
-                if p.name == self.selected_plugin.name:
+        if current_plugin_name:
+            for idx, p in enumerate(plugins):
+                if p.name == current_plugin_name:
                     self.selected_plugin = p
                     self._update_plugin_details()
+                    # Set the index to highlight the plugin
+                    plugin_list.index = idx
                     break
+            else:
+                # Plugin was deleted, clear selection
+                self.selected_plugin = None
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Handle button presses."""
@@ -459,21 +494,32 @@ class PluginsScreen(Screen):
                 return
 
             asset_name, asset_type = result
-            success = builder.add_asset_to_plugin(
-                self.selected_plugin.name,  # type: ignore
-                asset_name,
-                asset_type,
-            )
-
-            if success:
-                self.app.notify(
-                    f"Added {asset_name} to {self.selected_plugin.name}",  # type: ignore
-                    severity="information",
+            try:
+                success = builder.add_asset_to_plugin(
+                    self.selected_plugin.name,  # type: ignore
+                    asset_name,
+                    asset_type,
                 )
-                self._refresh_plugin_list()
-            else:
+
+                if success:
+                    self.app.notify(
+                        f"Added {asset_type.value[:-1]} '{asset_name}' to {self.selected_plugin.name}",  # type: ignore
+                        severity="information",
+                    )
+                    self._refresh_plugin_list()
+                else:
+                    self.app.notify(
+                        f"Asset '{asset_name}' already exists in {self.selected_plugin.name}",  # type: ignore
+                        severity="warning",
+                    )
+            except ValueError as e:
                 self.app.notify(
-                    f"Failed to add {asset_name}",
+                    f"Error: {str(e)}",
+                    severity="error",
+                )
+            except Exception as e:
+                self.app.notify(
+                    f"Unexpected error: {str(e)}",
                     severity="error",
                 )
 
@@ -488,6 +534,14 @@ class PluginsScreen(Screen):
             self.app.notify("Select a plugin first", severity="warning")
             return
 
+        # Check if plugin has any assets
+        if not (self.selected_plugin.commands or self.selected_plugin.agents or self.selected_plugin.skills):
+            self.app.notify(
+                f"{self.selected_plugin.name} has no assets to remove",
+                severity="information",
+            )
+            return
+
         builder: PluginBuilder = self.app.builder  # type: ignore
 
         def handle_remove(result: tuple[str, AssetType] | None) -> None:
@@ -495,21 +549,32 @@ class PluginsScreen(Screen):
                 return
 
             asset_name, asset_type = result
-            success = builder.remove_asset_from_plugin(
-                self.selected_plugin.name,  # type: ignore
-                asset_name,
-                asset_type,
-            )
-
-            if success:
-                self.app.notify(
-                    f"Removed {asset_name} from {self.selected_plugin.name}",  # type: ignore
-                    severity="information",
+            try:
+                success = builder.remove_asset_from_plugin(
+                    self.selected_plugin.name,  # type: ignore
+                    asset_name,
+                    asset_type,
                 )
-                self._refresh_plugin_list()
-            else:
+
+                if success:
+                    self.app.notify(
+                        f"Removed {asset_type.value[:-1]} '{asset_name}' from {self.selected_plugin.name}",  # type: ignore
+                        severity="information",
+                    )
+                    self._refresh_plugin_list()
+                else:
+                    self.app.notify(
+                        f"Asset '{asset_name}' not found in {self.selected_plugin.name}",  # type: ignore
+                        severity="warning",
+                    )
+            except ValueError as e:
                 self.app.notify(
-                    f"Failed to remove {asset_name}",
+                    f"Error: {str(e)}",
+                    severity="error",
+                )
+            except Exception as e:
+                self.app.notify(
+                    f"Unexpected error: {str(e)}",
                     severity="error",
                 )
 

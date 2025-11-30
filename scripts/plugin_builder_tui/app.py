@@ -82,16 +82,24 @@ class PluginBuilderApp(App):
 
     def _go_to_screen(self, screen_name: str) -> None:
         """Navigate to a main screen."""
-        if self._current_main_screen == screen_name:
+        # Check if we're already on this screen (top of stack, ignoring modals)
+        if self._current_main_screen == screen_name and len(self.screen_stack) == 2:
             return
 
-        # Pop all screens down to just the base _default screen
+        # Pop all screens except the base _default screen
         while len(self.screen_stack) > 1:
             self.pop_screen()
 
         # Push the new screen
-        self.push_screen(screen_name)
-        self._current_main_screen = screen_name
+        try:
+            self.push_screen(screen_name)
+            self._current_main_screen = screen_name
+        except Exception as e:
+            self.notify(f"Navigation error: {e}", severity="error")
+            # Fall back to dashboard if navigation fails
+            if screen_name != "dashboard":
+                self.push_screen("dashboard")
+                self._current_main_screen = "dashboard"
 
     def action_dashboard(self) -> None:
         """Go to dashboard."""

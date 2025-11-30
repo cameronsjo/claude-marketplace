@@ -14,9 +14,11 @@ class AssetsScreen(Screen):
     """Screen for browsing assets in the registry."""
 
     BINDINGS = [
-        ("f", "filter", "Filter"),
+        ("f", "filter", "Filter", True),
+        ("ctrl+f", "filter", "Filter", False),
         ("enter", "select", "Select"),
         ("delete", "delete_asset", "Delete"),
+        ("escape", "clear_filter", "Clear Filter", False),
     ]
 
     def __init__(self, **kwargs) -> None:
@@ -105,6 +107,27 @@ class AssetsScreen(Screen):
     def action_filter(self) -> None:
         """Focus the filter input."""
         self.query_one("#asset-filter", Input).focus()
+
+    def action_clear_filter(self) -> None:
+        """Clear the filter."""
+        filter_input = self.query_one("#asset-filter", Input)
+        if filter_input.value:
+            filter_input.value = ""
+            filter_input.focus()
+        else:
+            # If filter is already empty, focus on the active table
+            tabbed = self.query_one(TabbedContent)
+            active_tab = tabbed.active
+            if active_tab:
+                type_map = {
+                    "tab-commands": AssetType.COMMAND,
+                    "tab-agents": AssetType.AGENT,
+                    "tab-skills": AssetType.SKILL,
+                }
+                asset_type = type_map.get(active_tab)
+                if asset_type:
+                    table = self.query_one(f"#table-{asset_type.value}", DataTable)
+                    table.focus()
 
     def action_delete_asset(self) -> None:
         """Delete selected asset."""

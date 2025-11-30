@@ -10,22 +10,29 @@ from textual.widgets import Label, Static
 
 SHORTCUTS = [
     ("Navigation", [
-        ("d", "Dashboard"),
-        ("a", "Assets"),
-        ("p", "Plugins"),
-        ("Esc", "Back / Close"),
+        ("d", "Go to Dashboard"),
+        ("p", "Go to Plugins"),
+        ("a", "Go to Assets"),
+        ("Esc", "Back / Close modal"),
     ]),
-    ("Actions", [
-        ("/", "Search"),
-        ("v", "Validate"),
-        ("f", "Filter (in Assets)"),
-        ("n", "New Plugin (in Plugins)"),
+    ("Plugin Management", [
+        ("a", "Add asset to plugin (in Plugins)"),
+        ("r", "Remove asset from plugin (in Plugins)"),
+        ("n", "New plugin (CLI only)"),
+        ("v", "Validate all symlinks"),
+    ]),
+    ("Search & Filter", [
+        ("/", "Open search overlay"),
+        ("Ctrl+F", "Search (alternative)"),
+        ("f", "Focus filter input (in Assets)"),
+        ("Esc", "Clear filter (in Assets)"),
     ]),
     ("General", [
-        ("?", "This help"),
-        ("q", "Quit"),
-        ("Tab", "Next pane"),
+        ("?", "Show this help"),
+        ("q", "Quit application"),
+        ("Tab", "Navigate between panes"),
         ("Enter", "Select / Confirm"),
+        ("Delete", "Delete asset (in Assets)"),
     ]),
 ]
 
@@ -40,15 +47,15 @@ class HelpScreen(ModalScreen):
 
     def compose(self) -> ComposeResult:
         with Container(id="help-overlay"):
-            yield Label("[bold]Keyboard Shortcuts[/]\n")
+            yield Label("[bold]Plugin Builder - Keyboard Shortcuts[/]\n")
 
             for section, shortcuts in SHORTCUTS:
                 yield Label(f"[bold cyan]{section}[/]", classes="help-title")
                 for key, desc in shortcuts:
-                    yield Label(f"  [bold]{key:12}[/] {desc}")
+                    yield Label(f"  [bold cyan]{key:15}[/] {desc}")
                 yield Label("")
 
-            yield Label("[dim]Press Esc or ? to close[/]")
+            yield Label("\n[dim italic]Press Esc or any key to close[/]")
 
     def action_close(self) -> None:
         """Close the help overlay."""
