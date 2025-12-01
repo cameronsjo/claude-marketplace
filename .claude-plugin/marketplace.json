@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Personal Claude Code productivity toolkit - agents, commands, and skills for software development",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -14,144 +14,231 @@
       "name": "essentials",
       "source": "./plugins/essentials",
       "description": "Cameron's development essentials: deep research hooks and core productivity enhancements",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "productivity",
-      "tags": ["essentials", "hooks", "research", "productivity"],
+      "tags": [
+        "essentials",
+        "hooks",
+        "research",
+        "productivity"
+      ],
       "strict": true
     },
     {
       "name": "core",
       "source": "./plugins/core",
       "description": "Essential productivity commands: git workflows, code review, project checks",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "productivity",
-      "tags": ["git", "commit", "workflow", "review"],
+      "tags": [
+        "git",
+        "commit",
+        "workflow",
+        "review"
+      ],
       "strict": true
     },
     {
       "name": "python",
       "source": "./plugins/python",
       "description": "Python development expertise: async, testing, uv, type hints",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "language",
-      "tags": ["python", "uv", "testing", "async"],
+      "tags": [
+        "python",
+        "uv",
+        "testing",
+        "async"
+      ],
       "strict": true
     },
     {
       "name": "typescript",
       "source": "./plugins/typescript",
       "description": "TypeScript/JavaScript development: React, Next.js, Node.js patterns",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "language",
-      "tags": ["typescript", "javascript", "react", "nextjs"],
+      "tags": [
+        "typescript",
+        "javascript",
+        "react",
+        "nextjs"
+      ],
       "strict": true
     },
     {
       "name": "api",
       "source": "./plugins/api",
       "description": "API design and review: REST best practices, OpenAPI, architecture",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "architecture",
-      "tags": ["api", "rest", "openapi", "architecture"],
+      "tags": [
+        "api",
+        "rest",
+        "openapi",
+        "architecture"
+      ],
       "strict": true
     },
     {
       "name": "security",
       "source": "./plugins/security",
       "description": "Security auditing and review: OWASP, vulnerability scanning, auth patterns",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "security",
-      "tags": ["security", "owasp", "audit", "vulnerabilities"],
+      "tags": [
+        "security",
+        "owasp",
+        "audit",
+        "vulnerabilities"
+      ],
       "strict": true
     },
     {
       "name": "pr",
       "source": "./plugins/pr",
       "description": "Pull request automation: multi-perspective reviews, labels, fixes",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "workflow",
-      "tags": ["pr", "review", "github", "labels"],
+      "tags": [
+        "pr",
+        "review",
+        "github",
+        "labels"
+      ],
       "strict": true
     },
     {
       "name": "research",
       "source": "./plugins/research",
       "description": "Research and analysis: comprehensive research, web search, synthesis",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "research",
-      "tags": ["research", "search", "analysis", "synthesis"],
+      "tags": [
+        "research",
+        "search",
+        "analysis",
+        "synthesis"
+      ],
       "strict": true
     },
     {
       "name": "obsidian",
       "source": "./plugins/obsidian",
       "description": "Obsidian knowledge management: markdown, MOCs, tags, linking",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "productivity",
-      "tags": ["obsidian", "markdown", "pkm", "notes"],
+      "tags": [
+        "obsidian",
+        "markdown",
+        "pkm",
+        "notes"
+      ],
       "strict": true
     },
     {
       "name": "mcp",
       "source": "./plugins/mcp",
       "description": "MCP server development: architecture, testing, deployment",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "development",
-      "tags": ["mcp", "servers", "protocol", "tools"],
+      "tags": [
+        "mcp",
+        "servers",
+        "protocol",
+        "tools"
+      ],
       "strict": true
     },
     {
       "name": "dx",
       "source": "./plugins/dx",
       "description": "Developer experience: debugging, optimization, prompt engineering",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "development",
-      "tags": ["dx", "debugging", "optimization", "prompts"],
+      "tags": [
+        "dx",
+        "debugging",
+        "optimization",
+        "prompts"
+      ],
       "strict": true
     },
     {
       "name": "cloud",
       "source": "./plugins/cloud",
       "description": "Cloud operations: AWS/Azure/GCP, Kubernetes, DevOps, deployment",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "infrastructure",
-      "tags": ["cloud", "kubernetes", "devops", "deployment"],
+      "tags": [
+        "cloud",
+        "kubernetes",
+        "devops",
+        "deployment"
+      ],
       "strict": true
     },
     {
       "name": "data",
       "source": "./plugins/data",
       "description": "Data science and analytics: SQL, ML pipelines, data engineering",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "data",
-      "tags": ["data", "sql", "ml", "analytics"],
+      "tags": [
+        "data",
+        "sql",
+        "ml",
+        "analytics"
+      ],
       "strict": true
     },
     {
       "name": "obsidian-dev",
       "source": "./plugins/obsidian-dev",
       "description": "Obsidian plugin development: TypeScript patterns, Release Please, BRAT beta channel, GitHub Actions",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "development",
-      "tags": ["obsidian", "plugin", "typescript", "brat", "release-please", "github-actions"],
+      "tags": [
+        "obsidian",
+        "plugin",
+        "typescript",
+        "brat",
+        "release-please",
+        "github-actions"
+      ],
       "strict": true
     },
     {
       "name": "meta",
       "source": "./plugins/meta",
       "description": "Meta plugin for marketplace development: analyze plugins, suggest improvements, detect gaps, curate compositions",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "development",
-      "tags": ["marketplace", "meta", "plugins", "curator", "analysis", "feedback"],
+      "tags": [
+        "marketplace",
+        "meta",
+        "plugins",
+        "curator",
+        "analysis",
+        "feedback"
+      ],
       "strict": true
     },
     {
       "name": "cc-web",
       "source": "./plugins/cc-web",
       "description": "Configure repositories for Claude Code on the web: SessionStart hooks, environment setup, cloud execution",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "development",
-      "tags": ["cloud", "web", "hooks", "session", "remote", "environment", "claude-code"],
+      "tags": [
+        "cloud",
+        "web",
+        "hooks",
+        "session",
+        "remote",
+        "environment",
+        "claude-code"
+      ],
       "strict": true
     }
   ]
