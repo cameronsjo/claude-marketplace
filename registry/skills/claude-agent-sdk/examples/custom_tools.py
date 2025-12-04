@@ -3,202 +3,159 @@
 Claude Agent SDK - Custom Tools Example
 
 This example demonstrates creating custom tools using in-process MCP servers.
+Based on official Anthropic SDK examples from:
+https://github.com/anthropics/claude-agent-sdk-python/blob/main/examples/mcp_calculator.py
 """
 
-import anyio
-import json
-from datetime import datetime
+import asyncio
+from typing import Any
+
 from claude_agent_sdk import (
-    query,
     ClaudeAgentOptions,
-    tool,
+    ClaudeSDKClient,
     create_sdk_mcp_server,
+    tool,
     AssistantMessage,
+    ResultMessage,
     TextBlock,
     ToolUseBlock,
-    ResultMessage,
 )
 
 
-# Define custom tools using the @tool decorator
-@tool(
-    name="get_current_time",
-    description="Get the current date and time",
-    input_schema={}
-)
-async def get_current_time(args):
-    """Return the current time."""
-    now = datetime.now()
+# Define calculator tools using the @tool decorator
+# Format: @tool(name, description, {param: type})
+
+@tool("add", "Add two numbers", {"a": float, "b": float})
+async def add_numbers(args: dict[str, Any]) -> dict[str, Any]:
+    """Add two numbers together."""
+    result = args["a"] + args["b"]
     return {
-        "content": [{
-            "type": "text",
-            "text": now.strftime("%Y-%m-%d %H:%M:%S")
-        }]
+        "content": [{"type": "text", "text": f"{args['a']} + {args['b']} = {result}"}]
     }
 
 
-@tool(
-    name="calculate",
-    description="Perform a mathematical calculation",
-    input_schema={
-        "expression": {
-            "type": "string",
-            "description": "Mathematical expression to evaluate (e.g., '2 + 2')"
-        }
-    }
-)
-async def calculate(args):
-    """Safely evaluate a mathematical expression."""
-    expression = args.get("expression", "")
-
-    # Safe evaluation - only allow numbers and basic operators
-    allowed_chars = set("0123456789+-*/.() ")
-    if not all(c in allowed_chars for c in expression):
-        return {
-            "content": [{
-                "type": "text",
-                "text": "Error: Expression contains invalid characters"
-            }]
-        }
-
-    try:
-        result = eval(expression)  # Safe due to character filtering
-        return {
-            "content": [{
-                "type": "text",
-                "text": f"{expression} = {result}"
-            }]
-        }
-    except Exception as e:
-        return {
-            "content": [{
-                "type": "text",
-                "text": f"Error: {str(e)}"
-            }]
-        }
-
-
-@tool(
-    name="save_note",
-    description="Save a note to the notes database",
-    input_schema={
-        "title": {
-            "type": "string",
-            "description": "Title of the note"
-        },
-        "content": {
-            "type": "string",
-            "description": "Content of the note"
-        }
-    }
-)
-async def save_note(args):
-    """Save a note to a JSON file."""
-    title = args.get("title", "Untitled")
-    content = args.get("content", "")
-
-    note = {
-        "title": title,
-        "content": content,
-        "created_at": datetime.now().isoformat()
-    }
-
-    # In a real app, you'd save to a database
-    print(f"[Saving note: {title}]")
-
+@tool("subtract", "Subtract one number from another", {"a": float, "b": float})
+async def subtract_numbers(args: dict[str, Any]) -> dict[str, Any]:
+    """Subtract b from a."""
+    result = args["a"] - args["b"]
     return {
-        "content": [{
-            "type": "text",
-            "text": f"Note '{title}' saved successfully"
-        }]
+        "content": [{"type": "text", "text": f"{args['a']} - {args['b']} = {result}"}]
     }
 
 
-@tool(
-    name="get_weather",
-    description="Get weather information for a location",
-    input_schema={
-        "location": {
-            "type": "string",
-            "description": "City name or location"
-        }
-    }
-)
-async def get_weather(args):
-    """Mock weather service - replace with real API call."""
-    location = args.get("location", "Unknown")
-
-    # Mock data - in production, call a real weather API
-    weather_data = {
-        "location": location,
-        "temperature": "72°F",
-        "condition": "Sunny",
-        "humidity": "45%"
-    }
-
+@tool("multiply", "Multiply two numbers", {"a": float, "b": float})
+async def multiply_numbers(args: dict[str, Any]) -> dict[str, Any]:
+    """Multiply two numbers."""
+    result = args["a"] * args["b"]
     return {
-        "content": [{
-            "type": "text",
-            "text": json.dumps(weather_data, indent=2)
-        }]
+        "content": [{"type": "text", "text": f"{args['a']} × {args['b']} = {result}"}]
     }
+
+
+@tool("divide", "Divide one number by another", {"a": float, "b": float})
+async def divide_numbers(args: dict[str, Any]) -> dict[str, Any]:
+    """Divide a by b."""
+    if args["b"] == 0:
+        return {
+            "content": [
+                {"type": "text", "text": "Error: Division by zero is not allowed"}
+            ],
+            "is_error": True,
+        }
+
+    result = args["a"] / args["b"]
+    return {
+        "content": [{"type": "text", "text": f"{args['a']} ÷ {args['b']} = {result}"}]
+    }
+
+
+@tool("sqrt", "Calculate square root", {"n": float})
+async def square_root(args: dict[str, Any]) -> dict[str, Any]:
+    """Calculate the square root of a number."""
+    n = args["n"]
+    if n < 0:
+        return {
+            "content": [
+                {
+                    "type": "text",
+                    "text": f"Error: Cannot calculate square root of negative number {n}",
+                }
+            ],
+            "is_error": True,
+        }
+
+    import math
+    result = math.sqrt(n)
+    return {"content": [{"type": "text", "text": f"√{n} = {result}"}]}
+
+
+def display_message(msg):
+    """Display message content in a clean format."""
+    if isinstance(msg, AssistantMessage):
+        for block in msg.content:
+            if isinstance(block, TextBlock):
+                print(f"Claude: {block.text}")
+            elif isinstance(block, ToolUseBlock):
+                print(f"Using tool: {block.name}")
+                if block.input:
+                    print(f"  Input: {block.input}")
+    elif isinstance(msg, ResultMessage):
+        print("Result ended")
+        if msg.total_cost_usd:
+            print(f"Cost: ${msg.total_cost_usd:.6f}")
 
 
 async def main():
-    """Run custom tools example."""
-    print("=== Custom Tools Example ===\n")
+    """Run example calculations using the SDK MCP server with streaming client."""
+    print("=== Calculator MCP Server Example ===\n")
 
-    # Create an in-process MCP server with our custom tools
-    custom_server = create_sdk_mcp_server(
-        name="my-tools",
-        version="1.0.0",
-        tools=[get_current_time, calculate, save_note, get_weather]
-    )
-
-    # Configure options with our custom tools
-    options = ClaudeAgentOptions(
-        system_prompt="""You are a helpful assistant with access to custom tools.
-Available tools:
-- get_current_time: Get the current date and time
-- calculate: Perform mathematical calculations
-- save_note: Save notes to the database
-- get_weather: Get weather for a location
-
-Use these tools to help the user.""",
-        mcp_servers=[custom_server],
-        allowed_tools=[
-            "mcp__my-tools__get_current_time",
-            "mcp__my-tools__calculate",
-            "mcp__my-tools__save_note",
-            "mcp__my-tools__get_weather",
+    # Create the calculator server with all tools
+    calculator = create_sdk_mcp_server(
+        name="calculator",
+        version="2.0.0",
+        tools=[
+            add_numbers,
+            subtract_numbers,
+            multiply_numbers,
+            divide_numbers,
+            square_root,
         ],
-        permission_mode="acceptEdits"
     )
 
-    # Test the custom tools
+    # Configure Claude to use the calculator server
+    # Note: mcp_servers is a dict mapping server names to server instances
+    # Tools are namespaced as mcp__{server_name}__{tool_name}
+    options = ClaudeAgentOptions(
+        mcp_servers={"calc": calculator},
+        allowed_tools=[
+            "mcp__calc__add",
+            "mcp__calc__subtract",
+            "mcp__calc__multiply",
+            "mcp__calc__divide",
+            "mcp__calc__sqrt",
+        ],
+    )
+
+    # Example prompts to demonstrate calculator usage
     prompts = [
-        "What time is it right now?",
-        "Calculate 15 * 7 + 23",
-        "Save a note titled 'Meeting' with content 'Team sync at 3pm'",
-        "What's the weather in San Francisco?",
+        "List your tools",
+        "Calculate 15 + 27",
+        "What is 100 divided by 7?",
+        "Calculate the square root of 144",
+        "Calculate (12 + 8) * 3 - 10",
     ]
 
     for prompt in prompts:
-        print(f"User: {prompt}\n")
+        print(f"\n{'=' * 50}")
+        print(f"Prompt: {prompt}")
+        print(f"{'=' * 50}")
 
-        async for message in query(prompt=prompt, options=options):
-            if isinstance(message, AssistantMessage):
-                for block in message.content:
-                    if isinstance(block, TextBlock):
-                        print(f"Assistant: {block.text}")
-                    elif isinstance(block, ToolUseBlock):
-                        print(f"[Tool: {block.name}]")
-            elif isinstance(message, ResultMessage):
-                print()
-                break
+        async with ClaudeSDKClient(options=options) as client:
+            await client.query(prompt)
 
-        print("-" * 40 + "\n")
+            async for message in client.receive_response():
+                display_message(message)
 
 
 if __name__ == "__main__":
-    anyio.run(main)
+    asyncio.run(main())
