@@ -100,6 +100,32 @@ jobs:
           git tag "v$NEW_VERSION"
           git push origin main --tags
 
+      - name: Build skill packages
+        if: steps.bump.outputs.type != 'none'
+        run: |
+          NEW_VERSION="${{ steps.new.outputs.version }}"
+
+          # Create dist directory for packaged skills
+          mkdir -p dist
+
+          # Package each skill from the registry
+          for SKILL_DIR in registry/skills/*/; do
+            SKILL_NAME=$(basename "$SKILL_DIR")
+
+            echo "Packaging skill: $SKILL_NAME"
+
+            # Create zip directly from registry (no symlinks to resolve)
+            cd registry/skills
+            zip -r "../../dist/${SKILL_NAME}-v${NEW_VERSION}.zip" "$SKILL_NAME"
+            cd ../..
+
+            echo "Created: dist/${SKILL_NAME}-v${NEW_VERSION}.zip"
+          done
+
+          # List created packages
+          echo "=== Created skill packages ==="
+          ls -la dist/*.zip
+
       - name: Create GitHub Release
         if: steps.bump.outputs.type != 'none'
         env:
@@ -112,4 +138,5 @@ jobs:
           gh release create "v$NEW_VERSION" \
             --title "v$NEW_VERSION" \
             --notes "$COMMIT_MSG" \
-            --latest
+            --latest \
+            dist/*.zip
