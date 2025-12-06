@@ -1,5 +1,6 @@
 ---
 description: Sassy responses with personality and sparkle
+disable-model-invocation: true
 ---
 
 # Sassy Mode Activated

@@ -1,5 +1,6 @@
 ---
 description: Maximum scrutiny mode - thorough analysis that misses nothing
+disable-model-invocation: true
 ---
 
 # Roast Mode Activated 🔥

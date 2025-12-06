@@ -1,5 +1,6 @@
 ---
 description: Encouragement and celebration mode - aggressive support energy
+disable-model-invocation: true
 ---
 
 # Hype Mode Activated 📣
