@@ -8,9 +8,9 @@ This is a Claude Code plugin marketplace - a collection of agents, commands, and
 
 ## Architecture
 
-### Registry-Based Plugin System
+### Flat File Structure
 
-The marketplace uses a central registry with symlinks to populate plugins:
+Plugins contain real files (not symlinks) because Claude Code's plugin system doesn't follow symlinks when scanning for commands/agents/skills. The registry serves as the canonical source, and files are copied into plugins.
 
 ```
 registry/               # Source of truth for all assets
@@ -18,15 +18,15 @@ registry/               # Source of truth for all assets
 ├── commands/          # Slash command prompts (.md files)
 └── skills/            # Skill directories (SKILL.md + resources/)
 
-plugins/               # Installable plugin packages
+plugins/               # Installable plugin packages (real files, not symlinks)
 ├── {plugin-name}/
 │   ├── .claude-plugin/plugin.json  # Plugin metadata
-│   ├── agents/        # Symlinks → registry/agents/
-│   ├── commands/      # Symlinks → registry/commands/
-│   └── skills/        # Symlinks → registry/skills/
+│   ├── agents/        # Copied from registry/agents/
+│   ├── commands/      # Copied from registry/commands/
+│   └── skills/        # Copied from registry/skills/
 ```
 
-Assets are added to the registry once, then symlinked into multiple plugins. This enables asset reuse across plugins while maintaining a single source of truth.
+**Important:** When updating assets, edit the file in `registry/` then copy to all plugins that use it. The plugin-builder CLI can help manage this.
 
 ### Plugin Builder CLI
 
@@ -45,11 +45,8 @@ python scripts/plugin-builder.py usage
 # Find orphaned (unused) assets
 python scripts/plugin-builder.py orphans
 
-# Add asset to a plugin (creates symlink)
+# Add asset to a plugin (copies from registry)
 python scripts/plugin-builder.py edit add {plugin} {asset} -t {commands|agents|skills}
-
-# Validate all symlinks
-python scripts/plugin-builder.py validate
 
 # Interactive mode
 python scripts/plugin-builder.py
@@ -58,9 +55,10 @@ python scripts/plugin-builder.py
 ### Marketplace Configuration
 
 `.claude-plugin/marketplace.json` defines available plugins:
+
 - Plugin name, description, version
 - Source path pointing to `./plugins/{name}`
-- Category and keyword tags
+- Keywords for discovery
 
 ## Asset Formats
 
@@ -75,6 +73,7 @@ YAML frontmatter defining the agent persona. Body contains system prompt and beh
 ### Skills (registry/skills/{name}/)
 
 Directory structure:
+
 - `SKILL.md` - Main skill definition with frontmatter
 - `README.md` - Optional documentation
 - `resources/` - Additional reference files
@@ -82,14 +81,20 @@ Directory structure:
 ## Development Workflow
 
 When adding new assets:
+
 1. Create the asset in `registry/{type}/`
 2. Use plugin-builder to add it to plugins: `python scripts/plugin-builder.py edit add {plugin} {asset} -t {type}`
-3. Validate symlinks: `python scripts/plugin-builder.py validate`
 
 When creating a new plugin:
+
 1. `python scripts/plugin-builder.py create {name} -d "description"`
 2. Add assets using `edit add` commands
 3. Add entry to `.claude-plugin/marketplace.json`
+
+When updating existing assets:
+
+1. Edit the file in `registry/{type}/`
+2. The change needs to be propagated to all plugins using that asset (plugin-builder can help identify which plugins)
 
 ## Versioning
 

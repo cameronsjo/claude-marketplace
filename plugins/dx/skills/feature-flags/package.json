@@ -1,0 +1,31 @@
+{
+  "name": "@claude-skills/feature-flags",
+  "version": "1.0.0",
+  "description": "Feature flag implementation skill with automation scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-flag": "tsx scripts/generate-flag.ts",
+    "detect-stale": "tsx scripts/detect-stale-flags.ts",
+    "flag-coverage": "tsx scripts/flag-coverage.ts",
+    "create-flag-config": "tsx scripts/create-flag-config.ts",
+    "help": "echo 'Available scripts:\n  generate-flag    - Generate feature flag boilerplate\n  detect-stale     - Find stale flags\n  flag-coverage    - Check test coverage\n  create-flag-config - Create flag configuration'"
+  },
+  "keywords": [
+    "feature-flags",
+    "feature-toggles",
+    "deployment",
+    "rollout",
+    "a-b-testing"
+  ],
+  "author": "Claude Skills",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

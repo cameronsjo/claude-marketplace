@@ -1,0 +1,368 @@
+{
+  "components": {
+    "schemas": {
+      "Money": {
+        "type": "object",
+        "title": "Money",
+        "description": "Represents a monetary amount with currency",
+        "required": ["currency_code", "value"],
+        "properties": {
+          "currency_code": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "pattern": "^[A-Z]{3}$",
+            "description": "ISO 4217 three-letter currency code",
+            "example": "USD"
+          },
+          "value": {
+            "type": "string",
+            "pattern": "^(-?[0-9]+|-?([0-9]+)?[.][0-9]+)$",
+            "minLength": 1,
+            "maxLength": 32,
+            "description": "Monetary value as a string to avoid precision issues",
+            "example": "19.99"
+          }
+        }
+      },
+      "Percentage": {
+        "type": "object",
+        "title": "Percentage",
+        "description": "Represents a percentage value",
+        "required": ["value"],
+        "properties": {
+          "value": {
+            "type": "string",
+            "pattern": "^[0-9]+([.][0-9]+)?$",
+            "minLength": 1,
+            "maxLength": 10,
+            "description": "Percentage value (e.g., 19.99 for 19.99%)",
+            "example": "19.99"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "title": "Address",
+        "description": "Global postal address (compatible with W3C HTML5.1 autofill)",
+        "properties": {
+          "address_line_1": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Street address line 1",
+            "example": "123 Main St"
+          },
+          "address_line_2": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Street address line 2 (apartment, suite, etc.)",
+            "example": "Apt 4B"
+          },
+          "admin_area_1": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "State, province, or region",
+            "example": "CA"
+          },
+          "admin_area_2": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "City, town, or locality",
+            "example": "San Francisco"
+          },
+          "postal_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20,
+            "description": "Postal or ZIP code",
+            "example": "94102"
+          },
+          "country_code": {
+            "$ref": "#/components/schemas/CountryCode"
+          }
+        }
+      },
+      "CountryCode": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 2,
+        "pattern": "^[A-Z]{2}$",
+        "description": "ISO 3166-1 alpha-2 two-letter country code",
+        "example": "US"
+      },
+      "CurrencyCode": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 3,
+        "pattern": "^[A-Z]{3}$",
+        "description": "ISO 4217 three-letter currency code",
+        "example": "USD"
+      },
+      "LanguageCode": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 35,
+        "pattern": "^[a-z]{2,3}(-[A-Z]{2,3}(-[a-zA-Z]{4})?)?$",
+        "description": "BCP-47 language tag",
+        "example": "en-US"
+      },
+      "PhoneNumber": {
+        "type": "object",
+        "title": "Phone Number",
+        "description": "E.164 formatted phone number",
+        "required": ["national_number"],
+        "properties": {
+          "country_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3,
+            "pattern": "^[0-9]{1,3}$",
+            "description": "Country calling code",
+            "example": "1"
+          },
+          "national_number": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 14,
+            "pattern": "^[0-9]+$",
+            "description": "National phone number without country code",
+            "example": "4155551234"
+          },
+          "extension": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10,
+            "pattern": "^[0-9]+$",
+            "description": "Phone extension",
+            "example": "123"
+          }
+        }
+      },
+      "EmailAddress": {
+        "type": "string",
+        "format": "email",
+        "minLength": 3,
+        "maxLength": 254,
+        "description": "Internationalized email address",
+        "example": "user@example.com"
+      },
+      "DateTime": {
+        "type": "string",
+        "format": "date-time",
+        "description": "RFC 3339 date-time in UTC (YYYY-MM-DDTHH:MM:SSZ)",
+        "example": "2024-01-12T00:00:00Z"
+      },
+      "Date": {
+        "type": "string",
+        "format": "date",
+        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+        "description": "RFC 3339 full-date (YYYY-MM-DD)",
+        "example": "2024-01-12"
+      },
+      "Time": {
+        "type": "string",
+        "format": "time",
+        "pattern": "^[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})?$",
+        "description": "RFC 3339 full-time",
+        "example": "14:30:00Z"
+      },
+      "TimeZone": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 50,
+        "description": "IANA time zone database format",
+        "example": "America/Los_Angeles"
+      },
+      "UUID": {
+        "type": "string",
+        "format": "uuid",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "description": "RFC 4122 UUID",
+        "example": "550e8400-e29b-41d4-a716-446655440000"
+      },
+      "IPv4Address": {
+        "type": "string",
+        "format": "ipv4",
+        "pattern": "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+        "description": "IPv4 address",
+        "example": "192.168.1.1"
+      },
+      "IPv6Address": {
+        "type": "string",
+        "format": "ipv6",
+        "description": "IPv6 address",
+        "example": "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+      },
+      "IPAddress": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/IPv4Address"
+          },
+          {
+            "$ref": "#/components/schemas/IPv6Address"
+          }
+        ],
+        "description": "IP address (IPv4 or IPv6)"
+      },
+      "PersonName": {
+        "type": "object",
+        "title": "Person Name",
+        "description": "Name of an individual",
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 25,
+            "description": "Name prefix (Mr., Mrs., Dr., etc.)",
+            "example": "Mr."
+          },
+          "given_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 140,
+            "description": "Given name (first name)",
+            "example": "John"
+          },
+          "middle_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 140,
+            "description": "Middle name",
+            "example": "Michael"
+          },
+          "family_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 140,
+            "description": "Family name (last name)",
+            "example": "Smith"
+          },
+          "suffix": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 25,
+            "description": "Name suffix (Jr., Sr., III, etc.)",
+            "example": "Jr."
+          },
+          "full_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "Full name as a single string",
+            "example": "Mr. John Michael Smith Jr."
+          }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "title": "HATEOAS Link",
+        "description": "Hypermedia link for resource navigation",
+        "required": ["href", "rel", "method"],
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "URI of the linked resource",
+            "example": "https://api.example.com/v1/users/123"
+          },
+          "rel": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "description": "Link relation type",
+            "example": "self"
+          },
+          "method": {
+            "type": "string",
+            "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+            "description": "HTTP method for the link",
+            "example": "GET"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Human-readable link title",
+            "example": "Get User"
+          }
+        }
+      },
+      "PaginationResponse": {
+        "type": "object",
+        "title": "Pagination Response",
+        "description": "Paginated collection response",
+        "required": ["items"],
+        "properties": {
+          "items": {
+            "type": "array",
+            "description": "Array of resources in this page",
+            "items": {
+              "type": "object"
+            }
+          },
+          "total_items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647,
+            "description": "Total number of items in the collection",
+            "example": 100
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Number of items per page",
+            "example": 10
+          },
+          "next_page_token": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "Token for retrieving the next page",
+            "example": "eyJpZCI6IjEyMyJ9"
+          },
+          "next_page": {
+            "type": "boolean",
+            "description": "Whether more pages are available",
+            "example": true
+          }
+        }
+      },
+      "JSONPatch": {
+        "type": "object",
+        "title": "JSON Patch Operation",
+        "description": "RFC 6902 JSON Patch operation",
+        "required": ["op", "path"],
+        "properties": {
+          "op": {
+            "type": "string",
+            "enum": ["add", "remove", "replace", "move", "copy", "test"],
+            "description": "Operation to perform",
+            "example": "replace"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "description": "JSON Pointer to target location",
+            "example": "/email_address"
+          },
+          "value": {
+            "description": "Value for add/replace/test operations"
+          },
+          "from": {
+            "type": "string",
+            "minLength": 1,
+            "description": "JSON Pointer for move/copy operations",
+            "example": "/old_email"
+          }
+        }
+      }
+    }
+  }
+}

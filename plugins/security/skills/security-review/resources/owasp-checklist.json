@@ -1,0 +1,191 @@
+{
+  "A01:2021": {
+    "name": "Broken Access Control",
+    "description": "Access control enforces policy such that users cannot act outside of their intended permissions",
+    "checks": [
+      "Enforce least privilege and deny-by-default",
+      "Implement access control checks on server-side",
+      "Invalidate JWT tokens on logout",
+      "Rate-limit API and controller access",
+      "Disable directory listing, ensure metadata files (.git, .env) not accessible",
+      "Log access control failures, alert on suspicious patterns",
+      "Test: Can users access resources they shouldn't?",
+      "Test: Can users escalate privileges?"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    ]
+  },
+  "A02:2021": {
+    "name": "Cryptographic Failures",
+    "description": "Failures related to cryptography which often lead to exposure of sensitive data",
+    "checks": [
+      "Classify data (PII, credentials, health, financial) and apply appropriate controls",
+      "Encrypt data at rest and in transit (TLS 1.2+, disable older protocols)",
+      "Use strong, up-to-date encryption algorithms (AES-256, no MD5/SHA1 for security)",
+      "Proper key management (rotate, store securely, never hardcode)",
+      "Disable caching for sensitive data responses",
+      "Test: Are passwords/secrets transmitted over HTTP?",
+      "Test: Are secrets stored in plaintext?"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    ]
+  },
+  "A03:2021": {
+    "name": "Injection",
+    "description": "Application is vulnerable to injection when user-supplied data is not validated, filtered, or sanitized",
+    "checks": [
+      "Use parameterized queries, ORMs, or prepared statements",
+      "Validate and sanitize all user input (allow-list validation preferred)",
+      "Use LIMIT and SQL controls to prevent mass disclosure",
+      "For AI/LLM: validate prompts, sanitize model inputs/outputs, implement prompt injection defenses",
+      "Escape special characters in queries and commands",
+      "Test: SQL injection, command injection, LDAP injection",
+      "Test: Prompt injection (for AI/LLM applications)"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A03_2021-Injection/"
+    ]
+  },
+  "A04:2021": {
+    "name": "Insecure Design",
+    "description": "Risks related to design and architectural flaws, missing or ineffective control design",
+    "checks": [
+      "Threat modeling during design phase",
+      "Secure design patterns (defense-in-depth, fail-safe defaults)",
+      "Segregate tenants robustly in multi-tenant systems",
+      "Limit resource consumption per user/tenant",
+      "Review architecture with security expert before implementation",
+      "Test: Business logic flaws, race conditions",
+      "Test: Privilege escalation through design flaws"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A04_2021-Insecure_Design/"
+    ]
+  },
+  "A05:2021": {
+    "name": "Security Misconfiguration",
+    "description": "Application might be vulnerable if it is missing security hardening or has improperly configured permissions",
+    "checks": [
+      "Repeatable hardening process (IaC, automated config)",
+      "Minimal platform (remove unused features, frameworks, components)",
+      "Review cloud storage permissions (S3 buckets, blob storage)",
+      "Disable default accounts and passwords",
+      "Error messages don't leak sensitive information (stack traces, DB errors)",
+      "Keep security patches up-to-date (automated where possible)",
+      "Test: Default credentials work?",
+      "Test: Stack traces exposed?",
+      "Test: Open ports/services?"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    ]
+  },
+  "A06:2021": {
+    "name": "Vulnerable and Outdated Components",
+    "description": "Using components with known vulnerabilities may undermine application defenses",
+    "checks": [
+      "Inventory all components (packages, libraries, containers, OS)",
+      "Remove unused dependencies and features",
+      "Monitor for vulnerabilities (Dependabot, Snyk, npm audit, pip-audit)",
+      "Subscribe to security bulletins for components in use",
+      "Obtain components from official sources over secure links",
+      "Prefer signed packages with strong maintainer reputation",
+      "Test: Run npm audit, pip-audit, or equivalent regularly"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    ]
+  },
+  "A07:2021": {
+    "name": "Identification and Authentication Failures",
+    "description": "Confirmation of the user's identity, authentication, and session management is critical",
+    "checks": [
+      "Implement MFA where possible",
+      "No default credentials shipped with application",
+      "Weak password checks (block common passwords, enforce complexity)",
+      "Credential stuffing, brute force, automated attack protections (rate limiting, CAPTCHA)",
+      "Secure session management (random IDs, HTTPOnly, Secure, SameSite cookies)",
+      "Invalidate sessions on logout",
+      "Use established auth libraries (OAuth 2.1, OpenID Connect), avoid custom crypto",
+      "Test: Brute force login, credential stuffing",
+      "Test: Session fixation"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/"
+    ]
+  },
+  "A08:2021": {
+    "name": "Software and Data Integrity Failures",
+    "description": "Code and infrastructure that does not protect against integrity violations",
+    "checks": [
+      "Use digital signatures to verify software/data integrity",
+      "Verify dependencies from trusted repos (NPM, PyPI with integrity hashes)",
+      "Review CI/CD pipeline security (restrict permissions, audit changes)",
+      "Implement auto-update mechanisms with integrity verification",
+      "Ensure untrusted data doesn't flow into deserialization without validation",
+      "Test: Can attacker modify build artifacts?",
+      "Test: Inject malicious dependencies?"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/"
+    ]
+  },
+  "A09:2021": {
+    "name": "Security Logging and Monitoring Failures",
+    "description": "Without logging and monitoring, breaches cannot be detected",
+    "checks": [
+      "Log authentication, authorization, input validation failures",
+      "Structured logging with context (user ID, IP, timestamp, action)",
+      "Logs stored securely, protected from tampering",
+      "High-value transactions have audit trail with integrity controls",
+      "Effective monitoring and alerting (abnormal behavior, suspicious patterns)",
+      "Incident response plan in place",
+      "Test: Are failed logins logged?",
+      "Test: Can you detect attack patterns?"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    ]
+  },
+  "A10:2021": {
+    "name": "Server-Side Request Forgery (SSRF)",
+    "description": "SSRF flaws occur when application fetches a remote resource without validating the user-supplied URL",
+    "checks": [
+      "Sanitize and validate all client-supplied URL data",
+      "Enforce URL schema, port, and destination with allow-list",
+      "Disable HTTP redirections",
+      "Don't send raw responses to clients",
+      "Network segmentation to reduce SSRF impact",
+      "Test: Can attacker make server fetch internal resources?",
+      "Test: Access metadata endpoints (169.254.169.254)?"
+    ],
+    "references": [
+      "https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/"
+    ]
+  },
+  "AI/MCP": {
+    "name": "AI/MCP Specific Security",
+    "description": "Security considerations for AI/LLM applications and MCP servers",
+    "checks": [
+      "Prompt Injection: Validate and sanitize all user inputs before sending to LLM",
+      "Prompt Injection: Use instruction/data separation patterns",
+      "Prompt Injection: Implement output validation and filtering",
+      "Prompt Injection: Monitor for suspicious patterns (jailbreak attempts)",
+      "MCP Server: Authenticate all MCP client connections",
+      "MCP Server: Validate tool parameters and resource URIs",
+      "MCP Server: Implement rate limiting per client",
+      "MCP Server: Audit logging for all tool invocations",
+      "MCP Server: Principle of least privilege for tool capabilities",
+      "MCP Server: Validate sampling requests don't leak sensitive data",
+      "Data Privacy: Never send PII to external LLM APIs without consent",
+      "Data Privacy: Implement data anonymization/pseudonymization",
+      "Data Privacy: Respect data retention policies",
+      "Data Privacy: Clear audit trail of what data was sent to which models"
+    ],
+    "references": [
+      "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+    ]
+  }
+}

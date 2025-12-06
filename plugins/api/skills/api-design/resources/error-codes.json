@@ -1,0 +1,274 @@
+{
+  "standard_errors": {
+    "400": {
+      "status": 400,
+      "type": "https://api.example.com/errors/invalid-request",
+      "title": "Request is not well-formed, syntactically incorrect, or violates schema.",
+      "description": "The request contains validation errors that the client can fix"
+    },
+    "401": {
+      "status": 401,
+      "type": "https://api.example.com/errors/authentication-failure",
+      "title": "Authentication failed due to missing Authorization header, or invalid authentication credentials.",
+      "description": "The request lacks valid authentication credentials"
+    },
+    "403": {
+      "status": 403,
+      "type": "https://api.example.com/errors/authorization-failure",
+      "title": "Authorization failed due to insufficient permissions.",
+      "description": "The authenticated user does not have permission to access this resource"
+    },
+    "404": {
+      "status": 404,
+      "type": "https://api.example.com/errors/resource-not-found",
+      "title": "The specified resource does not exist.",
+      "description": "The requested resource could not be found"
+    },
+    "405": {
+      "status": 405,
+      "type": "https://api.example.com/errors/method-not-supported",
+      "title": "The server does not implement the requested HTTP method.",
+      "description": "The HTTP method is not supported for this resource"
+    },
+    "406": {
+      "status": 406,
+      "type": "https://api.example.com/errors/media-type-not-acceptable",
+      "title": "The server does not implement the media type that would be acceptable to the client.",
+      "description": "The server cannot produce a response matching the Accept headers"
+    },
+    "409": {
+      "status": 409,
+      "type": "https://api.example.com/errors/resource-conflict",
+      "title": "The server has detected a conflict while processing this request.",
+      "description": "The request conflicts with the current state of the server"
+    },
+    "412": {
+      "status": 412,
+      "type": "https://api.example.com/errors/precondition-failure",
+      "title": "Update failed. Resource has changed on the server.",
+      "description": "One or more preconditions given in the request headers evaluated to false"
+    },
+    "413": {
+      "status": 413,
+      "type": "https://api.example.com/errors/payload-too-large",
+      "title": "The request entity is larger than the size limit defined by the server.",
+      "description": "The request payload is too large"
+    },
+    "415": {
+      "status": 415,
+      "type": "https://api.example.com/errors/media-type-not-supported",
+      "title": "The server does not support the request payload's media type.",
+      "description": "The Content-Type of the request is not supported"
+    },
+    "422": {
+      "status": 422,
+      "type": "https://api.example.com/errors/unprocessable-entity",
+      "title": "The request cannot be processed due to factors outside of the request body. The request was well-formed, but it failed semantic validations.",
+      "description": "The request was syntactically correct but semantically invalid"
+    },
+    "428": {
+      "status": 428,
+      "type": "https://api.example.com/errors/missing-precondition-header",
+      "title": "This request must be conditional and requires an If-Match header.",
+      "description": "The origin server requires the request to be conditional"
+    },
+    "429": {
+      "status": 429,
+      "type": "https://api.example.com/errors/rate-limit-reached",
+      "title": "Too many requests. Blocked due to rate limiting.",
+      "description": "The user has sent too many requests in a given amount of time"
+    },
+    "500": {
+      "status": 500,
+      "type": "https://api.example.com/errors/internal-server-error",
+      "title": "An internal server error has occurred.",
+      "description": "The server encountered an unexpected condition"
+    },
+    "503": {
+      "status": 503,
+      "type": "https://api.example.com/errors/service-unavailable",
+      "title": "Service Unavailable.",
+      "description": "The server is currently unable to handle the request"
+    },
+    "504": {
+      "status": 504,
+      "type": "https://api.example.com/errors/gateway-timeout",
+      "title": "Gateway Timeout.",
+      "description": "The server did not receive a timely response from an upstream server"
+    }
+  },
+  "validation_error_codes": {
+    "missing-required-property": {
+      "code": "https://api.example.com/errors/missing-required-property",
+      "reason": "A required property is missing.",
+      "http_status": 400
+    },
+    "malformed-request-json": {
+      "code": "https://api.example.com/errors/malformed-request-json",
+      "reason": "The request JSON is not well formed.",
+      "http_status": 400
+    },
+    "invalid-property-length": {
+      "code": "https://api.example.com/errors/invalid-property-length",
+      "reason": "The value of a property is too short or too long.",
+      "http_status": 400
+    },
+    "invalid-property-value": {
+      "code": "https://api.example.com/errors/invalid-property-value",
+      "reason": "The value of the property is invalid.",
+      "http_status": 400
+    },
+    "read-only": {
+      "code": "https://api.example.com/errors/read-only",
+      "reason": "The property is read only, so it cannot be modified.",
+      "http_status": 400
+    },
+    "invalid-patch-path": {
+      "code": "https://api.example.com/errors/invalid-patch-path",
+      "reason": "The value of path in a HTTP PATCH request item is invalid.",
+      "http_status": 400
+    },
+    "cannot-reuse-idempotency-key": {
+      "code": "https://api.example.com/errors/cannot-reuse-idempotency-key",
+      "reason": "The idempotency key cannot be reused for a different request payload.",
+      "http_status": 400
+    },
+    "invalid-query-parameter": {
+      "code": "https://api.example.com/errors/invalid-query-parameter",
+      "reason": "A query parameter has an invalid value.",
+      "http_status": 400
+    },
+    "missing-query-parameter": {
+      "code": "https://api.example.com/errors/missing-query-parameter",
+      "reason": "A required query parameter is missing.",
+      "http_status": 400
+    },
+    "invalid-path-parameter": {
+      "code": "https://api.example.com/errors/invalid-path-parameter",
+      "reason": "A path parameter has an invalid value.",
+      "http_status": 400
+    }
+  },
+  "business_error_examples": {
+    "out-of-credit": {
+      "type": "https://api.example.com/errors/out-of-credit",
+      "title": "You do not have enough credit.",
+      "http_status": 422,
+      "example": {
+        "type": "https://api.example.com/errors/out-of-credit",
+        "title": "You do not have enough credit.",
+        "detail": "Your current balance is 30, but that costs 50.",
+        "instance": "/account/12345/msgs/abc",
+        "status": 422,
+        "trace_id": "90957fca61718"
+      }
+    },
+    "amount-mismatch": {
+      "type": "https://api.example.com/errors/amount-mismatch",
+      "title": "Should equal item_total + tax_total + shipping + handling + insurance - shipping_discount - discount.",
+      "http_status": 422,
+      "example": {
+        "type": "https://api.example.com/errors/amount-mismatch",
+        "title": "Should equal item_total + tax_total + shipping + handling + insurance - shipping_discount - discount.",
+        "detail": "Total amount does not match sum of components",
+        "status": 422,
+        "trace_id": "90957fca61718"
+      }
+    },
+    "multi-currency-order": {
+      "type": "https://api.example.com/errors/multi-currency-order",
+      "title": "Multiple differing values of currency_code are not supported.",
+      "http_status": 422,
+      "example": {
+        "type": "https://api.example.com/errors/multi-currency-order",
+        "title": "Multiple differing values of currency_code are not supported.",
+        "detail": "Entire Order request must have the same currency_code.",
+        "status": 422,
+        "trace_id": "90957fca61718"
+      }
+    },
+    "invalid-state-transition": {
+      "type": "https://api.example.com/errors/invalid-state-transition",
+      "title": "The requested state transition is not allowed.",
+      "http_status": 422,
+      "example": {
+        "type": "https://api.example.com/errors/invalid-state-transition",
+        "title": "The requested state transition is not allowed.",
+        "detail": "Cannot void a payment that is already captured. Use refund instead.",
+        "status": 422,
+        "trace_id": "90957fca61718"
+      }
+    }
+  },
+  "resource_state_values": {
+    "resting_states": [
+      "ACCEPTED",
+      "ACTIVE",
+      "CANCELLED",
+      "DELETED",
+      "FAILED",
+      "SUCCEEDED",
+      "SUSPENDED",
+      "VERIFIED"
+    ],
+    "active_states": [
+      "CREATING",
+      "DELETING",
+      "PENDING",
+      "REPAIRING",
+      "RUNNING",
+      "SUSPENDING"
+    ]
+  },
+  "standard_fields": {
+    "id": {
+      "description": "The resource id of a resource in a resource hierarchy",
+      "type": "string"
+    },
+    "create_time": {
+      "description": "Resource creation date-time (RFC 3339)",
+      "type": "string",
+      "format": "date-time"
+    },
+    "update_time": {
+      "description": "Resource update date-time (RFC 3339)",
+      "type": "string",
+      "format": "date-time"
+    },
+    "delete_time": {
+      "description": "Resource deletion date-time (RFC 3339)",
+      "type": "string",
+      "format": "date-time"
+    },
+    "expire_time": {
+      "description": "Resource expiry date-time (RFC 3339)",
+      "type": "string",
+      "format": "date-time"
+    },
+    "purge_time": {
+      "description": "Soft-deleted resource purge date-time (RFC 3339)",
+      "type": "string",
+      "format": "date-time"
+    },
+    "display_name": {
+      "description": "Human-readable name of an object or person",
+      "type": "string"
+    },
+    "state": {
+      "description": "State of a resource in a finite state machine",
+      "type": "string"
+    },
+    "total_items": {
+      "description": "Total number of items in a paginated collection",
+      "type": "integer"
+    },
+    "total_pages": {
+      "description": "Total number of pages in a paginated collection",
+      "type": "integer"
+    },
+    "items": {
+      "description": "Array containing list of resources",
+      "type": "array"
+    }
+  }
+}

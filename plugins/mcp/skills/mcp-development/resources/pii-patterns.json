@@ -1,0 +1,97 @@
+{
+  "patterns": {
+    "email": {
+      "regex": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b",
+      "replacement": "[EMAIL]",
+      "description": "Email addresses",
+      "examples": [
+        "test@example.com",
+        "user.name+tag@example.co.uk"
+      ]
+    },
+    "ssn": {
+      "regex": "\\b\\d{3}-\\d{2}-\\d{4}\\b",
+      "replacement": "[SSN]",
+      "description": "Social Security Numbers",
+      "examples": [
+        "123-45-6789"
+      ]
+    },
+    "phone": {
+      "regex": "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b",
+      "replacement": "[PHONE]",
+      "description": "Phone numbers (US format)",
+      "examples": [
+        "555-123-4567",
+        "5551234567",
+        "555.123.4567"
+      ]
+    },
+    "credit_card": {
+      "regex": "\\b\\d{4}[-\\s]?\\d{4}[-\\s]?\\d{4}[-\\s]?\\d{4}\\b",
+      "replacement": "[CREDIT_CARD]",
+      "description": "Credit card numbers",
+      "examples": [
+        "1234-5678-9012-3456",
+        "1234 5678 9012 3456",
+        "1234567890123456"
+      ]
+    },
+    "ip_address": {
+      "regex": "\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b",
+      "replacement": "[IP_ADDRESS]",
+      "description": "IPv4 addresses",
+      "examples": [
+        "192.168.1.1",
+        "10.0.0.1"
+      ]
+    },
+    "zip_code": {
+      "regex": "\\b\\d{5}(-\\d{4})?\\b",
+      "replacement": "[ZIP]",
+      "description": "US ZIP codes",
+      "examples": [
+        "12345",
+        "12345-6789"
+      ]
+    }
+  },
+  "sensitive_keys": [
+    "password",
+    "secret",
+    "token",
+    "api_key",
+    "apikey",
+    "api-key",
+    "ssn",
+    "social_security",
+    "credit_card",
+    "creditcard",
+    "card_number",
+    "email",
+    "phone",
+    "telephone",
+    "address",
+    "street_address",
+    "home_address",
+    "ip_address",
+    "ip",
+    "username",
+    "user_id",
+    "account_number"
+  ],
+  "test_cases": [
+    {
+      "input": "Contact me at test@example.com or call 555-123-4567",
+      "expected": "Contact me at [EMAIL] or call [PHONE]"
+    },
+    {
+      "input": "SSN: 123-45-6789, Card: 1234-5678-9012-3456",
+      "expected": "SSN: [SSN], Card: [CREDIT_CARD]"
+    },
+    {
+      "input": "Server IP: 192.168.1.100, ZIP: 12345",
+      "expected": "Server IP: [IP_ADDRESS], ZIP: [ZIP]"
+    }
+  ]
+}
