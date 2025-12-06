@@ -108,18 +108,32 @@ jobs:
           # Create dist directory for packaged skills
           mkdir -p dist
 
-          # Package each skill from the registry
-          for SKILL_DIR in registry/skills/*/; do
-            SKILL_NAME=$(basename "$SKILL_DIR")
+          # Only package these 6 skills for Claude Desktop import
+          SKILLS_TO_PACKAGE=(
+            "communication-styles"
+            "deep-research"
+            "executive-data-storytelling"
+            "executive-presence"
+            "political-attack-neutralization"
+            "prompt-engineering"
+          )
 
-            echo "Packaging skill: $SKILL_NAME"
+          # Package each selected skill from the registry
+          for SKILL_NAME in "${SKILLS_TO_PACKAGE[@]}"; do
+            SKILL_DIR="registry/skills/$SKILL_NAME"
 
-            # Create zip directly from registry (no symlinks to resolve)
-            cd registry/skills
-            zip -r "../../dist/${SKILL_NAME}-v${NEW_VERSION}.zip" "$SKILL_NAME"
-            cd ../..
+            if [ -d "$SKILL_DIR" ]; then
+              echo "Packaging skill: $SKILL_NAME"
 
-            echo "Created: dist/${SKILL_NAME}-v${NEW_VERSION}.zip"
+              # Create zip directly from registry
+              cd registry/skills
+              zip -r "../../dist/${SKILL_NAME}-v${NEW_VERSION}.zip" "$SKILL_NAME"
+              cd ../..
+
+              echo "Created: dist/${SKILL_NAME}-v${NEW_VERSION}.zip"
+            else
+              echo "Warning: Skill directory not found: $SKILL_DIR"
+            fi
           done
 
           # List created packages
