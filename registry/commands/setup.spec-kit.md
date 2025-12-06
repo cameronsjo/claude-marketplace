@@ -1,8 +1,8 @@
 ---
 description: Setup or update GitHub's Spec Kit for Spec-Driven Development with intelligent merge of local modifications
-category: tooling-setup
 argument-hint: "[--update-only]"
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
+disable-model-invocation: true
 ---
 
 # Claude Command: Setup Spec Kit

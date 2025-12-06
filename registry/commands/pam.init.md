@@ -1,8 +1,8 @@
 ---
 description: Initialize project for multi-session agent work with progress tracking
-category: pam
 argument-hint: [goal_or_issue_url]
 allowed-tools: Bash(gh *), Bash(git *), Read, Write, Glob, Grep
+disable-model-invocation: true
 ---
 
 # Initialize Project: $ARGUMENTS

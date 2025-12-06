@@ -1,3 +1,10 @@
+---
+description: Convert PDFs, URLs, or documents into Obsidian-compatible reference documentation
+argument-hint: "<pdf-path|url|document-description>"
+allowed-tools: Bash, Read, Write, Edit, WebFetch
+disable-model-invocation: true
+---
+
 # Process Document into Reference Library
 
 Convert PDFs, URLs, or documents into Obsidian-compatible reference documentation for the zen security library.

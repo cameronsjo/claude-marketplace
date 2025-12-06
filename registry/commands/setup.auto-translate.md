@@ -1,5 +1,6 @@
 ---
 description: Setup auto-translate GitHub Action workflow with customizable translation
+disable-model-invocation: true
 ---
 
 You are setting up an auto-translate GitHub Action workflow. This workflow:

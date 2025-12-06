@@ -1,8 +1,8 @@
 ---
 description: Configure this repository for Claude Code on the web with SessionStart hooks
-category: development-setup
 argument-hint: "[nodejs|python|fullstack|ruby|go]"
 allowed-tools: Bash, Read, Write, Edit
+disable-model-invocation: true
 ---
 
 # Claude Command: Web Setup

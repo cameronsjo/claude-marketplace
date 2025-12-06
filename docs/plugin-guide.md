@@ -144,3 +144,38 @@ Skills provide background knowledge. Reference them when you need specific exper
 "Following the api-design skill patterns, design an endpoint for..."
 "Use obsidian-markdown conventions for this note"
 ```
+
+## Command Authoring Tips
+
+### Reducing Context Usage with `disable-model-invocation`
+
+By default, Claude Code loads all command metadata into context so it can suggest and invoke commands automatically. For commands that are:
+
+- **One-time setup** (e.g., `setup.linting`, `init-project`)
+- **Rarely used** (e.g., `modernize-deps`, `create-onboarding-guide`)
+- **Large prompts** that consume significant context
+
+Add `disable-model-invocation: true` to the frontmatter:
+
+```yaml
+---
+description: Setup code linting and quality tools
+allowed-tools: Bash(npm *)
+disable-model-invocation: true
+---
+```
+
+This removes the command's metadata from context, reducing token usage. The command still works when manually invoked with `/command-name`.
+
+**When to use:**
+
+- Setup/initialization commands (run once per project)
+- Specialized utilities (rarely needed)
+- Commands with large prompt bodies
+- Any command you only invoke manually
+
+**When NOT to use:**
+
+- Frequently used commands (`/commit`, `/check`, `/ready`)
+- Commands Claude should suggest proactively (`/review.security`)
+- Workflow commands that benefit from auto-suggestion

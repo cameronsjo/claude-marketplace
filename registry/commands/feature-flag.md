@@ -1,8 +1,8 @@
 ---
 description: Create properly-typed feature flags with tests and lifecycle management
-category: development
 argument-hint: "<flag-name> [flag-type]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
+disable-model-invocation: true
 ---
 
 # Claude Command: Feature Flag
