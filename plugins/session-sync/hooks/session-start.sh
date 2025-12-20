@@ -1,6 +1,6 @@
 #!/bin/bash
 # Session Sync: Read timeline on session start
-# Tries MCP server first, falls back to filesystem
+# Surfaces inbox items and recent work log entries
 
 set -euo pipefail
 
@@ -14,8 +14,9 @@ TIMELINE_PATH="${CLAUDE_TIMELINE_PATH/#\~/$HOME}"
 
 # Check if file exists
 if [[ ! -f "$TIMELINE_PATH" ]]; then
-    echo "session-sync: Timeline not found at $TIMELINE_PATH" >&2
-    echo "session-sync: Run /session.init to create one" >&2
+    echo ""
+    echo "📋 Timeline not found at $TIMELINE_PATH"
+    echo "   Run /session.init to create one"
     exit 0
 fi
 
@@ -39,42 +40,30 @@ esac
 CONTENT=$(cat "$TIMELINE_PATH" 2>/dev/null || echo "")
 
 if [[ -z "$CONTENT" ]]; then
-    echo "session-sync: Timeline is empty" >&2
+    echo "📋 Timeline is empty"
     exit 0
 fi
 
-# Extract last session info (find first ### heading in Session Log)
-LAST_SESSION=$(echo "$CONTENT" | grep -A1 "^### [0-9]" | head -2 | tr '\n' ' ' || echo "No previous sessions")
+# Extract inbox items (lines starting with "- [ ]" after "## Inbox")
+INBOX_ITEMS=$(echo "$CONTENT" | sed -n '/^## Inbox/,/^## /p' | grep "^- \[.\]" | head -10 || echo "")
+INBOX_COUNT=$(echo "$INBOX_ITEMS" | grep -c "^- \[.\]" 2>/dev/null || echo "0")
 
-# Extract pending TODOs
-PENDING_TODOS=$(echo "$CONTENT" | grep "^- \[ \]" | head -5 || echo "")
+# Get last work log entry
+LAST_ENTRY=$(echo "$CONTENT" | grep "^- [0-9][0-9]:[0-9][0-9] \*\*" | head -1 || echo "")
 
 # Output context for Claude
 echo ""
-echo "=== Session Sync ==="
-echo "Timeline: $TIMELINE_PATH"
-echo "Device: $DEVICE"
-echo ""
+echo "📋 Timeline loaded ($DEVICE)"
 
-if [[ -n "$LAST_SESSION" && "$LAST_SESSION" != "No previous sessions" ]]; then
-    echo "Last session: $LAST_SESSION"
+if [[ "$INBOX_COUNT" -gt 0 ]]; then
+    echo ""
+    echo "📥 Inbox ($INBOX_COUNT items):"
+    echo "$INBOX_ITEMS"
 fi
 
-if [[ -n "$PENDING_TODOS" ]]; then
+if [[ -n "$LAST_ENTRY" ]]; then
     echo ""
-    echo "Pending TODOs:"
-    echo "$PENDING_TODOS"
-fi
-
-echo ""
-echo "Use /session.sync to update the timeline before ending."
-echo "==================="
-
-# Also read additional context directory if specified
-if [[ -n "${CLAUDE_CONTEXT_DIR:-}" && -d "${CLAUDE_CONTEXT_DIR/#\~/$HOME}" ]]; then
-    CONTEXT_DIR="${CLAUDE_CONTEXT_DIR/#\~/$HOME}"
-    echo ""
-    echo "Additional context available in: $CONTEXT_DIR"
+    echo "📝 Last entry: $LAST_ENTRY"
 fi
 
 exit 0

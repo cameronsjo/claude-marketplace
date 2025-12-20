@@ -1,6 +1,6 @@
 #!/bin/bash
-# Session Sync: Auto-log git commits to timeline
-# Triggered by PostToolUse hook on Bash(git commit:*)
+# Session Sync: Log when context compaction happens
+# Triggered by PreCompact hook
 
 set -euo pipefail
 
@@ -17,20 +17,12 @@ if [[ ! -f "$TIMELINE_PATH" ]]; then
     exit 0
 fi
 
-# Get commit info
-COMMIT_MSG=$(git log -1 --format="%s" 2>/dev/null || echo "")
-COMMIT_SHA=$(git log -1 --format="%h" 2>/dev/null || echo "")
-
-if [[ -z "$COMMIT_MSG" || -z "$COMMIT_SHA" ]]; then
-    exit 0
-fi
-
 # Get current time and date
 TIME=$(date +"%H:%M")
 TODAY=$(date +"%Y-%m-%d")
 
 # Build the entry
-ENTRY="- $TIME **Commit**: $COMMIT_MSG ($COMMIT_SHA)"
+ENTRY="- $TIME **State**: Context compaction triggered"
 
 # Check if today's date section exists
 if grep -q "^### $TODAY" "$TIMELINE_PATH"; then
@@ -47,8 +39,7 @@ $ENTRY
 " "$TIMELINE_PATH"
 fi
 
-# Confirm to Claude
 echo ""
-echo "📝 Logged to timeline: $COMMIT_MSG ($COMMIT_SHA)"
+echo "📋 Logged context compaction to timeline"
 
 exit 0

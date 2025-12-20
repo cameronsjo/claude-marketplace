@@ -71,6 +71,50 @@ Or in `~/.claude/settings.json`:
 - 23:30 **Commit**: feat: add prometheus (abc123)
 ```
 
+## Hooks
+
+The plugin includes hooks for automatic logging. Add to `~/.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [{
+      "hooks": [{
+        "type": "command",
+        "command": "~/.claude/plugins/cache/cameronsjo/session-sync/*/hooks/session-start.sh"
+      }]
+    }],
+    "PostToolUse": [{
+      "matcher": "Bash(git commit:*)",
+      "hooks": [{
+        "type": "command",
+        "command": "~/.claude/plugins/cache/cameronsjo/session-sync/*/hooks/post-commit.sh"
+      }]
+    }],
+    "PreCompact": [{
+      "matcher": "auto",
+      "hooks": [{
+        "type": "command",
+        "command": "~/.claude/plugins/cache/cameronsjo/session-sync/*/hooks/pre-compact.sh"
+      }]
+    }],
+    "Stop": [{
+      "hooks": [{
+        "type": "command",
+        "command": "~/.claude/plugins/cache/cameronsjo/session-sync/*/hooks/session-end.sh"
+      }]
+    }]
+  }
+}
+```
+
+| Hook | Trigger | Action |
+|------|---------|--------|
+| `session-start.sh` | SessionStart | Surfaces inbox and last entry |
+| `post-commit.sh` | After git commit | Auto-logs commit to timeline |
+| `pre-compact.sh` | Before context compaction | Logs compaction event |
+| `session-end.sh` | Stop | Reminds to run /session.sync |
+
 ## Philosophy
 
 **Log early, log often.** The Work Log is just timestamped one-liners. Don't overthink it.
