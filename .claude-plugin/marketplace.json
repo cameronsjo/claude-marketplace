@@ -307,6 +307,22 @@
         "optimization"
       ],
       "strict": true
+    },
+    {
+      "name": "session-sync",
+      "source": "./plugins/session-sync",
+      "description": "Cross-device session continuity via Obsidian timeline. Maintains context across sessions and devices.",
+      "version": "1.0.0",
+      "keywords": [
+        "session",
+        "sync",
+        "timeline",
+        "obsidian",
+        "continuity",
+        "context",
+        "cross-device"
+      ],
+      "strict": true
     }
   ]
 }
