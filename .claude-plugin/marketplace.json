@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Personal Claude Code productivity toolkit - agents, commands, and skills for software development",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -14,7 +14,7 @@
       "name": "essentials",
       "source": "./plugins/essentials",
       "description": "Cameron's development essentials: deep research hooks and core productivity enhancements",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "essentials",
         "hooks",
@@ -27,7 +27,7 @@
       "name": "core",
       "source": "./plugins/core",
       "description": "Essential productivity commands: git workflows, code review, project checks",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "git",
         "commit",
@@ -40,7 +40,7 @@
       "name": "python",
       "source": "./plugins/python",
       "description": "Python development expertise: async, testing, uv, type hints",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "python",
         "uv",
@@ -53,7 +53,7 @@
       "name": "typescript",
       "source": "./plugins/typescript",
       "description": "TypeScript/JavaScript development: React, Next.js, Node.js patterns",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "typescript",
         "javascript",
@@ -66,7 +66,7 @@
       "name": "api",
       "source": "./plugins/api",
       "description": "API design and review: REST best practices, OpenAPI, architecture",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "api",
         "rest",
@@ -79,7 +79,7 @@
       "name": "security",
       "source": "./plugins/security",
       "description": "Security auditing and review: OWASP, vulnerability scanning, auth patterns",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "security",
         "owasp",
@@ -92,7 +92,7 @@
       "name": "pr",
       "source": "./plugins/pr",
       "description": "Pull request automation: multi-perspective reviews, labels, fixes",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "pr",
         "review",
@@ -105,7 +105,7 @@
       "name": "research",
       "source": "./plugins/research",
       "description": "Research and analysis: comprehensive research, web search, synthesis",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "research",
         "search",
@@ -118,7 +118,7 @@
       "name": "obsidian",
       "source": "./plugins/obsidian",
       "description": "Obsidian knowledge management: markdown, MOCs, tags, linking",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "obsidian",
         "markdown",
@@ -131,7 +131,7 @@
       "name": "mcp",
       "source": "./plugins/mcp",
       "description": "MCP server development: architecture, testing, deployment",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "mcp",
         "servers",
@@ -144,7 +144,7 @@
       "name": "dx",
       "source": "./plugins/dx",
       "description": "Developer experience: debugging, optimization, prompt engineering",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "dx",
         "debugging",
@@ -157,7 +157,7 @@
       "name": "cloud",
       "source": "./plugins/cloud",
       "description": "Cloud operations: AWS/Azure/GCP, Kubernetes, DevOps, deployment",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "cloud",
         "kubernetes",
@@ -170,7 +170,7 @@
       "name": "data",
       "source": "./plugins/data",
       "description": "Data science and analytics: SQL, ML pipelines, data engineering",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "data",
         "sql",
@@ -183,7 +183,7 @@
       "name": "obsidian-dev",
       "source": "./plugins/obsidian-dev",
       "description": "Obsidian plugin development: TypeScript patterns, Release Please, BRAT beta channel, GitHub Actions",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "obsidian",
         "plugin",
@@ -198,7 +198,7 @@
       "name": "meta",
       "source": "./plugins/meta",
       "description": "Meta plugin for marketplace development: analyze plugins, suggest improvements, detect gaps, curate compositions",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "marketplace",
         "meta",
@@ -213,7 +213,7 @@
       "name": "cc-web",
       "source": "./plugins/cc-web",
       "description": "Configure repositories for Claude Code on the web: SessionStart hooks, environment setup, cloud execution",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "cloud",
         "web",
@@ -229,7 +229,7 @@
       "name": "communication-styles",
       "source": "./plugins/communication-styles",
       "description": "Stakeholder communication patterns: email templates, presentation frameworks, style diagnostics",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "communication",
         "stakeholders",
@@ -243,7 +243,7 @@
       "name": "deep-research",
       "source": "./plugins/deep-research",
       "description": "Research mode detection and deep-dive workflows for comprehensive analysis",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "research",
         "analysis",
@@ -256,7 +256,7 @@
       "name": "executive-data-storytelling",
       "source": "./plugins/executive-data-storytelling",
       "description": "Data presentation for leadership: narrative frameworks, chart selection, CEO-focused insights",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "data",
         "storytelling",
@@ -270,7 +270,7 @@
       "name": "executive-presence",
       "source": "./plugins/executive-presence",
       "description": "Personal brand development: self-assessment, influence audits, brand promise frameworks",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "leadership",
         "brand",
@@ -284,7 +284,7 @@
       "name": "political-attack-neutralization",
       "source": "./plugins/political-attack-neutralization",
       "description": "Workplace politics navigation: risk assessment, message formulas, reputation restoration",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "politics",
         "workplace",
@@ -298,7 +298,7 @@
       "name": "prompt-engineering",
       "source": "./plugins/prompt-engineering",
       "description": "LLM prompt optimization: templates, chain-of-thought, few-shot patterns, best practices",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "prompts",
         "llm",
@@ -312,7 +312,7 @@
       "name": "session-sync",
       "source": "./plugins/session-sync",
       "description": "Cross-device session continuity via Obsidian timeline. Maintains context across sessions and devices.",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "keywords": [
         "session",
         "sync",
