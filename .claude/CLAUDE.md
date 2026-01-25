@@ -17,10 +17,27 @@ A collection of agents, commands, and skills that extend Claude Code's capabilit
 
 ### Creating Plugins
 
-1. Create directory: `plugins/{name}/`
-2. Add `.claude-plugin/plugin.json` with metadata
-3. Add agents, commands, and/or skills
-4. Add entry to `.claude-plugin/marketplace.json`
+```bash
+# 1. Create plugin structure
+mkdir -p plugins/my-plugin/.claude-plugin
+mkdir -p plugins/my-plugin/{agents,commands,skills}
+
+# 2. Create plugin.json
+cat > plugins/my-plugin/.claude-plugin/plugin.json << 'EOF'
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "What this plugin does"
+}
+EOF
+
+# 3. Add assets (agents, commands, skills)
+
+# 4. Register in marketplace
+# Edit .claude-plugin/marketplace.json to add entry
+```
+
+**Note**: Assets are copied, not symlinked. If sharing an asset across plugins, copy the file to each plugin that needs it.
 
 ### Key Files
 

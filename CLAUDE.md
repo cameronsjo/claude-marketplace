@@ -30,6 +30,22 @@ Project instructions have moved to modular rule files:
 
 Path-targeted rules load automatically when editing relevant files.
 
+## Development
+
+```bash
+# Validate marketplace.json syntax
+cat .claude-plugin/marketplace.json | jq .
+
+# Test plugin install locally (from repo root)
+claude /plugin install core --source ./plugins/core
+
+# Create a new plugin
+mkdir -p plugins/my-plugin/.claude-plugin
+mkdir -p plugins/my-plugin/{agents,commands,skills}
+```
+
+**Flat file architecture**: Plugins contain real files, not symlinks. Claude Code doesn't follow symlinks during plugin install, so assets must be copied into each plugin that needs them. See `docs/adr/0001-flat-file-architecture.md`.
+
 ## Key Files
 
 | File | Purpose |
