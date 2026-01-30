@@ -1,8 +1,0 @@
-{
-  "name": "session-sync",
-  "version": "1.0.0",
-  "description": "Cross-device session continuity via Obsidian timeline. Maintains context across sessions and devices.",
-  "author": "cameronsjo",
-  "keywords": ["session", "sync", "timeline", "obsidian", "continuity", "context"],
-  "repository": "https://github.com/cameronsjo/claude-marketplace"
-}

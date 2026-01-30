@@ -5,323 +5,65 @@
     "github": "cameronsjo"
   },
   "metadata": {
-    "description": "Personal Claude Code productivity toolkit - agents, commands, and skills for software development",
-    "version": "2.2.0",
+    "description": "Lean Claude Code toolkit - actual tools and workflows, not prompt wrappers",
+    "version": "3.0.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
-      "name": "essentials",
-      "source": "./plugins/essentials",
-      "description": "Cameron's development essentials: deep research hooks and core productivity enhancements",
-      "version": "2.2.0",
-      "keywords": [
-        "essentials",
-        "hooks",
-        "research",
-        "productivity"
-      ],
-      "strict": true
-    },
-    {
       "name": "core",
       "source": "./plugins/core",
-      "description": "Essential productivity commands: git workflows, code review, project checks",
-      "version": "2.2.0",
-      "keywords": [
-        "git",
-        "commit",
-        "workflow",
-        "review"
-      ],
+      "description": "Workflow modes and commands: turbo, roast, check, ready (CLI wrapper)",
+      "version": "3.0.0",
+      "keywords": ["workflow", "modes", "productivity"],
       "strict": true
     },
     {
-      "name": "python",
-      "source": "./plugins/python",
-      "description": "Python development expertise: async, testing, uv, type hints",
-      "version": "2.2.0",
-      "keywords": [
-        "python",
-        "uv",
-        "testing",
-        "async"
-      ],
-      "strict": true
-    },
-    {
-      "name": "typescript",
-      "source": "./plugins/typescript",
-      "description": "TypeScript/JavaScript development: React, Next.js, Node.js patterns",
-      "version": "2.2.0",
-      "keywords": [
-        "typescript",
-        "javascript",
-        "react",
-        "nextjs"
-      ],
-      "strict": true
-    },
-    {
-      "name": "api",
-      "source": "./plugins/api",
-      "description": "API design and review: REST best practices, OpenAPI, architecture",
-      "version": "2.2.0",
-      "keywords": [
-        "api",
-        "rest",
-        "openapi",
-        "architecture"
-      ],
-      "strict": true
-    },
-    {
-      "name": "security",
-      "source": "./plugins/security",
-      "description": "Security auditing and review: OWASP, vulnerability scanning, auth patterns",
-      "version": "2.2.0",
-      "keywords": [
-        "security",
-        "owasp",
-        "audit",
-        "vulnerabilities"
-      ],
-      "strict": true
-    },
-    {
-      "name": "pr",
-      "source": "./plugins/pr",
-      "description": "Pull request automation: multi-perspective reviews, labels, fixes",
-      "version": "2.2.0",
-      "keywords": [
-        "pr",
-        "review",
-        "github",
-        "labels"
-      ],
+      "name": "essentials",
+      "source": "./plugins/essentials",
+      "description": "User memory MCP server, PR workflows, roadmap tracking",
+      "version": "3.0.0",
+      "keywords": ["memory", "mcp", "pr", "roadmap"],
       "strict": true
     },
     {
       "name": "research",
       "source": "./plugins/research",
-      "description": "Research and analysis: comprehensive research, web search, synthesis",
-      "version": "2.2.0",
-      "keywords": [
-        "research",
-        "search",
-        "analysis",
-        "synthesis"
-      ],
+      "description": "Conversation indexing and semantic search tool",
+      "version": "3.0.0",
+      "keywords": ["search", "conversations", "memory"],
       "strict": true
     },
     {
-      "name": "obsidian",
-      "source": "./plugins/obsidian",
-      "description": "Obsidian knowledge management: markdown, MOCs, tags, linking",
-      "version": "2.2.0",
-      "keywords": [
-        "obsidian",
-        "markdown",
-        "pkm",
-        "notes"
-      ],
+      "name": "security",
+      "source": "./plugins/security",
+      "description": "Security review scripts: OWASP checklist, secret scanning, audit tools",
+      "version": "3.0.0",
+      "keywords": ["security", "owasp", "secrets", "audit"],
       "strict": true
     },
     {
-      "name": "mcp",
-      "source": "./plugins/mcp",
-      "description": "MCP server development: architecture, testing, deployment",
-      "version": "2.2.0",
-      "keywords": [
-        "mcp",
-        "servers",
-        "protocol",
-        "tools"
-      ],
+      "name": "api",
+      "source": "./plugins/api",
+      "description": "API design resources: OpenAPI templates, validation scripts",
+      "version": "3.0.0",
+      "keywords": ["api", "openapi", "validation"],
       "strict": true
     },
     {
       "name": "dx",
       "source": "./plugins/dx",
-      "description": "Developer experience: debugging, optimization, prompt engineering",
-      "version": "2.2.0",
-      "keywords": [
-        "dx",
-        "debugging",
-        "optimization",
-        "prompts"
-      ],
-      "strict": true
-    },
-    {
-      "name": "cloud",
-      "source": "./plugins/cloud",
-      "description": "Cloud operations: AWS/Azure/GCP, Kubernetes, DevOps, deployment",
-      "version": "2.2.0",
-      "keywords": [
-        "cloud",
-        "kubernetes",
-        "devops",
-        "deployment"
-      ],
-      "strict": true
-    },
-    {
-      "name": "data",
-      "source": "./plugins/data",
-      "description": "Data science and analytics: SQL, ML pipelines, data engineering",
-      "version": "2.2.0",
-      "keywords": [
-        "data",
-        "sql",
-        "ml",
-        "analytics"
-      ],
-      "strict": true
-    },
-    {
-      "name": "obsidian-dev",
-      "source": "./plugins/obsidian-dev",
-      "description": "Obsidian plugin development: TypeScript patterns, Release Please, BRAT beta channel, GitHub Actions",
-      "version": "2.2.0",
-      "keywords": [
-        "obsidian",
-        "plugin",
-        "typescript",
-        "brat",
-        "release-please",
-        "github-actions"
-      ],
-      "strict": true
-    },
-    {
-      "name": "meta",
-      "source": "./plugins/meta",
-      "description": "Meta plugin for marketplace development: analyze plugins, suggest improvements, detect gaps, curate compositions",
-      "version": "2.2.0",
-      "keywords": [
-        "marketplace",
-        "meta",
-        "plugins",
-        "curator",
-        "analysis",
-        "feedback"
-      ],
+      "description": "Feature flags toolkit with TypeScript generators and stale flag detection",
+      "version": "3.0.0",
+      "keywords": ["feature-flags", "dx"],
       "strict": true
     },
     {
       "name": "cc-web",
       "source": "./plugins/cc-web",
-      "description": "Configure repositories for Claude Code on the web: SessionStart hooks, environment setup, cloud execution",
-      "version": "2.2.0",
-      "keywords": [
-        "cloud",
-        "web",
-        "hooks",
-        "session",
-        "remote",
-        "environment",
-        "claude-code"
-      ],
-      "strict": true
-    },
-    {
-      "name": "communication-styles",
-      "source": "./plugins/communication-styles",
-      "description": "Stakeholder communication patterns: email templates, presentation frameworks, style diagnostics",
-      "version": "2.2.0",
-      "keywords": [
-        "communication",
-        "stakeholders",
-        "presentations",
-        "email",
-        "soft-skills"
-      ],
-      "strict": true
-    },
-    {
-      "name": "deep-research",
-      "source": "./plugins/deep-research",
-      "description": "Research mode detection and deep-dive workflows for comprehensive analysis",
-      "version": "2.2.0",
-      "keywords": [
-        "research",
-        "analysis",
-        "deep-dive",
-        "investigation"
-      ],
-      "strict": true
-    },
-    {
-      "name": "executive-data-storytelling",
-      "source": "./plugins/executive-data-storytelling",
-      "description": "Data presentation for leadership: narrative frameworks, chart selection, CEO-focused insights",
-      "version": "2.2.0",
-      "keywords": [
-        "data",
-        "storytelling",
-        "executive",
-        "presentations",
-        "leadership"
-      ],
-      "strict": true
-    },
-    {
-      "name": "executive-presence",
-      "source": "./plugins/executive-presence",
-      "description": "Personal brand development: self-assessment, influence audits, brand promise frameworks",
-      "version": "2.2.0",
-      "keywords": [
-        "leadership",
-        "brand",
-        "presence",
-        "influence",
-        "executive"
-      ],
-      "strict": true
-    },
-    {
-      "name": "political-attack-neutralization",
-      "source": "./plugins/political-attack-neutralization",
-      "description": "Workplace politics navigation: risk assessment, message formulas, reputation restoration",
-      "version": "2.2.0",
-      "keywords": [
-        "politics",
-        "workplace",
-        "reputation",
-        "conflict",
-        "strategy"
-      ],
-      "strict": true
-    },
-    {
-      "name": "prompt-engineering",
-      "source": "./plugins/prompt-engineering",
-      "description": "LLM prompt optimization: templates, chain-of-thought, few-shot patterns, best practices",
-      "version": "2.2.0",
-      "keywords": [
-        "prompts",
-        "llm",
-        "ai",
-        "templates",
-        "optimization"
-      ],
-      "strict": true
-    },
-    {
-      "name": "session-sync",
-      "source": "./plugins/session-sync",
-      "description": "Cross-device session continuity via Obsidian timeline. Maintains context across sessions and devices.",
-      "version": "2.2.0",
-      "keywords": [
-        "session",
-        "sync",
-        "timeline",
-        "obsidian",
-        "continuity",
-        "context",
-        "cross-device"
-      ],
+      "description": "Session start hook templates for Claude Code cloud execution",
+      "version": "3.0.0",
+      "keywords": ["cloud", "hooks", "session"],
       "strict": true
     }
   ]
