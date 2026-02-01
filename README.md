@@ -1,66 +1,77 @@
-# Claude Marketplace
+# Cameron's Plugin Emporium
 
-Personal Claude Code plugin marketplace by [@cameronsjo](https://github.com/cameronsjo).
+A curated collection of Claude Code plugins for people who value their time.
 
 ## Installation
 
 ```bash
-# Add marketplace
+# Add the goods
 /plugin marketplace add cameronsjo/claude-marketplace
 
-# Install plugins
+# Grab what you need
 /plugin install essentials@cameronsjo
 /plugin install development@cameronsjo
+/plugin install mcp@cameronsjo
+/plugin install session-continuity@cameronsjo
+/plugin install obsidian-plugin@cameronsjo
 ```
 
-## Plugins
+## The Collection
 
 ### essentials
 
-Personality commands for celebration, wit, and productivity.
+For when you need Claude to match your energy.
 
-| Command | Description |
-|---------|-------------|
-| `/hype` | Encouragement mode - Ted Lasso energy, specific wins |
-| `/sass` | Witty responses with 4 intensity levels 🌶️ |
-| `/roast` | Maximum scrutiny - thorough analysis |
-| `/turbo` | Parallel execution, zero hesitation |
-| `/catchup` | Reload uncommitted changes after `/clear` |
+| Command | What it does |
+|---------|--------------|
+| `/hype` | Ted Lasso mode - celebrate the wins |
+| `/sass` | Adjustable spice levels 🌶️ |
+| `/roast` | No mercy code review |
+| `/turbo` | Ship it. Now. |
+| `/catchup` | Context reload after `/clear` |
+| `/doc-to-reference` | PDFs and URLs → clean markdown |
+
+Skills: data-storytelling, personal-brand, conflict-resolution
 
 ### development
 
-Development workflow tools and agents.
+The boring stuff, automated.
 
-| Command | Description |
-|---------|-------------|
-| `/check` | Run project validation, fix errors |
-| `/clean` | Fix all linting and formatting |
-| `/context-prime` | Load project context |
+| Command | What it does |
+|---------|--------------|
+| `/modernize-dependencies` | Security-first dep updates |
+| `/setup-release-pipeline` | GitHub Actions, done right |
 
-| Agent | Description |
-|-------|-------------|
-| `add-logging` | Storytelling-style structured logging |
+Agent: `add-logging` - logs that tell a story
 
-### release-pipelines
+Skills: cloud-native-checklist, container-signing
 
-Three-stage release pipeline (Beta → RC → Stable) for Node/TypeScript.
+### mcp
 
-| Command | Description |
-|---------|-------------|
-| `/setup-release-pipeline` | Generate GitHub Actions workflows |
+Build MCP servers without reading the spec twelve times.
 
-### obsidian-dev
+Skills: mcp-development, mcp-tools-as-code
 
-Complete toolkit for Obsidian plugin development.
+### session-continuity
 
-| Command | Description |
-|---------|-------------|
-| `/obsidian.init` | Scaffold new Obsidian plugin |
-| `/obsidian.release` | Trigger beta/RC/stable releases |
+Because Claude's memory shouldn't end when the session does.
 
-| Agent | Description |
-|-------|-------------|
-| `obsidian-plugin-expert` | TypeScript, Obsidian API, BRAT |
+| Command | What it does |
+|---------|--------------|
+| `/session.init` | Start tracking |
+| `/session.log` | Capture decisions, commits, blockers |
+| `/session.sync` | Checkpoint before you bounce |
+
+### obsidian-plugin
+
+Obsidian plugin dev without the yak shaving.
+
+| Command | What it does |
+|---------|--------------|
+| `/obsidian.init` | Scaffold a plugin |
+| `/obsidian.release` | Ship it (beta/RC/stable) |
+
+Agent: `obsidian-plugin-expert` - knows the API so you don't have to
 
 ## License
 

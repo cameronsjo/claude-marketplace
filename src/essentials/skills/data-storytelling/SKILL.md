@@ -1,9 +1,9 @@
 ---
-name: executive-data-storytelling
-description: Transform data into compelling executive narratives using the What/Why/Next framework from Gartner research
+name: data-storytelling
+description: Transform data into compelling narratives using the What/Why/Next framework
 ---
 
-# Executive Data Storytelling Skill
+# Data Storytelling
 
 Transform data and metrics into compelling narratives that drive executive action and support using proven frameworks from Gartner research.
 

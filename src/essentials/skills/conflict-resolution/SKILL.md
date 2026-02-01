@@ -1,9 +1,9 @@
 ---
-name: political-attack-neutralization
-description: Neutralize workplace political attacks using the MOAR framework from Gartner research
+name: conflict-resolution
+description: Neutralize workplace conflicts using the MOAR framework
 ---
 
-# Political Attack Neutralization
+# Conflict Resolution
 
 **Source:** Gartner Research "How to Neutralize a Political Attacker" (G00775161, October 2022)
 

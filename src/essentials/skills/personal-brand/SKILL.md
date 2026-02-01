@@ -1,9 +1,9 @@
 ---
-name: executive-presence
-description: Build executive presence through intentional personal brand development using Gartner research methodology
+name: personal-brand
+description: Build presence through intentional personal brand development
 ---
 
-# Executive Presence Skill
+# Personal Brand
 
 Building executive presence through intentional personal brand development based on Gartner research methodology.
 
