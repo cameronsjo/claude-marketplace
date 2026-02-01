@@ -27,6 +27,12 @@
       "version": "1.0.0",
       "path": "./src/development",
       "description": "Development workflow tools - logging agents, project checks, linting, and context loading"
+    },
+    {
+      "name": "core",
+      "version": "1.0.0",
+      "path": "./src/core",
+      "description": "Consolidated agents, commands, and skills - API, cloud, data, security, MCP, research, and more"
     }
   ]
 }

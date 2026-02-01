@@ -1,17 +1,17 @@
-name: Auto Version
+name: Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   version:
     runs-on: ubuntu-latest
-    # Skip if commit is from this workflow (prevents infinite loop)
+    # Skip if commit is from this workflow
     if: "!contains(github.event.head_commit.message, '[skip-ci]')"
 
     steps:
@@ -23,15 +23,15 @@ jobs:
       - name: Get current version
         id: current
         run: |
-          VERSION=$(jq -r '.metadata.version' .claude-plugin/marketplace.json)
+          VERSION=$(jq -r '.plugins[0].version' index.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Current version: $VERSION"
 
       - name: Determine version bump
         id: bump
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          COMMIT_MSG="${{ github.event.head_commit.message }}"
-
           # Check for breaking change
           if [[ "$COMMIT_MSG" =~ ^feat!:|^fix!:|BREAKING[[:space:]]CHANGE ]]; then
             echo "type=major" >> $GITHUB_OUTPUT
@@ -49,10 +49,10 @@ jobs:
       - name: Calculate new version
         id: new
         if: steps.bump.outputs.type != 'none'
+        env:
+          VERSION: ${{ steps.current.outputs.version }}
+          BUMP: ${{ steps.bump.outputs.type }}
         run: |
-          VERSION="${{ steps.current.outputs.version }}"
-          BUMP="${{ steps.bump.outputs.type }}"
-
           IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
           case $BUMP in
@@ -76,81 +76,40 @@ jobs:
 
       - name: Update version files
         if: steps.bump.outputs.type != 'none'
+        env:
+          NEW_VERSION: ${{ steps.new.outputs.version }}
         run: |
-          NEW_VERSION="${{ steps.new.outputs.version }}"
+          # Update all plugin versions in index.json
+          jq --arg v "$NEW_VERSION" '.plugins[].version = $v' index.json > tmp.json
+          mv tmp.json index.json
 
-          # Update marketplace.json metadata version
-          jq --arg v "$NEW_VERSION" '.metadata.version = $v' .claude-plugin/marketplace.json > tmp.json
-          mv tmp.json .claude-plugin/marketplace.json
-
-          # Update all plugin versions
-          jq --arg v "$NEW_VERSION" '.plugins[].version = $v' .claude-plugin/marketplace.json > tmp.json
-          mv tmp.json .claude-plugin/marketplace.json
+          # Update each plugin.json
+          find src -name "plugin.json" -path "*/.claude-plugin/*" | while read pj; do
+            echo "Updating $pj to $NEW_VERSION"
+            jq --arg v "$NEW_VERSION" '.version = $v' "$pj" > tmp.json && mv tmp.json "$pj"
+          done
 
       - name: Commit and tag
         if: steps.bump.outputs.type != 'none'
+        env:
+          NEW_VERSION: ${{ steps.new.outputs.version }}
         run: |
-          NEW_VERSION="${{ steps.new.outputs.version }}"
-
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add .claude-plugin/marketplace.json
+          git add index.json src/
           git commit -m "chore(release): v$NEW_VERSION [skip-ci]"
           git tag "v$NEW_VERSION"
           git push origin main --tags
-
-      - name: Build skill packages
-        if: steps.bump.outputs.type != 'none'
-        run: |
-          NEW_VERSION="${{ steps.new.outputs.version }}"
-
-          # Create dist directory for packaged skills
-          mkdir -p dist
-
-          # Only package these 6 skills for Claude Desktop import
-          SKILLS_TO_PACKAGE=(
-            "communication-styles"
-            "deep-research"
-            "executive-data-storytelling"
-            "executive-presence"
-            "political-attack-neutralization"
-            "prompt-engineering"
-          )
-
-          # Package each selected skill from the registry
-          for SKILL_NAME in "${SKILLS_TO_PACKAGE[@]}"; do
-            SKILL_DIR="registry/skills/$SKILL_NAME"
-
-            if [ -d "$SKILL_DIR" ]; then
-              echo "Packaging skill: $SKILL_NAME"
-
-              # Create zip directly from registry
-              cd registry/skills
-              zip -r "../../dist/${SKILL_NAME}-v${NEW_VERSION}.zip" "$SKILL_NAME"
-              cd ../..
-
-              echo "Created: dist/${SKILL_NAME}-v${NEW_VERSION}.zip"
-            else
-              echo "Warning: Skill directory not found: $SKILL_DIR"
-            fi
-          done
-
-          # List created packages
-          echo "=== Created skill packages ==="
-          ls -la dist/*.zip
 
       - name: Create GitHub Release
         if: steps.bump.outputs.type != 'none'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEW_VERSION: ${{ steps.new.outputs.version }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          NEW_VERSION="${{ steps.new.outputs.version }}"
-          COMMIT_MSG="${{ github.event.head_commit.message }}"
-
-          # Create release with commit message as body
           gh release create "v$NEW_VERSION" \
             --title "v$NEW_VERSION" \
             --notes "$COMMIT_MSG" \
-            --latest \
-            dist/*.zip
+            --latest

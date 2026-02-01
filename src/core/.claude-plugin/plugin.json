@@ -1,0 +1,15 @@
+{
+  "name": "core",
+  "description": "Consolidated agents, commands, and skills from the claude-marketplace",
+  "version": "1.0.0",
+  "keywords": [
+    "agents",
+    "commands",
+    "skills",
+    "productivity",
+    "development",
+    "research",
+    "security",
+    "mcp"
+  ]
+}

@@ -1,0 +1,124 @@
+name: Validate Plugins
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate index.json
+        run: |
+          echo "Validating index.json schema..."
+          if ! jq empty index.json 2>/dev/null; then
+            echo "❌ index.json is not valid JSON"
+            exit 1
+          fi
+          echo "✅ index.json is valid JSON"
+
+      - name: Validate plugin structure
+        run: |
+          echo "Validating plugin directories..."
+
+          # Get all plugin paths from index.json
+          plugins=$(jq -r '.plugins[].path' index.json)
+
+          for plugin_path in $plugins; do
+            echo "Checking $plugin_path..."
+
+            # Check plugin.json exists
+            if [ ! -f "$plugin_path/.claude-plugin/plugin.json" ]; then
+              echo "❌ Missing $plugin_path/.claude-plugin/plugin.json"
+              exit 1
+            fi
+
+            # Validate plugin.json is valid JSON
+            if ! jq empty "$plugin_path/.claude-plugin/plugin.json" 2>/dev/null; then
+              echo "❌ Invalid JSON in $plugin_path/.claude-plugin/plugin.json"
+              exit 1
+            fi
+
+            # Check required fields
+            name=$(jq -r '.name' "$plugin_path/.claude-plugin/plugin.json")
+            if [ "$name" = "null" ] || [ -z "$name" ]; then
+              echo "❌ Missing 'name' in $plugin_path/.claude-plugin/plugin.json"
+              exit 1
+            fi
+
+            description=$(jq -r '.description' "$plugin_path/.claude-plugin/plugin.json")
+            if [ "$description" = "null" ] || [ -z "$description" ]; then
+              echo "❌ Missing 'description' in $plugin_path/.claude-plugin/plugin.json"
+              exit 1
+            fi
+
+            version=$(jq -r '.version' "$plugin_path/.claude-plugin/plugin.json")
+            if [ "$version" = "null" ] || [ -z "$version" ]; then
+              echo "❌ Missing 'version' in $plugin_path/.claude-plugin/plugin.json"
+              exit 1
+            fi
+
+            echo "✅ $plugin_path valid"
+          done
+
+          echo "✅ All plugins validated"
+
+      - name: Validate command frontmatter
+        run: |
+          echo "Validating command files..."
+
+          find src -name "*.md" -path "*/commands/*" | while read cmd; do
+            echo "Checking $cmd..."
+
+            # Check for frontmatter
+            if ! head -1 "$cmd" | grep -q "^---"; then
+              echo "❌ Missing frontmatter in $cmd"
+              exit 1
+            fi
+
+            # Check for description in frontmatter
+            if ! grep -q "^description:" "$cmd"; then
+              echo "❌ Missing description in $cmd"
+              exit 1
+            fi
+
+            echo "✅ $cmd valid"
+          done
+
+          echo "✅ All commands validated"
+
+      - name: Validate agent frontmatter
+        run: |
+          echo "Validating agent files..."
+
+          find src -name "*.md" -path "*/agents/*" 2>/dev/null | while read agent; do
+            if [ -n "$agent" ]; then
+              echo "Checking $agent..."
+
+              # Check for frontmatter
+              if ! head -1 "$agent" | grep -q "^---"; then
+                echo "❌ Missing frontmatter in $agent"
+                exit 1
+              fi
+
+              # Check for name in frontmatter
+              if ! grep -q "^name:" "$agent"; then
+                echo "❌ Missing name in $agent"
+                exit 1
+              fi
+
+              # Check for description in frontmatter
+              if ! grep -q "^description:" "$agent"; then
+                echo "❌ Missing description in $agent"
+                exit 1
+              fi
+
+              echo "✅ $agent valid"
+            fi
+          done
+
+          echo "✅ All agents validated"
