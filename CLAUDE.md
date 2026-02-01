@@ -1,40 +1,63 @@
-# Claude Code Plugin Marketplace
+# Claude Marketplace Development
 
-A collection of agents, commands, and skills that extend Claude Code's capabilities.
+Plugin marketplace for Claude Code.
 
-## Quick Start
+## Structure
 
-```bash
-# Add this marketplace
-/plugin marketplace add cameronsjo/claude-marketplace
-
-# Browse available plugins
-/plugin discover
-
-# Install a plugin
-/plugin install core@cameronsjo
+```
+├── index.json              # Marketplace registry
+├── essentials/             # Personality commands
+├── development/            # Dev workflow tools
+├── release-pipelines/      # CI/CD automation
+└── obsidian-dev/           # Obsidian plugin toolkit
 ```
 
-## Documentation
+## Plugin Format
 
-Project instructions have moved to modular rule files:
+Each plugin follows:
 
-| Location | Content |
-|----------|---------|
-| `.claude/CLAUDE.md` | Development quick reference |
-| `.claude/rules/architecture.md` | Flat file philosophy, plugin structure |
-| `.claude/rules/versioning.md` | Conventional commits, releases |
-| `.claude/rules/commands.md` | Command format (path-targeted) |
-| `.claude/rules/agents.md` | Agent format (path-targeted) |
-| `.claude/rules/skills.md` | Skill format (path-targeted) |
+```
+plugin-name/
+├── .claude-plugin/
+│   └── plugin.json         # name, description, version, keywords
+├── README.md
+├── commands/               # Slash commands (.md)
+└── agents/                 # Subagents (.md)
+```
 
-Path-targeted rules load automatically when editing relevant files.
+## Adding Plugins
 
-## Key Files
+1. Create plugin directory with structure above
+2. Add entry to `index.json`
+3. Commit and push
 
-| File | Purpose |
-|------|---------|
-| `.claude-plugin/marketplace.json` | Plugin registry |
-| `.github/workflows/release.yml` | Auto-versioning |
-| `docs/adr/0001-flat-file-architecture.md` | Architecture decision |
-| `docs/compositions.md` | Plugin bundles |
+## Command Frontmatter
+
+```yaml
+---
+description: Brief description shown in /help
+category: workflow|code-analysis|context-loading
+allowed-tools: Bash, Edit, Read
+disable-model-invocation: true  # For personality commands
+---
+```
+
+## Agent Frontmatter
+
+```yaml
+---
+name: agent-id
+description: |
+  When to use this agent with examples.
+model: inherit
+tools: ["Read", "Grep", "Glob", "Edit", "Write", "Bash"]
+---
+```
+
+## Versioning
+
+Use conventional commits. Version bumps via commit message:
+
+- `feat:` → minor
+- `fix:` → patch
+- `feat!:` or `BREAKING CHANGE:` → major
