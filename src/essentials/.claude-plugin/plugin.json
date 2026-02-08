@@ -1,9 +1,17 @@
 {
   "name": "essentials",
   "description": "Personality commands for celebration, wit, and productivity - hype, sass, roast, turbo, and catchup",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "cameronsjo"
   },
-  "keywords": ["personality", "productivity", "hype", "sass", "roast", "turbo", "workflow"]
+  "keywords": [
+    "personality",
+    "productivity",
+    "hype",
+    "sass",
+    "roast",
+    "turbo",
+    "workflow"
+  ]
 }
