@@ -1,44 +1,52 @@
 {
   "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/marketplace.json",
   "name": "cameronsjo",
-  "description": "Personal Claude Code plugins for release automation, Obsidian development, and more",
+  "description": "Plugin directory for Cameron's Claude Code plugins. Each plugin lives in its own repo.",
   "author": "cameronsjo",
-  "plugins": [
-    {
-      "name": "obsidian-plugin",
-      "version": "1.2.0",
-      "path": "./src/obsidian-plugin-development",
-      "description": "Complete toolkit for Obsidian plugin development: scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration"
-    },
-    {
-      "name": "essentials",
-      "version": "1.2.0",
-      "path": "./src/essentials",
-      "description": "Personality commands - hype, sass, roast, turbo mode, and context catchup"
-    },
-    {
-      "name": "development",
-      "version": "1.2.0",
-      "path": "./src/development",
-      "description": "Development workflow tools - logging agents, project checks, linting, and context loading"
-    },
-    {
-      "name": "session-continuity",
-      "version": "1.2.0",
-      "path": "./src/session-continuity",
-      "description": "Maintain context across sessions with timeline logging and async inbox capture"
-    },
-    {
-      "name": "mcp",
-      "version": "1.2.0",
-      "path": "./src/mcp",
-      "description": "MCP server development toolkit - architecture patterns, client/server dev, tools-as-code"
-    },
-    {
-      "name": "homebridge",
-      "version": "1.2.0",
-      "path": "./src/homebridge",
-      "description": "Homebridge plugin development toolkit - HAP mappings, accessory patterns, config schemas, debugging"
-    }
-  ]
+  "plugins": [],
+  "registry": {
+    "note": "Plugins have moved to individual repos. Install from their marketplaces directly.",
+    "repos": [
+      {
+        "name": "essentials",
+        "repo": "cameronsjo/essentials",
+        "description": "Personality commands - hype, sass, roast, turbo, catchup"
+      },
+      {
+        "name": "dev-toolkit",
+        "repo": "cameronsjo/dev-toolkit",
+        "description": "Development workflow tools - logging agents, project checks, release pipelines"
+      },
+      {
+        "name": "session-continuity",
+        "repo": "cameronsjo/session-continuity",
+        "description": "Cross-session context with timeline logging and inbox capture"
+      },
+      {
+        "name": "mcp-toolkit",
+        "repo": "cameronsjo/mcp-toolkit",
+        "description": "MCP server development toolkit - architecture patterns, tools-as-code"
+      },
+      {
+        "name": "obsidian-dev",
+        "repo": "cameronsjo/obsidian-dev",
+        "description": "Obsidian plugin development - scaffolding, TypeScript, GitHub Actions"
+      },
+      {
+        "name": "homebridge-dev",
+        "repo": "cameronsjo/homebridge-dev",
+        "description": "Homebridge plugin development - HAP mappings, accessory patterns"
+      },
+      {
+        "name": "image-gen-toolkit",
+        "repo": "cameronsjo/image-gen-toolkit",
+        "description": "Image generation toolkit with prompt engineering for Gemini 3 Pro Image"
+      },
+      {
+        "name": "homelab",
+        "repo": "cameronsjo/homelab",
+        "description": "Homelab infrastructure context - Unraid server, media stack, Docker services"
+      }
+    ]
+  }
 }

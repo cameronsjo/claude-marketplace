@@ -1,64 +1,43 @@
-# Claude Marketplace Development
+# Claude Marketplace
 
-Plugin marketplace for Claude Code.
+Plugin directory for Claude Code. Plugins have been split into individual repos.
 
 ## Structure
 
 ```
-├── index.json              # Marketplace registry
-└── src/
-    ├── essentials/         # Personality commands
-    ├── development/        # Dev workflow tools
-    ├── release-pipelines/  # CI/CD automation
-    └── obsidian-dev/       # Obsidian plugin toolkit
+├── index.json              # Discovery document (lists all plugin repos)
+├── README.md               # Plugin directory with install instructions
+└── docs/                   # Historical design docs
 ```
 
-## Plugin Format
+## Where Plugins Live Now
 
-Each plugin follows:
+Each plugin is its own repo and marketplace:
+
+| Plugin | Repo |
+|---|---|
+| essentials | cameronsjo/essentials |
+| dev-toolkit | cameronsjo/dev-toolkit |
+| session-continuity | cameronsjo/session-continuity |
+| mcp-toolkit | cameronsjo/mcp-toolkit |
+| obsidian-dev | cameronsjo/obsidian-dev |
+| homebridge-dev | cameronsjo/homebridge-dev |
+| image-gen-toolkit | cameronsjo/image-gen-toolkit |
+| homelab | cameronsjo/homelab |
+
+## Plugin Repo Structure
+
+Each plugin repo follows:
 
 ```
-plugin-name/
+repo-root/
 ├── .claude-plugin/
-│   └── plugin.json         # name, description, version, keywords
-├── README.md
+│   ├── marketplace.json    # Declares repo as a marketplace
+│   └── plugin.json         # Plugin metadata
 ├── commands/               # Slash commands (.md)
-└── agents/                 # Subagents (.md)
+├── agents/                 # Subagents (.md)
+├── skills/                 # Skills with SKILL.md
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
-
-## Adding Plugins
-
-1. Create plugin directory with structure above
-2. Add entry to `index.json`
-3. Commit and push
-
-## Command Frontmatter
-
-```yaml
----
-description: Brief description shown in /help
-category: workflow|code-analysis|context-loading
-allowed-tools: Bash, Edit, Read
-disable-model-invocation: true  # For personality commands
----
-```
-
-## Agent Frontmatter
-
-```yaml
----
-name: agent-id
-description: |
-  When to use this agent with examples.
-model: inherit
-tools: ["Read", "Grep", "Glob", "Edit", "Write", "Bash"]
----
-```
-
-## Versioning
-
-Use conventional commits. Version bumps via commit message:
-
-- `feat:` → minor
-- `fix:` → patch
-- `feat!:` or `BREAKING CHANGE:` → major
