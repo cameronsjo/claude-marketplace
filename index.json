@@ -64,7 +64,7 @@
         "source": "url",
         "url": "https://github.com/cameronsjo/image-gen-toolkit.git"
       },
-      "description": "Image generation toolkit with prompt engineering for Gemini 3 Pro Image",
+      "description": "Image generation toolkit for Gemini 3 Pro Image - prompt engineering, composition specs, visual grammar. Requires Gemini API key with commercial license for image output.",
       "version": "0.1.0"
     },
     {
