@@ -1,18 +1,18 @@
 # Claude Marketplace
 
-Plugin directory for Claude Code. Plugins have been split into individual repos.
+Hub marketplace for all personal Claude Code plugins and curated obra/superpowers forks.
 
 ## Structure
 
 ```
-├── index.json              # Discovery document (lists all plugin repos)
+├── index.json              # Marketplace registry (all plugins via URL sources)
 ├── README.md               # Plugin directory with install instructions
 └── docs/                   # Historical design docs
 ```
 
-## Where Plugins Live Now
+## Plugins
 
-Each plugin is its own repo and marketplace:
+### Personal (cameronsjo repos)
 
 | Plugin | Repo |
 |---|---|
@@ -25,6 +25,18 @@ Each plugin is its own repo and marketplace:
 | image-gen-toolkit | cameronsjo/image-gen-toolkit |
 | homelab | cameronsjo/homelab |
 
+### Superpowers (obra forks)
+
+| Plugin | Repo |
+|---|---|
+| superpowers | cameronsjo/superpowers |
+| superpowers-chrome | cameronsjo/superpowers-chrome |
+| superpowers-lab | cameronsjo/superpowers-lab |
+| superpowers-developing-for-claude-code | cameronsjo/superpowers-developing-for-claude-code |
+| episodic-memory | cameronsjo/episodic-memory |
+| double-shot-latte | cameronsjo/double-shot-latte |
+| elements-of-style | cameronsjo/the-elements-of-style |
+
 ## Plugin Repo Structure
 
 Each plugin repo follows:
@@ -32,7 +44,7 @@ Each plugin repo follows:
 ```
 repo-root/
 ├── .claude-plugin/
-│   ├── marketplace.json    # Declares repo as a marketplace
+│   ├── marketplace.json    # Declares repo as a standalone marketplace
 │   └── plugin.json         # Plugin metadata
 ├── commands/               # Slash commands (.md)
 ├── agents/                 # Subagents (.md)

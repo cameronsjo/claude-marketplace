@@ -1,52 +1,143 @@
 {
   "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/marketplace.json",
   "name": "cameronsjo",
-  "description": "Plugin directory for Cameron's Claude Code plugins. Each plugin lives in its own repo.",
+  "description": "Cameron's Claude Code plugins and curated obra/superpowers forks",
   "author": "cameronsjo",
-  "plugins": [],
-  "registry": {
-    "note": "Plugins have moved to individual repos. Install from their marketplaces directly.",
-    "repos": [
-      {
-        "name": "essentials",
-        "repo": "cameronsjo/essentials",
-        "description": "Personality commands - hype, sass, roast, turbo, catchup"
+  "plugins": [
+    {
+      "name": "essentials",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/essentials.git"
       },
-      {
-        "name": "dev-toolkit",
-        "repo": "cameronsjo/dev-toolkit",
-        "description": "Development workflow tools - logging agents, project checks, release pipelines"
+      "description": "Personality commands - hype, sass, roast, turbo, catchup, doc-to-reference",
+      "version": "1.2.0"
+    },
+    {
+      "name": "dev-toolkit",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/dev-toolkit.git"
       },
-      {
-        "name": "session-continuity",
-        "repo": "cameronsjo/session-continuity",
-        "description": "Cross-session context with timeline logging and inbox capture"
+      "description": "Development workflow tools - logging agents, project checks, release pipelines",
+      "version": "1.2.0"
+    },
+    {
+      "name": "session-continuity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/session-continuity.git"
       },
-      {
-        "name": "mcp-toolkit",
-        "repo": "cameronsjo/mcp-toolkit",
-        "description": "MCP server development toolkit - architecture patterns, tools-as-code"
+      "description": "Cross-session context with timeline logging and inbox capture",
+      "version": "1.2.0"
+    },
+    {
+      "name": "mcp-toolkit",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/mcp-toolkit.git"
       },
-      {
-        "name": "obsidian-dev",
-        "repo": "cameronsjo/obsidian-dev",
-        "description": "Obsidian plugin development - scaffolding, TypeScript, GitHub Actions"
+      "description": "MCP server development toolkit - architecture patterns, tools-as-code",
+      "version": "1.2.0"
+    },
+    {
+      "name": "obsidian-dev",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/obsidian-dev.git"
       },
-      {
-        "name": "homebridge-dev",
-        "repo": "cameronsjo/homebridge-dev",
-        "description": "Homebridge plugin development - HAP mappings, accessory patterns"
+      "description": "Obsidian plugin development - scaffolding, TypeScript patterns, GitHub Actions, BRAT",
+      "version": "1.2.0"
+    },
+    {
+      "name": "homebridge-dev",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/homebridge-dev.git"
       },
-      {
-        "name": "image-gen-toolkit",
-        "repo": "cameronsjo/image-gen-toolkit",
-        "description": "Image generation toolkit with prompt engineering for Gemini 3 Pro Image"
+      "description": "Homebridge plugin development - HAP mappings, accessory patterns, debugging",
+      "version": "1.2.0"
+    },
+    {
+      "name": "image-gen-toolkit",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/image-gen-toolkit.git"
       },
-      {
-        "name": "homelab",
-        "repo": "cameronsjo/homelab",
-        "description": "Homelab infrastructure context - Unraid server, media stack, Docker services"
-      }
-    ]
-  }
+      "description": "Image generation toolkit with prompt engineering for Gemini 3 Pro Image",
+      "version": "0.1.0"
+    },
+    {
+      "name": "homelab",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/homelab.git"
+      },
+      "description": "Homelab infrastructure context - Unraid server, media stack, Docker services",
+      "version": "1.0.0"
+    },
+    {
+      "name": "superpowers",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/superpowers.git"
+      },
+      "description": "Core skills library: TDD, debugging, collaboration patterns, and proven techniques",
+      "version": "4.2.0"
+    },
+    {
+      "name": "superpowers-chrome",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/superpowers-chrome.git"
+      },
+      "description": "Direct Chrome DevTools Protocol access - skill mode + MCP mode, zero dependencies",
+      "version": "1.6.4"
+    },
+    {
+      "name": "superpowers-lab",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/superpowers-lab.git"
+      },
+      "description": "Experimental skills: tmux automation, MCP server discovery, duplicate detection, Slack messaging",
+      "version": "0.3.0"
+    },
+    {
+      "name": "superpowers-developing-for-claude-code",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/superpowers-developing-for-claude-code.git"
+      },
+      "description": "Skills and docs for developing Claude Code plugins, skills, and MCP servers",
+      "version": "0.3.1"
+    },
+    {
+      "name": "episodic-memory",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/episodic-memory.git"
+      },
+      "description": "Semantic search for Claude Code conversations - remember past discussions across sessions",
+      "version": "1.0.15"
+    },
+    {
+      "name": "double-shot-latte",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/double-shot-latte.git"
+      },
+      "description": "Auto-continues Claude Code work instead of stopping to ask permission",
+      "version": "1.1.5"
+    },
+    {
+      "name": "elements-of-style",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/the-elements-of-style.git"
+      },
+      "description": "Writing guidance based on Strunk's The Elements of Style (1918)",
+      "version": "1.0.0"
+    }
+  ]
 }

@@ -1,41 +1,50 @@
-# Cameron's Plugin Directory
+# Cameron's Plugin Marketplace
 
-A directory of Claude Code plugins. Each plugin lives in its own repo for independent installation.
-
-## Plugins
-
-| Plugin | Repo | Description |
-|---|---|---|
-| essentials | [cameronsjo/essentials](https://github.com/cameronsjo/essentials) | Personality commands - hype, sass, roast, turbo, catchup |
-| dev-toolkit | [cameronsjo/dev-toolkit](https://github.com/cameronsjo/dev-toolkit) | Development workflow tools - logging, checks, release pipelines |
-| session-continuity | [cameronsjo/session-continuity](https://github.com/cameronsjo/session-continuity) | Cross-session context with timeline logging and inbox capture |
-| mcp-toolkit | [cameronsjo/mcp-toolkit](https://github.com/cameronsjo/mcp-toolkit) | MCP server development toolkit - architecture patterns, tools-as-code |
-| obsidian-dev | [cameronsjo/obsidian-dev](https://github.com/cameronsjo/obsidian-dev) | Obsidian plugin development - scaffolding, TypeScript, GitHub Actions |
-| homebridge-dev | [cameronsjo/homebridge-dev](https://github.com/cameronsjo/homebridge-dev) | Homebridge plugin development - HAP mappings, accessory patterns |
-| image-gen-toolkit | [cameronsjo/image-gen-toolkit](https://github.com/cameronsjo/image-gen-toolkit) | Image generation toolkit for Gemini 3 Pro Image |
-| homelab | [cameronsjo/homelab](https://github.com/cameronsjo/homelab) | Homelab infrastructure context - Unraid, media stack, Docker |
+A single Claude Code marketplace with personal plugins and curated obra/superpowers forks.
 
 ## Installation
 
-Each plugin repo is its own marketplace. Add and install individually:
-
 ```bash
-# Add the marketplace
-/plugin marketplace add cameronsjo/essentials
+# Register the marketplace
+/plugin marketplace add cameronsjo/claude-marketplace
 
-# Install the plugin
-/plugin install essentials@essentials
+# Install what you need
+/plugin install essentials@cameronsjo
+/plugin install superpowers@cameronsjo
 ```
 
-Or use the automated setup in `~/.claude/setup-marketplaces.sh` which handles all registrations.
+Or use the automated setup in `~/.claude/setup-marketplaces.sh`.
 
-## Why Individual Repos?
+## Plugins
 
-Previously this was a monorepo containing all plugins. Splitting them means:
+### Personal
 
-- **Install only what you use** — other machines download just the plugins they need
-- **Independent versioning** — each plugin has its own release cycle
-- **Dev machine uses local paths** — no duplication, edits take effect immediately
+| Plugin | Description |
+|---|---|
+| essentials | Personality commands - hype, sass, roast, turbo, catchup |
+| dev-toolkit | Development workflow tools - logging, checks, release pipelines |
+| session-continuity | Cross-session context with timeline logging and inbox capture |
+| mcp-toolkit | MCP server development - architecture patterns, tools-as-code |
+| obsidian-dev | Obsidian plugin development - scaffolding, TypeScript, GitHub Actions |
+| homebridge-dev | Homebridge plugin development - HAP mappings, accessory patterns |
+| image-gen-toolkit | Image generation toolkit for Gemini 3 Pro Image |
+| homelab | Homelab infrastructure - Unraid, media stack, Docker services |
+
+### Superpowers (obra forks)
+
+| Plugin | Description |
+|---|---|
+| superpowers | Core skills: TDD, debugging, collaboration patterns |
+| superpowers-chrome | Chrome DevTools Protocol - skill mode + MCP mode |
+| superpowers-lab | Experimental: tmux, MCP discovery, duplicate detection |
+| superpowers-developing-for-claude-code | Plugin/skill/MCP development docs |
+| episodic-memory | Semantic search for conversations across sessions |
+| double-shot-latte | Auto-continues work instead of stopping to ask |
+| elements-of-style | Strunk's writing guidance (1918) |
+
+## Architecture
+
+Each plugin lives in its own GitHub repo. This marketplace's `index.json` references them via URL sources. On the dev machine, local path overrides provide instant edit propagation.
 
 ## License
 
