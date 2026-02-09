@@ -1,7 +1,7 @@
 {
   "name": "session-continuity",
   "description": "Maintain context across Claude Code sessions with timeline logging and inbox capture",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "keywords": [
     "session",
     "continuity",

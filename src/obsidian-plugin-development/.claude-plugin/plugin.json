@@ -1,7 +1,7 @@
 {
   "name": "obsidian-dev",
   "description": "Complete toolkit for Obsidian plugin development: scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "https://github.com/cameronsjo"
   },

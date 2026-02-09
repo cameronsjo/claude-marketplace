@@ -1,7 +1,7 @@
 {
   "name": "mcp",
   "description": "MCP server development toolkit - architecture patterns, client/server dev, tools-as-code",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "keywords": [
     "mcp",
     "model-context-protocol",

@@ -6,37 +6,37 @@
   "plugins": [
     {
       "name": "obsidian-plugin",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "path": "./src/obsidian-plugin-development",
       "description": "Complete toolkit for Obsidian plugin development: scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration"
     },
     {
       "name": "essentials",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "path": "./src/essentials",
       "description": "Personality commands - hype, sass, roast, turbo mode, and context catchup"
     },
     {
       "name": "development",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "path": "./src/development",
       "description": "Development workflow tools - logging agents, project checks, linting, and context loading"
     },
     {
       "name": "session-continuity",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "path": "./src/session-continuity",
       "description": "Maintain context across sessions with timeline logging and async inbox capture"
     },
     {
       "name": "mcp",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "path": "./src/mcp",
       "description": "MCP server development toolkit - architecture patterns, client/server dev, tools-as-code"
     },
     {
       "name": "homebridge",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "path": "./src/homebridge",
       "description": "Homebridge plugin development toolkit - HAP mappings, accessory patterns, config schemas, debugging"
     }
