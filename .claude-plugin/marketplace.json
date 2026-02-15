@@ -9,7 +9,6 @@
     {
       "name": "essentials",
       "description": "Core developer workflow: brainstorming, git worktrees, skill building, enforcement hooks, session management",
-      "version": "2.0.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/essentials.git"
@@ -18,7 +17,6 @@
     {
       "name": "vibes",
       "description": "Communication style commands — hype, sass, roast, unhinged",
-      "version": "1.0.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/vibes.git"
@@ -27,7 +25,6 @@
     {
       "name": "rules",
       "description": "Language and security rules — Python, TypeScript, JavaScript, Go, Rust, Java, C#",
-      "version": "1.0.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/rules.git"
@@ -36,7 +33,6 @@
     {
       "name": "dev-toolkit",
       "description": "Development workflow tools — logging agents, project checks, release pipelines",
-      "version": "1.2.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/dev-toolkit.git"
@@ -45,7 +41,6 @@
     {
       "name": "mcp-toolkit",
       "description": "MCP server development — architecture patterns, tools-as-code",
-      "version": "1.2.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/mcp-toolkit.git"
@@ -54,7 +49,6 @@
     {
       "name": "obsidian",
       "description": "Obsidian toolkit — vault management, markdown, Bases, plugin development",
-      "version": "1.2.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/obsidian.git"
@@ -63,7 +57,6 @@
     {
       "name": "homebridge-dev",
       "description": "Homebridge plugin development — HAP mappings, accessory patterns, debugging",
-      "version": "1.2.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/homebridge-dev.git"
@@ -72,7 +65,6 @@
     {
       "name": "image-gen-toolkit",
       "description": "Image generation toolkit for Gemini — prompt engineering, composition specs, visual grammar",
-      "version": "0.1.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/image-gen-toolkit.git"
@@ -81,7 +73,6 @@
     {
       "name": "homelab",
       "description": "Homelab infrastructure context — Unraid server, media stack, Docker services",
-      "version": "1.0.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/homelab.git"
@@ -90,7 +81,6 @@
     {
       "name": "superpowers",
       "description": "Core skills library — TDD, debugging, collaboration patterns",
-      "version": "4.2.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/superpowers.git"
@@ -99,7 +89,6 @@
     {
       "name": "superpowers-chrome",
       "description": "Direct Chrome DevTools Protocol access — skill mode + MCP mode, zero dependencies",
-      "version": "1.6.4",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/superpowers-chrome.git"
@@ -108,7 +97,6 @@
     {
       "name": "superpowers-lab",
       "description": "Experimental skills — tmux automation, MCP server discovery, duplicate detection",
-      "version": "0.3.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/superpowers-lab.git"
@@ -117,7 +105,6 @@
     {
       "name": "superpowers-developing-for-claude-code",
       "description": "Skills and docs for developing Claude Code plugins, skills, and MCP servers",
-      "version": "0.3.1",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/superpowers-developing-for-claude-code.git"
@@ -126,7 +113,6 @@
     {
       "name": "double-shot-latte",
       "description": "Auto-continues Claude Code work instead of stopping to ask permission",
-      "version": "1.1.5",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/double-shot-latte.git"
@@ -135,7 +121,6 @@
     {
       "name": "elements-of-style",
       "description": "Writing guidance based on Strunk's The Elements of Style (1918)",
-      "version": "1.0.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/the-elements-of-style.git"
@@ -144,7 +129,6 @@
     {
       "name": "git-guardrails",
       "description": "Git safety hooks: block pushes and gh writes to repos you don't own, branch warnings, commit nudges",
-      "version": "0.2.0",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/git-guardrails.git"
