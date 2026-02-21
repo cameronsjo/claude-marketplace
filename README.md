@@ -1,7 +1,5 @@
 # Workbench
 
-The Artificer's workshop. Where seedlings grow out of gear housings and ivy threads through brass armatures.
-
 Hub registry for all personal Claude Code plugins and curated obra/superpowers forks.
 
 ## Installation
@@ -17,7 +15,7 @@ Hub registry for all personal Claude Code plugins and curated obra/superpowers f
 
 Or use the automated setup in `~/.claude/setup-marketplaces.sh`.
 
-## Plugins (16)
+## Plugins (17)
 
 ### Personal
 
@@ -25,13 +23,15 @@ Or use the automated setup in `~/.claude/setup-marketplaces.sh`.
 |---|---|
 | essentials | Core workflow: brainstorming, worktrees, enforcement hooks, session management |
 | vibes | Communication styles: hype, sass, roast, unhinged |
-| rules | Language rules (Python, TS, Go, Rust, Java, C#) + security with self-destructing init |
-| dev-toolkit | Development workflow: logging agents, project checks, release pipelines |
+| rules | 10 languages, security, quality, git, CI/CD, Docker, MCP, documentation |
+| dev-toolkit | Logging agents, project checks, release pipelines |
 | mcp-toolkit | MCP server development patterns |
 | obsidian | Vault management, markdown reference, Bases, plugin development |
 | homebridge-dev | Homebridge plugin development: HAP mappings, accessory patterns |
 | image-gen-toolkit | Image generation toolkit for Gemini |
 | homelab | Homelab infrastructure: Unraid, media stack, Docker services |
+| git-guardrails | Push/gh write guards, branch warnings, commit nudges |
+| project-onboard | Onboarding skills for project portfolio |
 
 ### Superpowers (obra forks)
 
@@ -41,7 +41,6 @@ Or use the automated setup in `~/.claude/setup-marketplaces.sh`.
 | superpowers-chrome | Chrome DevTools Protocol: skill mode + MCP mode |
 | superpowers-lab | Experimental: tmux, MCP discovery, duplicate detection |
 | superpowers-developing-for-claude-code | Plugin/skill/MCP development docs |
-| episodic-memory | Semantic search for conversations across sessions |
 | double-shot-latte | Auto-continues work instead of stopping to ask |
 | the-elements-of-style | Strunk's writing guidance (1918) |
 
