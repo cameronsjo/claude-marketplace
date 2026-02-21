@@ -133,14 +133,6 @@
         "source": "url",
         "url": "https://github.com/cameronsjo/git-guardrails.git"
       }
-    },
-    {
-      "name": "project-onboard",
-      "description": "Onboarding skills for project portfolio — setup, first use, key files, common tasks",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/cameronsjo/project-onboard.git"
-      }
     }
   ]
 }
