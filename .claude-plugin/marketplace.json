@@ -7,6 +7,14 @@
   },
   "plugins": [
     {
+      "name": "codex",
+      "description": "How to work with me — interaction patterns, session management, plan discipline, communication style",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cameronsjo/codex.git"
+      }
+    },
+    {
       "name": "essentials",
       "description": "Core developer workflow: brainstorming, git worktrees, skill building, enforcement hooks, session management",
       "source": {
@@ -24,7 +32,7 @@
     },
     {
       "name": "rules",
-      "description": "Language and security rules — Python, TypeScript, JavaScript, Go, Rust, Java, C#",
+      "description": "How to write code — language standards, security, quality, git, CI/CD, Docker, MCP, documentation",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/rules.git"
