@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(do)"
+      "Bash(do)",
+      "Bash(do path=\"/Users/cameron/Projects/claude-marketplace/src/$plugin\" echo \"=== $plugin ===\" echo \"Commands:\" ls -1 \"$path/commands/\")",
+      "WebFetch(domain:www.githubstatus.com)",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(fi)"
     ]
   }
 }

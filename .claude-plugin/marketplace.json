@@ -32,7 +32,7 @@
     },
     {
       "name": "rules",
-      "description": "How to write code — language standards, security, quality, git, CI/CD, Docker, MCP, documentation",
+      "description": "How to work with code — language standards, security, quality, git, CI/CD, Docker, MCP, documentation",
       "source": {
         "source": "url",
         "url": "https://github.com/cameronsjo/rules.git"
